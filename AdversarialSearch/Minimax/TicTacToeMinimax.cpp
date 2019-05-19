@@ -16,8 +16,8 @@ const int winnerMasks[8] =
 
 int TicTacToeMinimax::evaluate(int board, bool isMaxTurn)
 {
-    return (isMaxTurn) ? evaluateMaxDecision(board)
-                       : evaluateMinDecision(board);
+    return isMaxTurn ? evaluateMaxDecision(board)
+                     : evaluateMinDecision(board);
 };
 
 std::vector<int> TicTacToeMinimax::evaluateAll(int board, bool isMaxTurn)
