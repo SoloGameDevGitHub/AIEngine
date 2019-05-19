@@ -10,7 +10,8 @@ void MinimaxBenchmarker::benchmarkMinimaxVsMinimax(TicTacToeMinimax* ticTacToeMi
     int currentBoard = firstBoard;
     int nextBoard;
     
-    while ((ticTacToeMinimax -> getState(currentBoard)) == Playing)
+    int state = ticTacToeMinimax -> getState(currentBoard);
+    while (state == Playing)
     {
         vector<int> bestMoves = ticTacToeMinimax -> evaluateAll(currentBoard, isMaxTurn);
         isMaxTurn = !isMaxTurn;
@@ -18,7 +19,7 @@ void MinimaxBenchmarker::benchmarkMinimaxVsMinimax(TicTacToeMinimax* ticTacToeMi
         int randomIndex = rand() % bestMoves.size();
         currentBoard = bestMoves[randomIndex];
         
-        int state = ticTacToeMinimax -> getState(currentBoard);
+        state = ticTacToeMinimax -> getState(currentBoard);
         assert(state == Playing || state == Draw);
     }
     
