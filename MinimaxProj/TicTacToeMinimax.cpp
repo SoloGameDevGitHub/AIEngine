@@ -145,8 +145,8 @@ int TicTacToeMinimax::getMaxTreeScore(int board, int alpha, int beta)
         if ((board & mask) == 0)
         {
             int score = getMinTreeScore(board | mask, alpha, beta);
+            if (score >= beta) return score;
             alpha = fmax(alpha, score);
-            if (alpha >= beta) return score;
             bestScore = fmax(bestScore, score);
         }
         mask <<= 2;
@@ -167,8 +167,8 @@ int TicTacToeMinimax::getMinTreeScore(int board, int alpha, int beta)
         if ((board & mask) == 0)
         {
             int score = getMaxTreeScore(board | mask, alpha, beta);
+            if (score <= alpha) return score;
             beta = fmin(beta, score);
-            if (alpha >= beta) return score;
             bestScore = fmin(bestScore, score);
         }
         mask <<= 2;
