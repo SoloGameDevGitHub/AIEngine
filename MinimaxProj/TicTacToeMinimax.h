@@ -27,7 +27,6 @@ class TicTacToeMinimax
         std::vector<int> evaluateMinDecisions(int board);
         int getScore(int state);
         int getState(int board);
-    
     public:
         int evaluate(int board, bool isMaxTurn);
         std::vector<int> evaluateAll(int board, bool isMaxTurn);

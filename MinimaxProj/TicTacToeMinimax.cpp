@@ -17,13 +17,13 @@ const int winnerMasks[8] =
 int TicTacToeMinimax::evaluate(int board, bool isMaxTurn)
 {
     return (isMaxTurn) ? evaluateMaxDecision(board)
-                   : evaluateMinDecision(board);
+                       : evaluateMinDecision(board);
 };
 
 std::vector<int> TicTacToeMinimax::evaluateAll(int board, bool isMaxTurn)
 {
     return isMaxTurn ? evaluateMaxDecisions(board)
-                 : evaluateMinDecisions(board);
+                     : evaluateMinDecisions(board);
 };
 
 std::vector<int> TicTacToeMinimax::evaluateMaxDecisions(int board)
@@ -135,10 +135,7 @@ int TicTacToeMinimax::evaluateMinDecision(int board)
 int TicTacToeMinimax::getMaxTreeScore(int board, int alpha, int beta)
 {
     int state = getState(board);
-    if (state != Playing)
-    {
-        return getScore(state);
-    }
+    if (state != Playing) return getScore(state);
     
     int bestScore = INT_MIN;
     int mask = 3;
@@ -160,10 +157,7 @@ int TicTacToeMinimax::getMaxTreeScore(int board, int alpha, int beta)
 int TicTacToeMinimax::getMinTreeScore(int board, int alpha, int beta)
 {
     int state = getState(board);
-    if (state != Playing)
-    {
-        return getScore(state);
-    }
+    if (state != Playing) return getScore(state);
     
     int bestScore = INT_MAX;
     int mask = 2;
@@ -186,7 +180,7 @@ int TicTacToeMinimax::getState(int board)
 {
     for(int x = 0; x < 8; x++)
     {
-        // check if the board is at a winner state
+        // check if the board represent a winner state
         int winnerMask = winnerMasks[x];
         if ((winnerMask & board) != winnerMask) continue;
 
