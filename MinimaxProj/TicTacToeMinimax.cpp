@@ -1,8 +1,5 @@
 #include "TicTacToeMinimax.h"
 
-#define MAX(a, b) (a > b) ? a : b
-#define MIN(a, b) (a < b) ? a : b
-
 const int DrawBoardState = 0b101010101010101010;
 
 const int winnerMasks[8] =
@@ -151,11 +148,9 @@ int TicTacToeMinimax::getMaxTreeScore(int board, int alpha, int beta)
         if ((board & mask) == 0)
         {
             int score = getMinTreeScore(board | mask, alpha, beta);
-
-            if (score > alpha) alpha = score;
+            alpha = fmax(alpha, score);
             if (alpha >= beta) return score;
-
-            bestScore = MAX(bestScore, score);
+            bestScore = fmax(bestScore, score);
         }
         mask <<= 2;
     }
@@ -178,11 +173,9 @@ int TicTacToeMinimax::getMinTreeScore(int board, int alpha, int beta)
         if ((board & mask) == 0)
         {
             int score = getMaxTreeScore(board | mask, alpha, beta);
-            
-            if (score < beta) beta = score;
+            beta = fmin(beta, score);
             if (alpha >= beta) return score;
-            
-            bestScore = MIN(bestScore, score);
+            bestScore = fmin(bestScore, score);
         }
         mask <<= 2;
     }

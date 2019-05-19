@@ -1,4 +1,5 @@
 #include <vector>
+#include <math.h>
 
 enum ETicTacToeState
 {
