@@ -2,5 +2,5 @@
 Desenvolvimento de uma engine de inteligência artificial, puramente escrita em C++, com algoritmos e técnicas utilizadas no desenvolvimento de jogos digitais.
 
 <p align="center">
-  <a href="https://sologamedevblog.wordpress.com"><img src="https://lh3.googleusercontent.com/tN2Er_b2Ib_IQ6Z8sINcOeHANA0749Ilrl29mR8-9iEmtHtNfFNTn9icb67yb-leVCrLpwZLGVlJjhuqmNJ0PBiLyehB4tO84eHvsZ5pQWR8_hU4T-W0PjBiaRBcURrBOxih78wQIzt9l_GAUE0DNiL_PFGM3eYrR7yHYQw4oxWzgFt5SElTTPQ5rD_npN9tglKk4A_1epOMyTp4wruZZHKSfVPDyOaWV6EVgauqLw71xMrDdlhaGfPdD_ozVPBkrMveV1Y60vghhUPrWFFrw-A5KBFA7n7eJ8U5bE8a9SE7vN_0Y-y8GsvHEflPsN9PnxGtT28_xSNzqDmSMKspSZsRiS3ujyNAoqI8hvhzxbzvu0Bx1S8UpT3c9-Ot-_jvienCx-4JLkZJb3bTcSCXCnwXLs7RM6SZ4gl_jh7gAWPifj0eGW_rP-xDm-iMB8ct-Z0fmUcwVpda-ZjfFsM-u_BDEHNzr9FbC4ZjBQvgCkBtyMXMs6F-DYb2ZENxkBzE3AQElu88TXrQSA5Ph5ivlzsObIzffpEOE0917jJUCvyOaQi425R-Z7-_qfaEEx3d0e3fdqmlvoPo2z2i_aXPZdMUYvQIL7Pm9INWt6tSFdxCDuclIHsEOsoAEnu7t_VYqaS0o5Pb55oyDhtr46ZkMWV_wqJwBg=w256-h140-no">
+  <a href="https://sologamedevblog.wordpress.com"><img src="https://lh3.googleusercontent.com/cuPPIuEIanqMCx-MqeE7cKN4ctoOcBy9OSpCe-hswf1TTlVsVWUGyblRL0Sw0jbidCy3D1CQM1Y4TVDBYUQ46vVGVkKVrcymMBAtHnHGD0WTkhUCylCqknubrekCPJYlr6Wpn17vK4c=w2400">
 </p>
