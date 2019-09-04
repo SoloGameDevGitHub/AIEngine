@@ -57,10 +57,11 @@ void MinimaxBenchmarker::benchmarkEvaluateAll(TicTacToeMinimax* ticTacToeMinimax
     vector<int> bestBoards = ticTacToeMinimax -> evaluateAll(board, isMaxTurn);
     auto finish = chrono::high_resolution_clock::now();
     
-    printBoard(board);
+    cout << "Found '" << bestBoards.size() << "' possibilities." << endl;
+    //printBoard(board);
     for (int x = 0; x < bestBoards.size(); x++)
     {
-        printBoard(bestBoards[x]);
+        //printBoard(bestBoards[x]);
     }
     
     auto milliseconds = chrono::duration_cast<chrono::milliseconds>(finish - start);
@@ -72,7 +73,6 @@ void MinimaxBenchmarker::benchmarkEvaluateAll(TicTacToeMinimax* ticTacToeMinimax
 void MinimaxBenchmarker::printBoard(int board)
 {
     int crossMask  = 3;
-    int circleMask = 2;
     
     cout << endl;
     for (int x = 0; x < 9; x++)
@@ -90,7 +90,6 @@ void MinimaxBenchmarker::printBoard(int board)
         }
         
         crossMask <<= 2;
-        circleMask <<= 2;
     }
     cout << endl;
 };

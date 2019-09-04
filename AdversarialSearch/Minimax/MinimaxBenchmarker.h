@@ -1,9 +1,13 @@
+#ifndef _MINIMAX_BENCHMARKER_H
+#define _MINIMAX_BENCHMARKER_H
+
 #include <vector>
 #include <random>
 #include <time.h>
 #include <iostream>
 #include <stdio.h>
 #include <chrono>
+#include <cassert>
 #include "TicTacToeMinimax.h"
 
 using namespace std;
@@ -17,3 +21,4 @@ class MinimaxBenchmarker
         void printBoard(int board);
         void printState(int state);
 };
+#endif
