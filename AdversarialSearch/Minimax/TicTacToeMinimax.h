@@ -14,12 +14,6 @@ enum ETicTacToeState
     CircleWins
 };
 
-enum ETurnOwner
-{
-    Cross,
-    Circle
-};
-
 class TicTacToeMinimax
 {
     friend class MinimaxBenchmarker;
