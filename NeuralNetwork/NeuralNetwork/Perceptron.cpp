@@ -25,11 +25,11 @@ Perceptron::Perceptron(int weightsLength)
 void Perceptron::train(Matrix* const inputs, const float target)
 {
     float output = feedforward(inputs);
-    float error = (target - output) * _learningRate;
+    float error = (target - output);
     Matrix* weights = _neuron->getWeights();
     for (int c = 0; c < weights->getColumns(); ++c)
     {
-        float value = inputs->get(c, 0) * error;
+        float value = inputs->get(c, 0) * error * _learningRate;
         weights->set(0, c, value);
     }
     float bias = _neuron->getBias();
