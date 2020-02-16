@@ -10,6 +10,7 @@ private:
     float _bias = 0.0f;
 
 public:
+    ~Neuron();
     Matrix* feedforward(Matrix* const inputs);
     void setWeights(Matrix* const weights);
     Matrix* getWeights() const;

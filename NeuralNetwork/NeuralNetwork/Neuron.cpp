@@ -1,5 +1,11 @@
 #include "Neuron.h"
 
+Neuron::~Neuron()
+{
+    if (_weights != nullptr)
+        delete _weights;
+}
+
 Matrix* Neuron::feedforward(Matrix* const inputs)
 {
     Matrix* outputs = Matrix::multiply(_weights, inputs);

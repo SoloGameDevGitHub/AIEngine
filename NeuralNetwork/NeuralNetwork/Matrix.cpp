@@ -10,7 +10,10 @@ Matrix::Matrix(const int rows, const int columns)
     fill(0.0f);
 }
 
-Matrix::~Matrix() { delete [] _values; }
+Matrix::~Matrix()
+{
+    delete [] _values;
+}
 
 float Matrix::get(const int row, const int column) const
 {
