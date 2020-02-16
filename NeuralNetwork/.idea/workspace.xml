@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="14f96399-e8b8-4ce4-8016-059d560cbc8d" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="ProjectId" id="1Xeu0haYC56xYqJB4hs900qaFTi" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/NeuralNetworkV2/Main.cpp" />
+    <property name="settings.editor.selected.configurable" value="inlay.hints.ObjectiveC" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\AIEngine\NeuralNetwork" />
+      <recent name="D:\Projects\AIEngine\NeuralNetwork\NeuralNetworkV2" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="NeuralNetwork" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="D:\Projects\AIEngine\NeuralNetwork\" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="NeuralNetwork" RUN_TARGET_NAME="NeuralNetwork" EXPLICIT_BUILD_TARGET_NAME="all">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1241" y="246" key="#NeuralNetwork" timestamp="1581867458544">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state x="-1241" y="246" key="#NeuralNetwork/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581867458544" />
+    <state x="-1176" y="229" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581867374136">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state x="-1176" y="227" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581418905826" />
+    <state x="-1176" y="229" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581867374136" />
+    <state x="744" y="229" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581429192894" />
+    <state width="478" height="466" key="DebuggerActiveHint" timestamp="1581431582168">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="478" height="466" key="DebuggerActiveHint/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581431582168" />
+    <state x="-850" y="329" key="FileChooserDialogImpl" timestamp="1581867361056">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state x="-850" y="329" key="FileChooserDialogImpl/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581867361056" />
+    <state width="1877" height="255" key="GridCell.Tab.0.bottom" timestamp="1581870375747">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="216" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581419296782" />
+    <state width="1877" height="255" key="GridCell.Tab.0.bottom/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581870375747" />
+    <state width="1877" height="247" key="GridCell.Tab.0.bottom/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581790828597" />
+    <state width="1877" height="229" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581688248409" />
+    <state width="1877" height="255" key="GridCell.Tab.0.center" timestamp="1581870375747">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="216" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581419296782" />
+    <state width="1877" height="255" key="GridCell.Tab.0.center/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581870375747" />
+    <state width="1877" height="247" key="GridCell.Tab.0.center/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581790828597" />
+    <state width="1877" height="229" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581688248409" />
+    <state width="1877" height="255" key="GridCell.Tab.0.left" timestamp="1581870375747">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="216" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581419296782" />
+    <state width="1877" height="255" key="GridCell.Tab.0.left/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581870375747" />
+    <state width="1877" height="247" key="GridCell.Tab.0.left/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581790828597" />
+    <state width="1877" height="229" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581688248409" />
+    <state width="1877" height="255" key="GridCell.Tab.0.right" timestamp="1581870375747">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="216" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581419296782" />
+    <state width="1877" height="255" key="GridCell.Tab.0.right/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581870375747" />
+    <state width="1877" height="247" key="GridCell.Tab.0.right/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581790828597" />
+    <state width="1877" height="229" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581688248409" />
+    <state width="1877" height="240" key="GridCell.Tab.1.bottom" timestamp="1581815255499">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581419174946" />
+    <state width="1877" height="240" key="GridCell.Tab.1.bottom/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581815255499" />
+    <state width="1877" height="240" key="GridCell.Tab.1.bottom/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581789931024" />
+    <state width="1877" height="134" key="GridCell.Tab.1.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581688213414" />
+    <state width="1877" height="240" key="GridCell.Tab.1.center" timestamp="1581815255499">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581419174946" />
+    <state width="1877" height="240" key="GridCell.Tab.1.center/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581815255499" />
+    <state width="1877" height="240" key="GridCell.Tab.1.center/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581789931024" />
+    <state width="1877" height="134" key="GridCell.Tab.1.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581688213414" />
+    <state width="1877" height="240" key="GridCell.Tab.1.left" timestamp="1581815255499">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581419174946" />
+    <state width="1877" height="240" key="GridCell.Tab.1.left/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581815255499" />
+    <state width="1877" height="240" key="GridCell.Tab.1.left/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581789931024" />
+    <state width="1877" height="134" key="GridCell.Tab.1.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581688213414" />
+    <state width="1877" height="240" key="GridCell.Tab.1.right" timestamp="1581815255499">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1581419174946" />
+    <state width="1877" height="240" key="GridCell.Tab.1.right/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581815255499" />
+    <state width="1877" height="240" key="GridCell.Tab.1.right/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581789931024" />
+    <state width="1877" height="134" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581688213414" />
+    <state x="99" y="162" key="SettingsEditor" timestamp="1581782575614">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="99" y="162" key="SettingsEditor/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581782575614" />
+    <state x="757" y="178" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581542202425" />
+    <state x="581" y="0" width="701" height="823" maximized="true" key="dock-window-1" timestamp="1581805380191">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="581" y="0" width="701" height="823" maximized="true" key="dock-window-1/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581805380191" />
+    <state x="2045" y="0" width="1464" height="828" maximized="true" key="dock-window-1/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581546850024" />
+    <state x="2384" y="0" width="1472" height="762" maximized="true" key="dock-window-2" timestamp="1581598096054">
+      <screen x="1920" y="0" width="1920" height="1050" />
+    </state>
+    <state x="2384" y="0" width="1472" height="762" maximized="true" key="dock-window-2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581598096054" />
+    <state x="-1264" y="123" width="607" height="804" key="find.popup" timestamp="1581870361024">
+      <screen x="-1920" y="0" width="1920" height="1050" />
+    </state>
+    <state x="-1264" y="123" width="607" height="804" key="find.popup/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581870361024" />
+    <state x="656" y="123" width="607" height="804" key="find.popup/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581791679747" />
+    <state x="616" y="243" key="run.anything.popup" timestamp="1581807502793">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="616" y="243" key="run.anything.popup/-1920.0.1920.1050/0.0.1920.1050@-1920.0.1920.1050" timestamp="1581807502793" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1581777419688">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1050/0.0.1920.1050@0.0.1920.1050" timestamp="1581777419688" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581545969357" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="rightColumn" />
+        <watch expression="leftColumn" />
+        <watch expression="rightRow" />
+        <watch expression="leftRow" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

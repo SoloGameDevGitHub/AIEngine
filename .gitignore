@@ -1,3 +1,7 @@
 *.DS_Store
 AdversarialSearch/Minimax/Main
 AdversarialSearch/Minimax/Main.dSYM/
+*/cmake-build-debug
+*.asta
+*.asta.lock
+*.jude
