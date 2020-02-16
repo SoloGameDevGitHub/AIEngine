@@ -10,6 +10,8 @@ Matrix::Matrix(const int rows, const int columns)
     fill(0.0f);
 }
 
+~Matrix() { delete [] _values; }
+
 float Matrix::get(const int row, const int column) const
 {
     int index = row * _columns + column;

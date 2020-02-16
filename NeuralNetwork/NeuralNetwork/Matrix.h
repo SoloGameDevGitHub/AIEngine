@@ -16,7 +16,7 @@ private:
 
 public:
     Matrix(const int rows, const int columns);
-    ~Matrix() { delete [] _values; }
+    ~Matrix();
     float get(const int row, const int column) const;
     void set(const int row, const int column, const float value);
     int getRows() const;
