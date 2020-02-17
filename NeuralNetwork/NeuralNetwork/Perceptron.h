@@ -11,11 +11,8 @@ private:
 public:
     Perceptron(int weightsLength);
     ~Perceptron();
-    float feedforward(Matrix* const inputs);
-    void train(Matrix* const inputs, const float output);
-    Neuron* getNeuron() const
-    {
-        return _neuron;
-    }
+    float feedforward(const Matrix& inputs);
+    void train(const Matrix& inputs, const float output);
+    Neuron* getNeuron() const;
 };
 #endif //NEURALNETWORK_PERCEPTRON_H

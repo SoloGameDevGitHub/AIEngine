@@ -5,9 +5,7 @@ Matrix::Matrix(const int rows, const int columns)
     assert(columns >= 1 && rows >= 1);
     _rows = rows;
     _columns = columns;
-    std::size_t arraySize = columns * rows * sizeof(float);
-    _values = (float*) malloc(arraySize);
-    fill(0.0f);
+    _values = (float*) calloc(columns * rows, sizeof(float));
 }
 
 Matrix::~Matrix()
@@ -37,17 +35,6 @@ int Matrix::getRows() const
 int Matrix::getColumns() const
 {
     return _columns;
-}
-
-void Matrix::fill(float value)
-{
-    for (int r = 0; r < _rows; r++)
-    {
-        for (int c = 0; c < _columns; c++)
-        {
-            set(r, c, value);
-        }
-    }
 }
 
 void Matrix::print(std::ostream& stream)
@@ -86,55 +73,50 @@ Matrix* Matrix::clone()
 }
 
 //STATIC FUNCTIONS
-Matrix* Matrix::multiply(Matrix* const left, Matrix* const right)
+Matrix* Matrix::multiply(const Matrix& left, const Matrix& right)
 {
-    Matrix* result = nullptr;
-    multiply(left, right, result);
+    Matrix* result = new Matrix(left.getRows(),right.getColumns());
+    multiply(left, right, *result);
     return result;
 }
 
-void Matrix::multiply(Matrix* const left, Matrix* const right, Matrix*& output)
+void Matrix::multiply(const Matrix& left, const Matrix& right, Matrix& output)
 {
-    assert(left != nullptr && right != nullptr);
-    assert(left->getColumns() == right->getRows());
-
-    output = new Matrix(left->getRows(),right->getColumns());
-    for(int row = 0; row < output->getRows(); ++row)
+    assert(left.getColumns() == right.getRows());
+    for(int row = 0; row < output.getRows(); ++row)
     {
-        for(int column = 0; column < output->getColumns(); ++column)
+        for(int column = 0; column < output.getColumns(); ++column)
         {
             float sum = 0.0;
-            for(int leftColumn = 0; leftColumn < left->getColumns(); ++leftColumn)
+            for(int leftColumn = 0; leftColumn < left.getColumns(); ++leftColumn)
             {
-                sum += left->get(row, leftColumn) * right->get(leftColumn, column);
+                sum += left.get(row, leftColumn) * right.get(leftColumn, column);
             }
-            output->set(row, column, sum);
+            output.set(row, column, sum);
         }
     }
 }
 
-void Matrix::multiply(Matrix*& target, const float scalar)
+void Matrix::multiply(Matrix& target, const float scalar)
 {
-    assert(target != 0);
-    for (int r = 0; r < target->getRows(); ++r)
+    for (int r = 0; r < target.getRows(); ++r)
     {
-        for (int c = 0; c < target->getColumns(); ++c)
+        for (int c = 0; c < target.getColumns(); ++c)
         {
-            float value = target->get(r,c) * scalar;
-            target->set(r,c,value);
+            float value = target.get(r,c) * scalar;
+            target.set(r,c,value);
         }
     }
 }
 
-void Matrix::add(Matrix*& matrix, const float value)
+void Matrix::add(Matrix& matrix, const float value)
 {
-    assert(matrix != 0);
-    for (int r = 0; r < matrix->getRows(); ++r)
+    for (int r = 0; r < matrix.getRows(); ++r)
     {
-        for (int c = 0; c < matrix->getColumns(); ++c)
+        for (int c = 0; c < matrix.getColumns(); ++c)
         {
-            float sum = matrix->get(r,c) + value;
-            matrix->set(r,c,sum);
+            float sum = matrix.get(r,c) + value;
+            matrix.set(r,c,sum);
         }
     }
 }

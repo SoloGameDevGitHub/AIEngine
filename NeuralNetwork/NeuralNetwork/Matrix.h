@@ -21,15 +21,14 @@ public:
     void set(const int row, const int column, const float value);
     int getRows() const;
     int getColumns() const;
-    void fill(float value);
     void print(std::ostream& stream);
     void print(std::ostream& stream, int decimalPlace);
     Matrix* clone();
     void applyFunction(FloatFunction function);
 
-    static Matrix* multiply(Matrix* const left, Matrix* const right);
-    static void multiply(Matrix* const left, Matrix* const right, Matrix*& output);
-    static void multiply(Matrix*& target, const float scalar);
-    static void add(Matrix*& matrix, const float value);
+    static Matrix* multiply(const Matrix& left, const Matrix& right);
+    static void multiply(const Matrix& left, const Matrix& right, Matrix& output);
+    static void multiply(Matrix& target, const float scalar);
+    static void add(Matrix& matrix, const float value);
 };
 #endif //NEURALNETWORK_MATRIX_H

@@ -17,7 +17,7 @@ void populateRandomInput(Matrix*& matrix)
 {
     for (int r = 0; r < matrix->getRows(); ++r)
     {
-        matrix->set(r,0,(float(rand())/float((RAND_MAX)) * 1000.0) - 500.0);
+        matrix->set(r,0,(float(rand())/float((RAND_MAX)) * 1000.0f) - 500.0f);
     }
 }
 
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
     {
         populateRandomInput(inputs);
         float expectedOutput = toExpectedOutput(inputs);
-        float guess = perceptron->feedforward(inputs);
+        float guess = perceptron->feedforward(*inputs);
         if (guess == expectedOutput)
         {
             correctGuesses++;
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
         else
         {
             correctGuesses = 0;
-            perceptron->train(inputs, expectedOutput);
+            perceptron->train(*inputs, expectedOutput);
         }
     }
     cout << "The network has been trained! Final weights are:" << endl;

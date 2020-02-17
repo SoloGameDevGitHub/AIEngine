@@ -8,12 +8,14 @@ class Neuron
 private:
     Matrix* _weights = nullptr;
     float _bias = 0.0f;
+    Matrix* _outputs;
 
 public:
     ~Neuron();
-    Matrix* feedforward(Matrix* const inputs);
+    void feedforward(const Matrix& inputs);
     void setWeights(Matrix* const weights);
     Matrix* getWeights() const;
+    Matrix* getOutputs() const;
     float getBias() const;
     void setBias(float bias);
 };
