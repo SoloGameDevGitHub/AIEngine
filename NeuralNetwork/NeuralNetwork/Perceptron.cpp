@@ -1,11 +1,14 @@
 #include "Perceptron.h"
 
-#define SIGN(X) X >= 0.0 ? 1 : -1
-
 Perceptron::~Perceptron()
 {
     if (_neuron != nullptr)
         delete _neuron;
+}
+
+void Perceptron::setActivationFunction(FloatFunction activationFunction)
+{
+    _activationFunction = activationFunction;
 }
 
 Neuron* Perceptron::getNeuron() const
@@ -44,6 +47,7 @@ void Perceptron::train(const Matrix& inputs, const float target)
 
 float Perceptron::feedforward(const Matrix& inputs)
 {
+    assert(_activationFunction);
     assert(_neuron->getWeights()->getColumns() == inputs.getRows());
     _neuron->feedforward(inputs);
     Matrix& outputs = *_neuron->getOutputs();
@@ -52,5 +56,6 @@ float Perceptron::feedforward(const Matrix& inputs)
     {
         sum += outputs.get(r,0);
     }
-    return SIGN(sum);
+    float result = _activationFunction(sum);
+    return result;
 }
