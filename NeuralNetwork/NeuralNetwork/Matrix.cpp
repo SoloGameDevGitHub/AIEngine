@@ -80,19 +80,19 @@ Matrix* Matrix::multiply(const Matrix& left, const Matrix& right)
     return result;
 }
 
-void Matrix::multiply(const Matrix& left, const Matrix& right, Matrix& output)
+void Matrix::multiply(const Matrix& left, const Matrix& right, Matrix& target)
 {
     assert(left.getColumns() == right.getRows());
-    for(int row = 0; row < output.getRows(); ++row)
+    for(int row = 0; row < target.getRows(); ++row)
     {
-        for(int column = 0; column < output.getColumns(); ++column)
+        for(int column = 0; column < target.getColumns(); ++column)
         {
             float sum = 0.0;
             for(int leftColumn = 0; leftColumn < left.getColumns(); ++leftColumn)
             {
                 sum += left.get(row, leftColumn) * right.get(leftColumn, column);
             }
-            output.set(row, column, sum);
+            target.set(row, column, sum);
         }
     }
 }
@@ -109,14 +109,14 @@ void Matrix::multiply(Matrix& target, const float scalar)
     }
 }
 
-void Matrix::add(Matrix& matrix, const float value)
+void Matrix::add(Matrix& target, const float value)
 {
-    for (int r = 0; r < matrix.getRows(); ++r)
+    for (int r = 0; r < target.getRows(); ++r)
     {
-        for (int c = 0; c < matrix.getColumns(); ++c)
+        for (int c = 0; c < target.getColumns(); ++c)
         {
-            float sum = matrix.get(r,c) + value;
-            matrix.set(r,c,sum);
+            float sum = target.get(r, c) + value;
+            target.set(r, c, sum);
         }
     }
 }

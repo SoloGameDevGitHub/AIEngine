@@ -27,8 +27,8 @@ public:
     void applyFunction(FloatFunction function);
 
     static Matrix* multiply(const Matrix& left, const Matrix& right);
-    static void multiply(const Matrix& left, const Matrix& right, Matrix& output);
+    static void multiply(const Matrix& left, const Matrix& right, Matrix& target);
     static void multiply(Matrix& target, const float scalar);
-    static void add(Matrix& matrix, const float value);
+    static void add(Matrix& target, const float value);
 };
 #endif //NEURALNETWORK_MATRIX_H
