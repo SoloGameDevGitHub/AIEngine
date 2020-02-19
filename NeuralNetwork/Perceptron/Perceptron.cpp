@@ -48,7 +48,6 @@ void Perceptron::train(const Matrix& inputs, const float target)
 float Perceptron::feedforward(const Matrix& inputs)
 {
     assert(_activationFunction);
-    assert(_neuron->getWeights()->getColumns() == inputs.getRows());
     _neuron->feedforward(inputs);
     Matrix& outputs = *_neuron->getOutputs();
     float sum =  _neuron->getBias();
