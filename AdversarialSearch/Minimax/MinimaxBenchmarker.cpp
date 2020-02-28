@@ -4,8 +4,6 @@ void MinimaxBenchmarker::benchmarkMinimaxVsMinimax(TicTacToeMinimax* ticTacToeMi
 {
     auto start = chrono::high_resolution_clock::now();
     int firstBoard = board;
-
-    srand (time(NULL));
     
     int currentBoard = firstBoard;
     int nextBoard;
@@ -13,12 +11,10 @@ void MinimaxBenchmarker::benchmarkMinimaxVsMinimax(TicTacToeMinimax* ticTacToeMi
     int state = ticTacToeMinimax -> getState(currentBoard);
     while (state == Playing)
     {
-        //vector<int> bestMoves = ticTacToeMinimax -> evaluateAll(currentBoard, isMaxTurn);
         int bestMove = ticTacToeMinimax -> evaluate(currentBoard, isMaxTurn);
         isMaxTurn = !isMaxTurn;
-        
-        //int randomIndex = rand() % bestMoves.size();
-        currentBoard = bestMove;// bestMoves[randomIndex];
+
+        currentBoard = bestMove;
         
         state = ticTacToeMinimax -> getState(currentBoard);
         assert(state == Playing || state == Draw);
@@ -59,11 +55,6 @@ void MinimaxBenchmarker::benchmarkEvaluateAll(TicTacToeMinimax* ticTacToeMinimax
     auto finish = chrono::high_resolution_clock::now();
     
     cout << "Found '" << bestBoards.size() << "' possibilities." << endl;
-    //printBoard(board);
-    for (int x = 0; x < bestBoards.size(); x++)
-    {
-        //printBoard(bestBoards[x]);
-    }
     
     auto milliseconds = chrono::duration_cast<chrono::milliseconds>(finish - start);
     auto nanoseconds = chrono::duration_cast<chrono::nanoseconds>(finish - start);
