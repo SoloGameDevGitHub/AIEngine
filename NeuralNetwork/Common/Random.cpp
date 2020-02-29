@@ -9,8 +9,8 @@ void random::initRandomSeed()
 
 float random::range(float a, float b)
 {
-    float value = ((float) std::rand()) / (float) RAND_MAX;
+    float randomValue = ((float) std::rand()) / (float) RAND_MAX;
     float difference = b - a;
-    float value = random * difference;
-    return a + value;
+    float result = randomValue * difference;
+    return a + result;
 }
