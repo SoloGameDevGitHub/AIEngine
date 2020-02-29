@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     right->set(0,0,4);
     right->set(1,0,5);
     right->set(2,0,6);
-    Matrix* dotProduct = Matrix::multiply(left, right);
+    Matrix* dotProduct = Matrix::multiply(*left, *right);
     dotProduct->print(cout);
     delete left, right, dotProduct;
 
@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     right->set(0,0,1);
     right->set(0,1,2);
     right->set(0,2,3);
-    dotProduct = Matrix::multiply(left, right);
+    dotProduct = Matrix::multiply(*left, *right);
     dotProduct->print(cout);
     delete left, right, dotProduct;
 
@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     right->set(2,1,4);
     right->set(2,2,0);
     right->set(2,3,3);
-    dotProduct = Matrix::multiply(left, right);
+    dotProduct = Matrix::multiply(*left, *right);
     dotProduct->print(cout);
     delete left, right, dotProduct;
 
@@ -67,11 +67,11 @@ int main(int argc, char* argv[])
     right->set(0,0,0.9);
     right->set(1,0,0.1);
     right->set(2,0,0.8);
-    dotProduct = Matrix::multiply(left, right);
+    dotProduct = Matrix::multiply(*left, *right);
     dotProduct->print(cout);
 
     cout << endl << "Matrix * Scalar" << endl;
-    Matrix::multiply(dotProduct, 2.0);
+    Matrix::multiply(*dotProduct, 2.0f);
     dotProduct->print(cout);
     delete left, right;
 

@@ -1,6 +1,5 @@
 #include "Perceptron.h"
-
-using namespace std;
+#include "../Common/Random.h"
 
 float sign(float value)
 {
@@ -23,13 +22,14 @@ void populateRandomInput(Matrix& matrix)
 {
     for (int r = 0; r < matrix.getRows(); ++r)
     {
-        matrix.set(r,0,(float(rand())/float((RAND_MAX)) * 1000.0f) - 500.0f);
+        float value = random::range(-500.0f, 500.0f);
+        matrix.set(r,0,value);
     }
 }
 
 int main(int argc, char* argv[])
 {
-    srand((unsigned int)time(NULL));
+    random::initRandomSeed();
     Perceptron* perceptron = new Perceptron(2);
     perceptron->setActivationFunction(sign);
     int correctGuesses = 0;
@@ -49,10 +49,10 @@ int main(int argc, char* argv[])
             perceptron->train(*inputs, expectedOutput);
         }
     }
-    cout << "The network has been trained! Final weights are:" << endl;
+    std::cout << "The network has been trained! Final weights are:" << std::endl;
     Neuron* neuron = perceptron->getNeuron();
-    neuron->getWeights()->print(cout);
-    cout << "Bias:" << neuron->getBias() << endl;
+    neuron->getWeights()->print(std::cout);
+    std::cout << "Bias:" << neuron->getBias() << std::endl;
 
     delete inputs;
     delete perceptron;
