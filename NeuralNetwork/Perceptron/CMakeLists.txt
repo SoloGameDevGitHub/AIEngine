@@ -1,6 +1,6 @@
 set(FILES Perceptron.cpp
         PerceptronTests.cpp
-        Neuron.cpp
+        ../Common/Neuron.cpp
         ../Common/Matrix.cpp
         ../Common/Random.cpp)
 add_executable(Perceptron ${FILES})
