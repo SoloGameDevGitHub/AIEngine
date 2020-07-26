@@ -6,7 +6,7 @@ namespace BitMath
     {
         int reversedBits = 0;
         maxBits = (maxBits % 2 == 0) ? maxBits : maxBits - 1;
-        int halfBits = floor(maxBits / 2);
+        int halfBits = (int) floor(maxBits / 2);
         for (int bit = 0; bit < halfBits; bit++)
         {
             int transposeDifference = (maxBits - (bit * 2) - 1);
@@ -20,5 +20,5 @@ namespace BitMath
             reversedBits |= rBit;
         }
         return reversedBits;
-    };
-};
+    }
+}

@@ -1,70 +1,63 @@
 #include "MinimaxBenchmarker.h"
 
-void MinimaxBenchmarker::benchmarkMinimaxVsMinimax(TicTacToeMinimax* ticTacToeMinimax, int board, bool isMaxTurn)
+void MinimaxBenchmarker::benchmarkMinimaxVsMinimax(TicTacToeMinimax* ticTacToeMinimax, unsigned int board, bool isMaxTurn)
 {
     auto start = chrono::high_resolution_clock::now();
-    int firstBoard = board;
-    
-    int currentBoard = firstBoard;
-    int nextBoard;
+    unsigned int firstBoard = board;
+
+    unsigned int currentBoard = firstBoard;
     
     int state = ticTacToeMinimax -> getState(currentBoard);
     while (state == Playing)
     {
         int bestMove = ticTacToeMinimax -> evaluate(currentBoard, isMaxTurn);
         isMaxTurn = !isMaxTurn;
-
         currentBoard = bestMove;
-        
         state = ticTacToeMinimax -> getState(currentBoard);
         assert(state == Playing || state == Draw);
     }
     
-    nextBoard = currentBoard;
     auto finish = chrono::high_resolution_clock::now();
     
-    printBoard(firstBoard);
-    printBoard(nextBoard);
-    printState(ticTacToeMinimax -> getState(nextBoard));
+    //printBoard(firstBoard);
+    //printBoard(nextBoard);
+    //printState(ticTacToeMinimax -> getState(nextBoard));
 
-    auto milliseconds = chrono::duration_cast<chrono::milliseconds>(finish - start);
-    auto nanoseconds = chrono::duration_cast<chrono::nanoseconds>(finish - start);            
-    cout << "benchmarkMinimaxVsMinimax: " << milliseconds.count() << "ms / " << nanoseconds.count() << "ns" << endl;
+    auto nanoseconds = chrono::duration_cast<chrono::nanoseconds>(finish - start);
+    printf("benchmarkMinimaxVsMinimax: %.2f ms", (nanoseconds.count() / 1000000.0f));
     cout << endl << endl;
-};
+}
 
-void MinimaxBenchmarker::benchmarkEvaluate(TicTacToeMinimax* ticTacToeMinimax, int board, bool isMaxTurn)
+void MinimaxBenchmarker::benchmarkEvaluate(TicTacToeMinimax* ticTacToeMinimax, unsigned int board, bool isMaxTurn)
 {
-    auto start = chrono::high_resolution_clock::now();	
-    int nextBoard = ticTacToeMinimax -> evaluate(board, isMaxTurn);
+    auto start = chrono::high_resolution_clock::now();
+    unsigned int nextBoard = ticTacToeMinimax -> evaluate(board, isMaxTurn);
     auto finish = chrono::high_resolution_clock::now();
-    auto milliseconds = chrono::duration_cast<chrono::milliseconds>(finish - start);
     auto nanoseconds = chrono::duration_cast<chrono::nanoseconds>(finish - start);
     
     printBoard(board);
     printBoard(nextBoard);
     cout << endl << endl;
-    
-    cout << "benchmarkEvaluate: " << milliseconds.count() << "ms / " << nanoseconds.count() << "ns" << endl;
-};
 
-void MinimaxBenchmarker::benchmarkEvaluateAll(TicTacToeMinimax* ticTacToeMinimax, int board, bool isMaxTurn)
+    printf("benchmarkEvaluate: %.2f ms", (nanoseconds.count() / 1000000.0f));
+}
+
+void MinimaxBenchmarker::benchmarkEvaluateAll(TicTacToeMinimax* ticTacToeMinimax, unsigned int board, bool isMaxTurn)
 {
     auto start = chrono::high_resolution_clock::now();
-    vector<int> bestBoards = ticTacToeMinimax -> evaluateAll(board, isMaxTurn);
+    vector<unsigned int> bestBoards = ticTacToeMinimax -> evaluateAll(board, isMaxTurn);
     auto finish = chrono::high_resolution_clock::now();
     
     cout << "Found '" << bestBoards.size() << "' possibilities." << endl;
     
-    auto milliseconds = chrono::duration_cast<chrono::milliseconds>(finish - start);
     auto nanoseconds = chrono::duration_cast<chrono::nanoseconds>(finish - start);
-    cout << "benchmarkEvaluateAll: " << milliseconds.count() << "ms / " << nanoseconds.count() << "ns" << endl;
+    printf("benchmarkEvaluateAll: %.2f ms", (nanoseconds.count() / 1000000.0f));
     cout << endl << endl;
-};
+}
 
-void MinimaxBenchmarker::printBoard(int board)
+void MinimaxBenchmarker::printBoard(unsigned int board)
 {
-    int crossMask  = 3;
+    unsigned int crossMask  = 3;
     
     cout << endl;
     for (int x = 0; x < 9; x++)
@@ -84,7 +77,7 @@ void MinimaxBenchmarker::printBoard(int board)
         crossMask <<= 2;
     }
     cout << endl;
-};
+}
 
 void MinimaxBenchmarker::printState(int state)
 {
@@ -92,4 +85,4 @@ void MinimaxBenchmarker::printState(int state)
     else if (state == Draw) cout << "Draw" << endl;
     else if (state == CrossWins) cout << "CrossWins" << endl;
     else cout << "CircleWins" << endl;
-};
+}
