@@ -1,16 +1,15 @@
 #include "Matrix.h"
 
-Matrix::Matrix(const int rows, const int columns)
+Matrix::Matrix(int rows, int columns) : _rows(rows),
+                                        _columns(columns)
 {
     assert(columns >= 1 && rows >= 1);
-    _rows = rows;
-    _columns = columns;
-    _values = (float*) calloc(columns * rows, sizeof(float));
-}
-
-Matrix::~Matrix()
-{
-    delete [] _values;
+    _values.clear();
+    int size = columns * rows;
+    for(int i = 0; i < size; i++)
+    {
+        _values.push_back(0.0f);
+    }
 }
 
 float Matrix::get(const int row, const int column) const
@@ -42,9 +41,9 @@ void Matrix::print(std::ostream& stream)
     print(stream, 3);
 }
 
-void Matrix::print(std::ostream& stream, int decimalPlace)
+void Matrix::print(std::ostream& stream, int decimalPlace) const
 {
-    int decimalFactor = pow(10, decimalPlace);
+    int decimalFactor = static_cast<int>(pow(10, decimalPlace));
     assert(decimalFactor > 0);
     for (int r = 0; r < _rows; r++)
     {
@@ -58,24 +57,10 @@ void Matrix::print(std::ostream& stream, int decimalPlace)
     }
 }
 
-Matrix* Matrix::clone()
-{
-    Matrix* result = new Matrix(getRows(), getColumns());
-    for (int r = 0; r < getRows(); ++r)
-    {
-        for (int c = 0; c < getColumns(); ++c)
-        {
-            float value = get(r,c);
-            result->set(r,c,value);
-        }
-    }
-    return result;
-}
-
 //STATIC FUNCTIONS
-Matrix* Matrix::multiply(const Matrix& left, const Matrix& right)
+std::shared_ptr<Matrix> Matrix::multiply(const Matrix &left, const Matrix &right)
 {
-    Matrix* result = new Matrix(left.getRows(),right.getColumns());
+    std::shared_ptr<Matrix> result = std::make_shared<Matrix>(left.getRows(),right.getColumns());
     multiply(left, right, *result);
     return result;
 }
@@ -121,14 +106,25 @@ void Matrix::add(Matrix& target, const float value)
     }
 }
 
-void Matrix::applyFunction(FloatFunction function)
+void Matrix::applyFunction(FloatFunction function, const Matrix& source, Matrix&  target)
 {
-    for (int r = 0; r < getRows(); ++r)
+    assert(function);
+    assert(&source);
+    assert(&target);
+    assert(source.getRows() == target.getRows());
+    assert(source.getColumns() == target.getColumns());
+    for (int r = 0; r < source.getRows(); ++r)
     {
-        for (int c = 0; c < getColumns(); ++c)
+        for (int c = 0; c < source.getColumns(); ++c)
         {
-            float newValue = function(get(r,c));
-            set(r,c,newValue);
+            float newValue = function(source.get(r,c));
+            target.set(r,c,newValue);
         }
     }
+}
+
+void Matrix::applyFunction(FloatFunction function)
+{
+    Matrix& matrix = *this;
+    Matrix::applyFunction(function, matrix, matrix);
 }

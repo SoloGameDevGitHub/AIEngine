@@ -4,7 +4,8 @@
 
 void random::initRandomSeed()
 {
-    srand(time(NULL));
+    unsigned int seed = static_cast<unsigned int>(time(NULL));
+    srand(seed);
 }
 
 float random::range(float a, float b)

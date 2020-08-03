@@ -6,16 +6,15 @@
 class Neuron
 {
 private:
-    Matrix* _weights = nullptr;
+    std::unique_ptr<Matrix> _weights;
     float _bias = 0.0f;
-    Matrix* _outputs;
 
 public:
-    ~Neuron();
-    void feedforward(const Matrix& inputs);
-    void setWeights(Matrix* const weights);
-    Matrix* getWeights() const;
-    Matrix* getOutputs() const;
+    Neuron();
+    Neuron(const Neuron& source);
+    std::shared_ptr<Matrix> feedforward(const Matrix &inputs);
+    void setWeights(const Matrix &weights);
+    Matrix& getWeights();
     float getBias() const;
     void setBias(float bias);
 };

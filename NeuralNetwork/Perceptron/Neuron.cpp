@@ -1,32 +1,31 @@
 #include "Neuron.h"
 
-Neuron::~Neuron()
+Neuron::Neuron()
 {
-    if (_weights != nullptr) delete _weights;
-    if (_outputs != nullptr) delete _outputs;
+    //
 }
 
-void Neuron::feedforward(const Matrix& inputs)
+Neuron::Neuron(const Neuron& source) : _weights(std::make_unique<Matrix>(*source._weights)),
+                                       _bias(source._bias)
 {
-    if (_outputs != nullptr) delete _outputs;
-    _outputs = Matrix::multiply(*_weights, inputs);
+    //
 }
 
-void Neuron::setWeights(Matrix* const weights)
+std::shared_ptr<Matrix> Neuron::feedforward(const Matrix &inputs)
 {
-    if (_weights == weights) return;
-    if (_weights != nullptr) delete _weights;
-    _weights = weights;
+    auto outputs = Matrix::multiply(*_weights, inputs);
+    return outputs;
 }
 
-Matrix* Neuron::getOutputs() const
+void Neuron::setWeights(const Matrix &weights)
 {
-    return _outputs;
+    Matrix* newWeights = new Matrix(weights);
+    _weights.reset(newWeights);
 }
 
-Matrix* Neuron::getWeights() const
+Matrix& Neuron::getWeights()
 {
-    return _weights;
+    return *_weights;
 }
 
 float Neuron::getBias() const

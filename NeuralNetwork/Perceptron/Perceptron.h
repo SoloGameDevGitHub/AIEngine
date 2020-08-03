@@ -1,20 +1,24 @@
 #ifndef NEURALNETWORK_PERCEPTRON_H
 #define NEURALNETWORK_PERCEPTRON_H
 #include "Neuron.h"
+#include "../Common/ActivationFunctions.h"
 
 class Perceptron
 {
 private:
-    Neuron* _neuron = nullptr;
+    std::unique_ptr<Neuron> _neuron;
     const float _learningRate = 0.1;
     FloatFunction _activationFunction;
 
 public:
     Perceptron(int weightsLength);
+    Perceptron(const Perceptron& source);
     ~Perceptron();
+    void print(std::ostream& stream);
+    void recover(std::istream& stream);
     void setActivationFunction(FloatFunction activationFunction);
     float feedforward(const Matrix& inputs);
     void train(const Matrix& inputs, const float output);
-    Neuron* getNeuron() const;
+    Neuron& getNeuron();
 };
 #endif //NEURALNETWORK_PERCEPTRON_H
