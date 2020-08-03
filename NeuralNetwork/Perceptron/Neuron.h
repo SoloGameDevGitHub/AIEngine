@@ -12,7 +12,7 @@ private:
 public:
     Neuron();
     Neuron(const Neuron& source);
-    std::shared_ptr<Matrix> feedforward(const Matrix &inputs);
+    std::unique_ptr<Matrix> feedforward(const Matrix &inputs);
     void setWeights(const Matrix &weights);
     Matrix& getWeights();
     float getBias() const;

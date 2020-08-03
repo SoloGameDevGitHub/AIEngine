@@ -27,7 +27,7 @@ public:
     void print(std::ostream& stream, int decimalPlace) const;
     static void applyFunction(FloatFunction function, const Matrix& source, Matrix&  target);
     void applyFunction(FloatFunction function);
-    static std::shared_ptr<Matrix> multiply(const Matrix& left, const Matrix& right);
+    static std::unique_ptr<Matrix> multiply(const Matrix& left, const Matrix& right);
     static void multiply(const Matrix& left, const Matrix& right, Matrix& target);
     static void multiply(Matrix& target, float scalar);
     static void add(Matrix& target, float value);

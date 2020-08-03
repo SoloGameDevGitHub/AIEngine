@@ -11,7 +11,7 @@ Neuron::Neuron(const Neuron& source) : _weights(std::make_unique<Matrix>(*source
     //
 }
 
-std::shared_ptr<Matrix> Neuron::feedforward(const Matrix &inputs)
+std::unique_ptr<Matrix> Neuron::feedforward(const Matrix &inputs)
 {
     auto outputs = Matrix::multiply(*_weights, inputs);
     return outputs;

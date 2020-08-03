@@ -58,9 +58,9 @@ void Matrix::print(std::ostream& stream, int decimalPlace) const
 }
 
 //STATIC FUNCTIONS
-std::shared_ptr<Matrix> Matrix::multiply(const Matrix &left, const Matrix &right)
+std::unique_ptr<Matrix> Matrix::multiply(const Matrix &left, const Matrix &right)
 {
-    std::shared_ptr<Matrix> result = std::make_shared<Matrix>(left.getRows(),right.getColumns());
+    std::unique_ptr<Matrix> result = std::make_unique<Matrix>(left.getRows(),right.getColumns());
     multiply(left, right, *result);
     return result;
 }
