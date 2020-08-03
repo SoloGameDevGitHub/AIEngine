@@ -19,7 +19,6 @@ private:
 
 public:
     Matrix(int rows, int columns);
-    Matrix(const Matrix &source);
     float get(int row, int column) const;
     void set(int row, int column, float value);
     int getRows() const;

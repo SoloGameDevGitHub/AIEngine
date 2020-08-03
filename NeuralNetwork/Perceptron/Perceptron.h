@@ -1,6 +1,7 @@
 #ifndef NEURALNETWORK_PERCEPTRON_H
 #define NEURALNETWORK_PERCEPTRON_H
-#include "../Common/Neuron.h"
+#include "Neuron.h"
+#include "../Common/ActivationFunctions.h"
 
 class Perceptron
 {
@@ -11,6 +12,7 @@ private:
 
 public:
     Perceptron(int weightsLength);
+    Perceptron(const Perceptron& source);
     ~Perceptron();
     void print(std::ostream& stream);
     void recover(std::istream& stream);

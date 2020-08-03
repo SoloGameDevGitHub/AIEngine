@@ -13,6 +13,14 @@ Perceptron::Perceptron(int weightsLength)
     _neuron->setWeights(*weights);
     float randomBias = random::range(-0.1f,0.1f);
     _neuron->setBias(randomBias);
+    _activationFunction = noActivation;
+}
+
+Perceptron::Perceptron(const Perceptron &source)
+{
+    Neuron& neuron = *source._neuron;
+    _neuron = std::make_unique<Neuron>(neuron);
+    _activationFunction = source._activationFunction;
 }
 
 Perceptron::~Perceptron()
@@ -33,7 +41,7 @@ Neuron& Perceptron::getNeuron()
 void Perceptron::print(std::ostream& stream)
 {
     const Matrix& weights = _neuron->getWeights();
-    stream << weights.getRows() << std::endl;
+    stream << weights.getRows() << " ";
     stream << weights.getColumns() << std::endl;
     stream << _neuron->getBias() << std::endl;
     for (int c = 0; c < weights.getColumns(); ++c)
@@ -82,16 +90,12 @@ void Perceptron::train(const Matrix& inputs, const float target)
 
 float Perceptron::feedforward(const Matrix& inputs)
 {
-    assert(_activationFunction);
-    std::unique_ptr<Matrix> outputs = _neuron->feedforward(inputs);
+    auto outputs = _neuron->feedforward(inputs);
     float sum =  _neuron->getBias();
     for (int r = 0; r < outputs->getRows(); ++r)
     {
         sum += outputs->get(r,0);
     }
-    if (_activationFunction != nullptr)
-    {
-        sum = _activationFunction(sum);
-    }
+    sum = _activationFunction(sum);
     return sum;
 }

@@ -1,6 +1,5 @@
 #include "Perceptron.h"
 #include "../Common/Random.h"
-#include "../Common/ActivationFunctions.h"
 
 ///returns the expected output from given inputs
 float toExpectedOutput(Matrix& inputs)
@@ -44,7 +43,7 @@ int main(int argc, char* argv[])
             perceptron->train(*inputs, expectedOutput);
         }
     }
-    std::cout << "The network is trained!" << std::endl;
+    std::cout << "The network has been trained! Final weights are:" << std::endl;
     Neuron& neuron = perceptron->getNeuron();
     Matrix& weights = neuron.getWeights();
     weights.print(std::cout);

@@ -1,7 +1,7 @@
 #ifndef NEURALNETWORK_NEURON_H
 #define NEURALNETWORK_NEURON_H
 
-#include "Matrix.h"
+#include "../Common/Matrix.h"
 
 class Neuron
 {

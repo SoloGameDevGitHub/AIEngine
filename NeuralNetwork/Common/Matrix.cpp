@@ -1,23 +1,15 @@
 #include "Matrix.h"
 
-Matrix::Matrix(const int rows, const int columns)
+Matrix::Matrix(int rows, int columns) : _rows(rows),
+                                        _columns(columns)
 {
     assert(columns >= 1 && rows >= 1);
-    _rows = rows;
-    _columns = columns;
     _values.clear();
     int size = columns * rows;
     for(int i = 0; i < size; i++)
     {
         _values.push_back(0.0f);
     }
-}
-
-Matrix::Matrix(const Matrix &source) : _rows(source._rows),
-                                       _columns(source._columns),
-                                       _values(source._values)
-{
-    //
 }
 
 float Matrix::get(const int row, const int column) const
@@ -68,7 +60,7 @@ void Matrix::print(std::ostream& stream, int decimalPlace) const
 //STATIC FUNCTIONS
 std::unique_ptr<Matrix> Matrix::multiply(const Matrix &left, const Matrix &right)
 {
-    auto result = std::make_unique<Matrix>(left.getRows(),right.getColumns());
+    std::unique_ptr<Matrix> result = std::make_unique<Matrix>(left.getRows(),right.getColumns());
     multiply(left, right, *result);
     return result;
 }
@@ -116,6 +108,9 @@ void Matrix::add(Matrix& target, const float value)
 
 void Matrix::applyFunction(FloatFunction function, const Matrix& source, Matrix&  target)
 {
+    assert(function);
+    assert(&source);
+    assert(&target);
     assert(source.getRows() == target.getRows());
     assert(source.getColumns() == target.getColumns());
     for (int r = 0; r < source.getRows(); ++r)
