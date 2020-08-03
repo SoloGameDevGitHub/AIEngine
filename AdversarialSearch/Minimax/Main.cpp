@@ -1,6 +1,4 @@
 #include "MinimaxBenchmarker.h"
-#include "BitMath.h"
-#include <cstdlib>
 
 int main(int argc, char *argv[])
 {
@@ -18,4 +16,4 @@ int main(int argc, char *argv[])
     }
 
 	return 0;
-};
+}

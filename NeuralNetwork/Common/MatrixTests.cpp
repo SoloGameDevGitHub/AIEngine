@@ -1,41 +1,40 @@
 #include "Matrix.h"
+#include <memory>
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
     cout << "Matrix * Matrix" << endl;
-    Matrix* left = new Matrix(1,3);
+    auto left = make_unique<Matrix>(1,3);
     left->set(0,0,1);
     left->set(0,1,2);
     left->set(0,2,3);
-    Matrix* right = new Matrix(3,1);
+    auto right = make_unique<Matrix>(3,1);
     right->set(0,0,4);
     right->set(1,0,5);
     right->set(2,0,6);
-    Matrix* dotProduct = Matrix::multiply(*left, *right);
+    auto dotProduct = Matrix::multiply(*left, *right);
     dotProduct->print(cout);
-    delete left, right, dotProduct;
 
     cout << endl;
-    left = new Matrix(3,1);
+    left = make_unique<Matrix>(3,1);
     left->set(0,0,4);
     left->set(1,0,5);
     left->set(2,0,6);
-    right = new Matrix(1,3);
+    right = make_unique<Matrix>(1,3);
     right->set(0,0,1);
     right->set(0,1,2);
     right->set(0,2,3);
     dotProduct = Matrix::multiply(*left, *right);
     dotProduct->print(cout);
-    delete left, right, dotProduct;
 
     cout << endl;
-    left = new Matrix(1,3);
+    left = make_unique<Matrix>(1,3);
     left->set(0,0,3);
     left->set(0,1,4);
     left->set(0,2,2);
-    right = new Matrix(3,4);
+    right = make_unique<Matrix>(3,4);
     right->set(0,0,13);
     right->set(0,1,9);
     right->set(0,2,7);
@@ -50,10 +49,9 @@ int main(int argc, char* argv[])
     right->set(2,3,3);
     dotProduct = Matrix::multiply(*left, *right);
     dotProduct->print(cout);
-    delete left, right, dotProduct;
 
     cout << endl;
-    left = new Matrix(3,3);
+    left = make_unique<Matrix>(3,3);
     left->set(0,0,0.9);
     left->set(0,1,0.3);
     left->set(0,2,0.4);
@@ -63,7 +61,7 @@ int main(int argc, char* argv[])
     left->set(2,0,0.1);
     left->set(2,1,0.5);
     left->set(2,2,0.6);
-    right = new Matrix(3, 1);
+    right = make_unique<Matrix>(3, 1);
     right->set(0,0,0.9);
     right->set(1,0,0.1);
     right->set(2,0,0.8);
@@ -73,7 +71,6 @@ int main(int argc, char* argv[])
     cout << endl << "Matrix * Scalar" << endl;
     Matrix::multiply(*dotProduct, 2.0f);
     dotProduct->print(cout);
-    delete left, right;
 
     return 0;
 }
