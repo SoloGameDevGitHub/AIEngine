@@ -1,5 +1,4 @@
-#ifndef NEURALNETWORK_NEURON_H
-#define NEURALNETWORK_NEURON_H
+#pragma once
 
 #include "../Common/Matrix.h"
 
@@ -18,5 +17,3 @@ public:
     float getBias() const;
     void setBias(float bias);
 };
-
-#endif //NEURALNETWORK_NEURON_H

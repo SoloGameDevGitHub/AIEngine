@@ -1,5 +1,5 @@
-#ifndef NEURALNETWORK_MATRIX_H
-#define NEURALNETWORK_MATRIX_H
+#pragma once
+
 #include <ctime>
 #include <iostream>
 #include <math.h>
@@ -32,4 +32,3 @@ public:
     static void multiply(Matrix& target, float scalar);
     static void add(Matrix& target, float value);
 };
-#endif //NEURALNETWORK_MATRIX_H

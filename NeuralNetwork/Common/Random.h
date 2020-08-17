@@ -1,8 +1,7 @@
-#ifndef AIENGINE_RANDOM_H
-#define AIENGINE_RANDOM_H
+#pragma once
+
 namespace random
 {
     void initRandomSeed();
     float range(float a, float b);
 }
-#endif //AIENGINE_RANDOM_H

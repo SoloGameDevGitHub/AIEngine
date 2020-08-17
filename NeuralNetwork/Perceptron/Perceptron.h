@@ -1,5 +1,5 @@
-#ifndef NEURALNETWORK_PERCEPTRON_H
-#define NEURALNETWORK_PERCEPTRON_H
+#pragma once
+
 #include "Neuron.h"
 #include "../Common/ActivationFunctions.h"
 
@@ -21,4 +21,3 @@ public:
     void train(const Matrix& inputs, const float output);
     Neuron& getNeuron();
 };
-#endif //NEURALNETWORK_PERCEPTRON_H

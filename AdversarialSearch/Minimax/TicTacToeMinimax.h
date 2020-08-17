@@ -1,5 +1,4 @@
-#ifndef _TIC_TAC_TOE_MINIMAX_H
-#define _TIC_TAC_TOE_MINIMAX_H
+#pragma once
 
 #include <vector>
 #include <cmath>
@@ -27,4 +26,3 @@ class TicTacToeMinimax
         unsigned int evaluate(unsigned int board, bool isMaxTurn);
         std::vector<unsigned int> evaluateAll(unsigned int board, bool isMaxTurn);
 };
-#endif

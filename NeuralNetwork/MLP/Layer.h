@@ -1,5 +1,4 @@
-#ifndef AIENGINE_LAYER_H
-#define AIENGINE_LAYER_H
+#pragma once
 
 #include <memory>
 #include "../Perceptron/Perceptron.h"
@@ -19,5 +18,3 @@ public:
     void feedforward(const Matrix& inputs);
     Matrix& getOutputs() const;
 };
-
-#endif //AIENGINE_LAYER_H

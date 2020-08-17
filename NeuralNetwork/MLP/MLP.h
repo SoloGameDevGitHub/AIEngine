@@ -1,5 +1,5 @@
-#ifndef AIENGINE_MLP_H
-#define AIENGINE_MLP_H
+#pragma once
+
 #include "Layer.h"
 
 class MultiLayerPerceptron
@@ -22,5 +22,3 @@ public:
     void recover(std::istream& stream);
     void setOutputActivationFunction(FloatFunction function);
 };
-
-#endif //AIENGINE_MLP_H

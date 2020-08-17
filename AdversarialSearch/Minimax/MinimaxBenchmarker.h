@@ -1,5 +1,4 @@
-#ifndef _MINIMAX_BENCHMARKER_H
-#define _MINIMAX_BENCHMARKER_H
+#pragma once
 
 #include <vector>
 #include <random>
@@ -21,4 +20,3 @@ class MinimaxBenchmarker
         void printBoard(unsigned int board);
         void printState(int state);
 };
-#endif
