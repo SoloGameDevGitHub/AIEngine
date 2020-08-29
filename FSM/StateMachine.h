@@ -30,7 +30,10 @@ namespace FSM
 #ifdef ENABLE_FSM_DEBUG
             std::cout << _currentState->name() << ": OnEnter()" << std::endl;
 #endif
-            _currentState->OnEnter();
+            if (_currentState)
+            {
+                _currentState->OnEnter();
+            }
             _deferredNextState = nullptr;
         }
 
@@ -57,11 +60,6 @@ namespace FSM
 
         void TransitionTo(State* const pNewState, bool immediate = false)
         {
-            if (pNewState == nullptr)
-            {
-                _currentState = nullptr;
-                return;
-            }
             if (pNewState == _currentState.get())
             {
 #ifdef ENABLE_FSM_DEBUG
@@ -70,7 +68,7 @@ namespace FSM
                 return;
             }
 #ifdef ENABLE_FSM_DEBUG
-            std::cout << "FSM - Transitioning to '" << pNewState->name() << "' / immediate = " << std::boolalpha << immediate << std::endl;
+            std::cout << "FSM - Transitioning to '" << (pNewState == nullptr ? "NULL" : pNewState->name()) << "' / immediate = " << std::boolalpha << immediate << std::endl;
 #endif
             _deferredNextState = pNewState;
             if (immediate)
