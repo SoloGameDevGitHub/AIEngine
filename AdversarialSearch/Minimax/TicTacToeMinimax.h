@@ -2,9 +2,6 @@
 #define _TIC_TAC_TOE_MINIMAX_H
 
 #include <vector>
-#include <cmath>
-#include <iostream>
-#include <cstdio>
 
 #define DRAW 0
 #define CROSS_WINS 1
