@@ -136,8 +136,7 @@ int TicTacToeMinimax::getMaxTreeScore(const int board, int alpha, int beta)
     const int state = getState(board);
     if (state != PLAYING)
     {
-        int leftScore = getScore(state);
-	    return leftScore;
+	    return state;
     }
     int bestScore = -999;
     int mask = 0b11;
@@ -164,8 +163,7 @@ int TicTacToeMinimax::getMinTreeScore(const int board, int alpha, int beta)
     const int state = getState(board);
     if (state != PLAYING)
     {
-        int leafScore = getScore(state);
-	    return leafScore;
+	    return state;
     }
     int bestScore = 999;
     int mask = 0b10;
@@ -204,13 +202,4 @@ inline int TicTacToeMinimax::getState(const int board)
     if ((board & DRAW_BOARD_STATE) == DRAW_BOARD_STATE)
         return DRAW;
     return PLAYING;
-}
-
-inline int TicTacToeMinimax::getScore(const int state)
-{
-    if (state == CROSS_WINS)
-        return 1;
-    if (state == CIRCLE_WINS)
-        return -1;
-    return 0;
 }
