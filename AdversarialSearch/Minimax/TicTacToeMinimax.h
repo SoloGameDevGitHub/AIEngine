@@ -5,12 +5,11 @@
 #include <cmath>
 #include <iostream>
 #include <cstdio>
-#include <bitset>
 
 #define PLAYING 0
 #define DRAW 1
 #define CROSS_WINS 2
-#define  CIRCLE_WINS 3
+#define CIRCLE_WINS 3
 
 class TicTacToeMinimax
 {

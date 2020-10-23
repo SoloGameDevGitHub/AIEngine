@@ -1,7 +1,8 @@
 #include "TicTacToeMinimax.h"
 
-const int DRAW_BOARD_STATE = 0b10'10'10'10'10'10'10'10'10;
 #define WINNER_MASK_LENGTH 8
+#define MAXIMUM_MASK_VALUE 0b1'00'00'00'00'00'00'00'00'00
+const int DRAW_BOARD_STATE = 0b10'10'10'10'10'10'10'10'10;
 const int winnerMasks[WINNER_MASK_LENGTH] =
 {
     0b10'10'10'00'00'00'00'00'00,
@@ -37,7 +38,7 @@ std::vector<int> TicTacToeMinimax::evaluateMaxDecisions(const int board)
     std::vector<int> bestMoves;
     int bestMoveScore = -999;
     int mask = 0b11;
-    while (mask < 262144)
+    while (mask < MAXIMUM_MASK_VALUE)
     {
         if ((board & mask) == 0)
         {
@@ -64,7 +65,7 @@ std::vector<int> TicTacToeMinimax::evaluateMinDecisions(const int board)
     std::vector<int> bestMoves;
     int bestMoveScore = 999;
     int mask = 0b10;
-    while (mask < 262144)
+    while (mask < MAXIMUM_MASK_VALUE)
     {
         if ((board & mask) == 0)
         {
@@ -91,7 +92,7 @@ int TicTacToeMinimax::evaluateMaxDecision(const int board)
     int bestMove = 0;
     int bestMoveScore = -999;
     int mask = 0b11;
-    while (mask < 262144)
+    while (mask < MAXIMUM_MASK_VALUE)
     {
         if ((board & mask) == 0)
         {
@@ -113,7 +114,7 @@ int TicTacToeMinimax::evaluateMinDecision(const int board)
     int bestMove = 0;
     int bestMoveScore = 999;
     int mask = 0b10;
-    while (mask < 262144)
+    while (mask < MAXIMUM_MASK_VALUE)
     {
         if ((board & mask) == 0)
         {
@@ -140,7 +141,7 @@ int TicTacToeMinimax::getMaxTreeScore(const int board, int alpha, int beta)
     }
     int bestScore = -999;
     int mask = 0b11;
-    while (mask < 262144)
+    while (mask < MAXIMUM_MASK_VALUE)
     {
         if ((board & mask) == 0)
         {
@@ -168,7 +169,7 @@ int TicTacToeMinimax::getMinTreeScore(const int board, int alpha, int beta)
     }
     int bestScore = 999;
     int mask = 0b10;
-    while (mask < 262144)
+    while (mask < MAXIMUM_MASK_VALUE)
     {
         if ((board & mask) == 0)
         {
