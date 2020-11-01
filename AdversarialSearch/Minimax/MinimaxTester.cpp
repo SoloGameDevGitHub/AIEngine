@@ -1,4 +1,3 @@
-#include <iomanip>
 #include "MinimaxTester.h"
 
 struct MinimaxTestCase
