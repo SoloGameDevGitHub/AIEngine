@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "MinimaxTester.h"
 
 struct MinimaxTestCase
@@ -6,14 +7,14 @@ public:
     const int CurrentBoard;
     const vector<int> ExpectedBoards;
     const bool IsMaxTurn;
-    MinimaxTestCase(const int currentBoard, const bool isMaxTurn, vector<int> expectedNextBoard)
+    MinimaxTestCase(int currentBoard, bool isMaxTurn, vector<int> expectedNextBoard)
                     : CurrentBoard(currentBoard), ExpectedBoards(expectedNextBoard), IsMaxTurn(isMaxTurn)
     {
         //
     }
 };
 
-void RunMinimaxTests(TicTacToeMinimax &minimax)
+void TicTacToeMinimax::RunMinimaxTests()
 {
     vector<MinimaxTestCase> testCases = {
             MinimaxTestCase(0b10'10'00'00'11'00'00'00'00, true,  {0b10'10'11'00'11'00'00'00'00}),
@@ -39,14 +40,14 @@ void RunMinimaxTests(TicTacToeMinimax &minimax)
         std::cout << "Board=" << testCase.CurrentBoard << " / ";
         std::cout << "Expected=";
         bool isResultExpected = false;
-        int result = minimax.evaluate(testCase.CurrentBoard, testCase.IsMaxTurn);
-        for(unsigned int i = 0; i < testCase.ExpectedBoards.size(); i++)
+        int result = TicTacToeMinimax::predict(testCase.CurrentBoard, testCase.IsMaxTurn);
+        for(unsigned int x = 0; x < testCase.ExpectedBoards.size(); x++)
         {
             if (i > 0U && i < testCase.ExpectedBoards.size() - 1U)
             {
                 std::cout << ";";
             }
-            int expected = testCase.ExpectedBoards[i];
+            int expected = testCase.ExpectedBoards[x];
             std::cout << expected;
             isResultExpected |= result == expected;
         }
@@ -67,58 +68,61 @@ void RunMinimaxTests(TicTacToeMinimax &minimax)
     }
 }
 
-void benchmarkMinimaxVsMinimax(TicTacToeMinimax& minimax, const int board, bool isMaxTurn)
+void TicTacToeMinimax::benchmarkMinimax(int board, bool isMaxTurn)
 {
-    double duration = 0.0;
+    long long int totalDuration = 0ll;
+    printBoard(board);
+    int state = TicTacToeMinimax::getState(board);
+    if (state == PLAYING)
+    {
+        auto begin = std::chrono::steady_clock::now();
+        board = TicTacToeMinimax::predict(board, isMaxTurn);
+        auto end = std::chrono::steady_clock::now();
+        totalDuration += (end - begin).count();
+    }
+    printBoard(board);
+    printState(state);
+    cout << "benchmarkMinimax: " << totalDuration << " ns";
+    cout << endl << endl;
+}
+
+void TicTacToeMinimax::benchmarkMinimaxVsMinimax(int board, bool isMaxTurn)
+{
+    std::vector<long long int> durationByMove;
+    long long int totalDuration = 0ll;
     int firstBoard = board;
     int currentBoard = firstBoard;
-    int state = minimax.getState(currentBoard);
+    int state = TicTacToeMinimax::getState(currentBoard);
     while (state == PLAYING)
     {
-        auto start = chrono::high_resolution_clock::now();
-        int bestMove = minimax.evaluate(currentBoard, isMaxTurn);
-        auto finish = chrono::high_resolution_clock::now();
-        std::chrono::duration<double, std::milli> millis = finish - start;
-        duration += millis.count();
+        auto begin = std::chrono::steady_clock::now();
+        int bestMove = TicTacToeMinimax::predict(currentBoard, isMaxTurn);
+        auto end = std::chrono::steady_clock::now();
+        long long int nanos = (end - begin).count();
+        totalDuration += nanos;
+        durationByMove.emplace_back(nanos);
         isMaxTurn = !isMaxTurn;
         currentBoard = bestMove;
-        state = minimax.getState(currentBoard);
-        assert(state == PLAYING || state == DRAW);
+        state = TicTacToeMinimax::getState(currentBoard);
+        if (state != PLAYING && state != DRAW)
+        {
+            string exceptionMessage = "'" + getStateText(state) + "' must never happen during a Minimax vs Minimax battle!";
+            throw exceptionMessage;
+        }
     }
     printBoard(firstBoard);
     printBoard(currentBoard);
     printState(state);
-    cout << "benchmarkMinimaxVsMinimax: " << duration << " ms";
+    for (int i = 0; i < durationByMove.size(); ++i)
+    {
+        long long int nanoseconds = durationByMove[i];
+        printf("Move %i took %.6f ms\n", (i + 1), (nanoseconds / 1'000'000.0));
+    }
+    printf("Total duration: %.6f ms\n", (totalDuration / 1'000'000.0));
     cout << endl << endl;
 }
 
-void benchmarkEvaluate(TicTacToeMinimax& minimax, const int board, bool isMaxTurn)
-{
-    auto start = chrono::high_resolution_clock::now();
-    int nextBoard = minimax.evaluate(board, isMaxTurn);
-    auto finish = chrono::high_resolution_clock::now();
-    printBoard(board);
-    printBoard(nextBoard);
-    cout << endl << endl;
-    std::chrono::duration<double, std::milli> millis = finish - start;
-    cout << "benchmarkMinimaxVsMinimax: " << millis.count() << " ms";
-    cout << endl << endl;
-}
-
-void benchmarkEvaluateAll(TicTacToeMinimax& minimax, const int board, bool isMaxTurn)
-{
-    auto start = chrono::high_resolution_clock::now();
-    vector<int> bestBoards = minimax.evaluateAll(board, isMaxTurn);
-    auto finish = chrono::high_resolution_clock::now();
-
-    cout << "Found '" << bestBoards.size() << "' possibilities." << endl;
-
-    auto nanoseconds = chrono::duration_cast<chrono::nanoseconds>(finish - start);
-    printf("benchmarkEvaluateAll: %.2f ms", (nanoseconds.count() / 1000000.0f));
-    cout << endl << endl;
-}
-
-void printBoard(const int board)
+void TicTacToeMinimax::printBoard(int board)
 {
     int crossMask  = 3;
     cout << endl;
@@ -139,10 +143,8 @@ void printBoard(const int board)
     cout << endl;
 }
 
-void printState(const int state)
+void TicTacToeMinimax::printState(int state)
 {
-    if (state == PLAYING) cout << "Playing" << endl;
-    else if (state == DRAW) cout << "Draw" << endl;
-    else if (state == CROSS_WINS) cout << "CrossWins" << endl;
-    else cout << "CircleWins" << endl;
+    string stateText = getStateText(state);
+    cout << stateText << endl;
 }

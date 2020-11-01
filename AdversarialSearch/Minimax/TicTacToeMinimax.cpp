@@ -1,39 +1,38 @@
 #include "TicTacToeMinimax.h"
 
-#define WINNER_MASK_LENGTH 8
 #define MAXIMUM_MASK_VALUE 0b1'00'00'00'00'00'00'00'00'00
-const int DRAW_BOARD_STATE = 0b10'10'10'10'10'10'10'10'10;
-const int winnerMasks[WINNER_MASK_LENGTH] =
+#define DRAW_BOARD_STATE 0b10'10'10'10'10'10'10'10'10
+const int winnerMasks[8] =
 {
     0b10'10'10'00'00'00'00'00'00,
-    0b00'00'00'10'10'10'00'00'00,
-    0b00'00'00'00'00'00'10'10'10,
     0b10'00'00'10'00'00'10'00'00,
-    0b00'10'00'00'10'00'00'10'00,
+    0b00'00'00'00'00'00'10'10'10,
     0b00'00'10'00'00'10'00'00'10,
     0b10'00'00'00'10'00'00'00'10,
-    0b00'00'10'00'10'00'10'00'00
+    0b00'10'00'00'10'00'00'10'00,
+    0b00'00'00'10'10'10'00'00'00,
+    0b00'00'10'00'10'00'10'00'00,
 };
 
-int TicTacToeMinimax::evaluate(const int board, const bool isMaxTurn)
+int TicTacToeMinimax::predict(int board, bool isMaxTurn)
 {
     if (isMaxTurn)
     {
-        return evaluateMaxDecision(board);
+        return predictMaxDecision(board);
     }
-    return evaluateMinDecision(board);
+    return predictMinDecision(board);
 }
 
-std::vector<int> TicTacToeMinimax::evaluateAll(const int board, const bool isMaxTurn)
+std::vector<int> TicTacToeMinimax::evaluateAll(int board, bool isMaxTurn)
 {
     if (isMaxTurn)
     {
-        return evaluateMaxDecisions(board);
+        return predictMaxDecisions(board);
     }
-    return evaluateMinDecisions(board);
+    return predictMinDecisions(board);
 }
 
-std::vector<int> TicTacToeMinimax::evaluateMaxDecisions(const int board)
+std::vector<int> TicTacToeMinimax::predictMaxDecisions(int board)
 {
     std::vector<int> bestMoves;
     int bestMoveScore = -999;
@@ -43,7 +42,7 @@ std::vector<int> TicTacToeMinimax::evaluateMaxDecisions(const int board)
         if ((board & mask) == 0)
         {
             const int newBoard = (board | mask);
-            const int score = getMinTreeScore(newBoard, -999, 999);
+            const int score = predictMinTreeScore(newBoard, -999, 999);
             if (score > bestMoveScore)
             {
                 bestMoveScore = score;
@@ -60,7 +59,7 @@ std::vector<int> TicTacToeMinimax::evaluateMaxDecisions(const int board)
     return bestMoves;
 }
 
-std::vector<int> TicTacToeMinimax::evaluateMinDecisions(const int board)
+std::vector<int> TicTacToeMinimax::predictMinDecisions(int board)
 {
     std::vector<int> bestMoves;
     int bestMoveScore = 999;
@@ -70,7 +69,7 @@ std::vector<int> TicTacToeMinimax::evaluateMinDecisions(const int board)
         if ((board & mask) == 0)
         {
             const int newBoard = (board | mask);
-            const int score = getMaxTreeScore(newBoard, -999, 999);
+            const int score = predictMaxTreeScore(newBoard, -999, 999);
             if (score < bestMoveScore)
             {
                 bestMoveScore = score;
@@ -87,7 +86,7 @@ std::vector<int> TicTacToeMinimax::evaluateMinDecisions(const int board)
     return bestMoves;
 }
 
-int TicTacToeMinimax::evaluateMaxDecision(const int board)
+int TicTacToeMinimax::predictMaxDecision(int board)
 {
     int bestMove = 0;
     int bestMoveScore = -999;
@@ -97,7 +96,7 @@ int TicTacToeMinimax::evaluateMaxDecision(const int board)
         if ((board & mask) == 0)
         {
             const int newBoard = board | mask;
-            const int score = getMinTreeScore(newBoard, -999, 999);
+            const int score = predictMinTreeScore(newBoard, -999, 999);
             if (score > bestMoveScore)
             {
                 bestMoveScore = score;
@@ -109,7 +108,7 @@ int TicTacToeMinimax::evaluateMaxDecision(const int board)
     return bestMove;
 }
 
-int TicTacToeMinimax::evaluateMinDecision(const int board)
+int TicTacToeMinimax::predictMinDecision(int board)
 {
     int bestMove = 0;
     int bestMoveScore = 999;
@@ -119,7 +118,7 @@ int TicTacToeMinimax::evaluateMinDecision(const int board)
         if ((board & mask) == 0)
         {
             const int newBoard = board | mask;
-            const int score = getMaxTreeScore(newBoard, -999, 999);
+            const int score = predictMaxTreeScore(newBoard, -999, 999);
             if (score < bestMoveScore)
             {
                 bestMoveScore = score;
@@ -131,7 +130,7 @@ int TicTacToeMinimax::evaluateMinDecision(const int board)
     return bestMove;
 }
 
-int TicTacToeMinimax::getMaxTreeScore(const int board, int alpha, int beta)
+int TicTacToeMinimax::predictMaxTreeScore(int board, int alpha, int beta)
 {
     const int state = getState(board);
     if (state != PLAYING)
@@ -145,7 +144,7 @@ int TicTacToeMinimax::getMaxTreeScore(const int board, int alpha, int beta)
         if ((board & mask) == 0)
         {
             const int newBoard = board | mask;
-            const int score = getMinTreeScore(newBoard, alpha, beta);
+            const int score = predictMinTreeScore(newBoard, alpha, beta);
             if (score >= beta)
                 return score;
             if (score > alpha)
@@ -158,7 +157,7 @@ int TicTacToeMinimax::getMaxTreeScore(const int board, int alpha, int beta)
     return bestScore;
 }
 
-int TicTacToeMinimax::getMinTreeScore(const int board, int alpha, int beta)
+int TicTacToeMinimax::predictMinTreeScore(int board, int alpha, int beta)
 {
     const int state = getState(board);
     if (state != PLAYING)
@@ -172,7 +171,7 @@ int TicTacToeMinimax::getMinTreeScore(const int board, int alpha, int beta)
         if ((board & mask) == 0)
         {
             const int newBoard = board | mask;
-            const int score = getMaxTreeScore(newBoard, alpha, beta);
+            const int score = predictMaxTreeScore(newBoard, alpha, beta);
             if (score <= alpha)
                 return score;
             if (score < beta)
@@ -185,7 +184,7 @@ int TicTacToeMinimax::getMinTreeScore(const int board, int alpha, int beta)
     return bestScore;
 }
 
-inline int TicTacToeMinimax::getState(const int board)
+int TicTacToeMinimax::getState(int board)
 {
     for(int winnerMask : winnerMasks)
     {
