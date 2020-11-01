@@ -3,68 +3,82 @@
 MultiLayerPerceptron::MultiLayerPerceptron(std::vector<int> &neuronsByLayerArr)
 {
     int layersLength = neuronsByLayerArr.size();
-    int previousWeightsLength = neuronsByLayerArr[0];
+    int inputsLength = neuronsByLayerArr[0];
     for (int i = 0; i < layersLength; i++)
     {
         int weightsLength = neuronsByLayerArr[i];
-        Layer* layer = new Layer(weightsLength, previousWeightsLength);
-        _layers.push_back(layer);
-        previousWeightsLength = weightsLength;
+        std::unique_ptr<Layer> layer = std::make_unique<Layer>(weightsLength, inputsLength);
+        _layers.push_back(std::move(layer));
+        inputsLength = weightsLength;
     }
-    _outputs = new Matrix(previousWeightsLength, 1);
+    _rawOutputs = std::make_unique<Matrix>(inputsLength, 1);
+    _outputs = std::make_unique<Matrix>(inputsLength, 1);
     _outputActivationFunction = noActivation;
 }
 
 MultiLayerPerceptron::~MultiLayerPerceptron()
 {
     _outputActivationFunction = nullptr;
-    if (_outputs != nullptr)
-        delete _outputs;
-    for (int i = 0; i < _layers.size(); ++i)
-    {
-        Layer* layer = _layers[i];
-        if (layer != nullptr)
-            delete layer;
-    }
     _layers.clear();
 }
 
-void MultiLayerPerceptron::feedforward(Matrix& inputs)
+void MultiLayerPerceptron::feedforward(Matrix& inputs) const
 {
     Matrix& tempOutputs = inputs;
     for(int i = 0; i < _layers.size(); i++)
     {
-        Layer* layer = _layers[i];
+        const std::unique_ptr<Layer>& layer = _layers[i];
         layer->feedforward(tempOutputs);
         tempOutputs = layer->getOutputs();
     }
+    //_rawOutputs = std::make_unique<Matrix>(tempOutputs);
     Matrix::applyFunction(_outputActivationFunction, tempOutputs, *_outputs);
 }
 
-Matrix& MultiLayerPerceptron::getOutputs() const
+void MultiLayerPerceptron::backpropagate(const std::vector<double>& inputs,
+                                         const std::vector<double>& outputs,
+                                         double learningRate)  const
+{
+    //TODO(andrei) implement backpropagation algorithm here
+}
+
+const Layer& MultiLayerPerceptron::getLayer(int index) const
+{
+    assert(index < _layers.size());
+    const std::unique_ptr<Layer>& layer = _layers[index];
+    return *layer;
+}
+
+const Matrix& MultiLayerPerceptron::getOutputs() const
 {
     return *_outputs;
 }
 
-void MultiLayerPerceptron::setOutputActivationFunction(FloatFunction function)
+const Matrix& MultiLayerPerceptron::getRawOutputs() const
+{
+    return *_rawOutputs;
+}
+
+void MultiLayerPerceptron::setOutputActivationFunction(DoubleFunction function)
 {
     _outputActivationFunction = function;
 }
 
-void MultiLayerPerceptron::print(std::ostream& stream)
+void MultiLayerPerceptron::print(std::ostream& stream) const
 {
     for(int i = 0; i < _layers.size(); i++)
     {
-        Layer* layer = _layers[i];
+
+        const std::unique_ptr<Layer>& layer = _layers[i];
         layer->print(stream);
     }
 }
 
-void MultiLayerPerceptron::recover(std::istream& stream)
+void MultiLayerPerceptron::recover(std::istream& stream) const
 {
     for(int i = 0; i < _layers.size(); i++)
     {
-        Layer* layer = _layers[i];
+        const std::unique_ptr<Layer>& layer = _layers[i];
         layer->recover(stream);
     }
 }

@@ -8,28 +8,30 @@
 #include <vector>
 #include <memory>
 
-typedef float (*FloatFunction)(float);
+typedef double (*DoubleFunction)(double);
 
 class Matrix
 {
 private:
-    std::vector<float> _values;
+    std::vector<double> _values;
     int _rows;
     int _columns;
 
 public:
     Matrix(int rows, int columns);
-    float get(int row, int column) const;
-    void set(int row, int column, float value);
+    Matrix(const Matrix& source);
+    double get(int row, int column) const;
+    void set(int row, int column, double value);
     int getRows() const;
     int getColumns() const;
-    void print(std::ostream& stream);
+    void print(std::ostream& stream) const;
     void print(std::ostream& stream, int decimalPlace) const;
-    static void applyFunction(FloatFunction function, const Matrix& source, Matrix&  target);
-    void applyFunction(FloatFunction function);
+    static void applyFunction(DoubleFunction function, const Matrix& source, Matrix&  target);
+    void applyFunction(DoubleFunction function);
     static std::unique_ptr<Matrix> multiply(const Matrix& left, const Matrix& right);
     static void multiply(const Matrix& left, const Matrix& right, Matrix& target);
-    static void multiply(Matrix& target, float scalar);
-    static void add(Matrix& target, float value);
+    static void multiply(Matrix& target, double scalar);
+    static void add(Matrix& target, double value);
+    static std::unique_ptr<Matrix> fromVectorRows(const std::vector<double>& vector);
 };
 #endif //NEURALNETWORK_MATRIX_H

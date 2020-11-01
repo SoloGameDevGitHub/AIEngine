@@ -4,25 +4,29 @@ Matrix::Matrix(int rows, int columns) : _rows(rows),
                                         _columns(columns)
 {
     assert(columns >= 1 && rows >= 1);
-    _values.clear();
     int size = columns * rows;
-    for(int i = 0; i < size; i++)
-    {
-        _values.push_back(0.0f);
-    }
+    _values = std::vector<double>(size);
 }
 
-float Matrix::get(const int row, const int column) const
+Matrix::Matrix(const Matrix& source)
+{
+    _values = source._values;
+    _rows = source._rows;
+    _columns = source._columns;
+}
+
+double Matrix::get(const int row, const int column) const
 {
     int index = row * _columns + column;
     assert(index < (_rows * _columns));
-    return _values[index];
+    double value = _values[index];
+    return value;
 }
 
-void Matrix::set(const int row, const int column, const float value)
+void Matrix::set(const int row, const int column, const double value)
 {
     assert((row >= 0 && row < _rows) && (column >= 0 && column < _columns));
-    int index = row * _columns + column;
+    const int index = row * _columns + column;
     _values[index] = value;
 }
 
@@ -36,7 +40,7 @@ int Matrix::getColumns() const
     return _columns;
 }
 
-void Matrix::print(std::ostream& stream)
+void Matrix::print(std::ostream& stream) const
 {
     print(stream, 3);
 }
@@ -49,8 +53,8 @@ void Matrix::print(std::ostream& stream, int decimalPlace) const
     {
         for (int c = 0; c < _columns; c++)
         {
-            float value = get(r, c);
-            float truncatedValue = floorf(value * decimalFactor) / decimalFactor;
+            double value = get(r, c);
+            double truncatedValue = floor(value * decimalFactor) / decimalFactor;
             stream << "[" << truncatedValue << "] ";
         }
         stream << std::endl;
@@ -72,7 +76,7 @@ void Matrix::multiply(const Matrix& left, const Matrix& right, Matrix& target)
     {
         for(int column = 0; column < target.getColumns(); ++column)
         {
-            float sum = 0.0;
+            double sum = 0.0;
             for(int leftColumn = 0; leftColumn < left.getColumns(); ++leftColumn)
             {
                 sum += left.get(row, leftColumn) * right.get(leftColumn, column);
@@ -82,31 +86,31 @@ void Matrix::multiply(const Matrix& left, const Matrix& right, Matrix& target)
     }
 }
 
-void Matrix::multiply(Matrix& target, const float scalar)
+void Matrix::multiply(Matrix& target, const double scalar)
 {
     for (int r = 0; r < target.getRows(); ++r)
     {
         for (int c = 0; c < target.getColumns(); ++c)
         {
-            float value = target.get(r,c) * scalar;
+            double value = target.get(r,c) * scalar;
             target.set(r,c,value);
         }
     }
 }
 
-void Matrix::add(Matrix& target, const float value)
+void Matrix::add(Matrix& target, const double value)
 {
     for (int r = 0; r < target.getRows(); ++r)
     {
         for (int c = 0; c < target.getColumns(); ++c)
         {
-            float sum = target.get(r, c) + value;
+            double sum = target.get(r, c) + value;
             target.set(r, c, sum);
         }
     }
 }
 
-void Matrix::applyFunction(FloatFunction function, const Matrix& source, Matrix&  target)
+void Matrix::applyFunction(DoubleFunction function, const Matrix& source, Matrix&  target)
 {
     assert(function);
     assert(&source);
@@ -117,14 +121,25 @@ void Matrix::applyFunction(FloatFunction function, const Matrix& source, Matrix&
     {
         for (int c = 0; c < source.getColumns(); ++c)
         {
-            float newValue = function(source.get(r,c));
+            double newValue = function(source.get(r,c));
             target.set(r,c,newValue);
         }
     }
 }
 
-void Matrix::applyFunction(FloatFunction function)
+void Matrix::applyFunction(DoubleFunction function)
 {
     Matrix& matrix = *this;
     Matrix::applyFunction(function, matrix, matrix);
+}
+
+std::unique_ptr<Matrix> Matrix::fromVectorRows(const std::vector<double>& vector)
+{
+    int size = vector.size();
+    std::unique_ptr<Matrix> matrix = std::make_unique<Matrix>(size, 1);
+    for (int i = 0; i < size; ++i) {
+        const double number = vector[i];
+        matrix->set(i, 0, number);
+    }
+    return matrix;
 }

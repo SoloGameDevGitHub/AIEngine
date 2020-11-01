@@ -2,13 +2,13 @@
 #include "../Common/Random.h"
 
 ///returns the expected output from given inputs
-float toExpectedOutput(Matrix& inputs)
+double toExpectedOutput(Matrix& inputs)
 {
     if (inputs.get(0,0) >= inputs.get(1,0))
     {
-        return -1.0f;
+        return -1.0;
     }
-    return 1.0f;
+    return 1.0;
 }
 
 ///Populate 'matrix' with random inputs in range -500.0/500.0
@@ -16,12 +16,12 @@ void populateRandomInput(Matrix& matrix)
 {
     for (int r = 0; r < matrix.getRows(); ++r)
     {
-        float value = random::range(-500.0f, 500.0f);
+        double value = random::range(-500.0, 500.0);
         matrix.set(r,0,value);
     }
 }
 
-int main(int argc, char* argv[])
+int main()
 {
     random::initRandomSeed();
     auto perceptron = std::make_unique<Perceptron>(2);
@@ -31,8 +31,8 @@ int main(int argc, char* argv[])
     while (correctGuesses < 1000)
     {
         populateRandomInput(*inputs);
-        float expectedOutput = toExpectedOutput(*inputs);
-        float guess = perceptron->feedforward(*inputs);
+        double expectedOutput = toExpectedOutput(*inputs);
+        double guess = perceptron->feedforward(*inputs);
         if (guess == expectedOutput)
         {
             correctGuesses++;
@@ -44,8 +44,8 @@ int main(int argc, char* argv[])
         }
     }
     std::cout << "The network has been trained! Final weights are:" << std::endl;
-    Neuron& neuron = perceptron->getNeuron();
-    Matrix& weights = neuron.getWeights();
+    const Neuron& neuron = perceptron->getNeuron();
+    const Matrix& weights = neuron.getWeights();
     weights.print(std::cout);
     std::cout << "Bias:" << neuron.getBias() << std::endl;
     return 0;

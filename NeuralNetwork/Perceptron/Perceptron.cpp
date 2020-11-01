@@ -4,23 +4,22 @@
 Perceptron::Perceptron(int weightsLength)
 {
     _neuron = std::make_unique<Neuron>();
-    auto weights = std::make_unique<Matrix>(1, weightsLength);
-    for (int c = 0; c < weights->getColumns(); ++c)
-    {
-        float randomValue = random::range(-1.0f, 1.0f);
-        weights->set(0,c,randomValue);
-    }
-    _neuron->setWeights(*weights);
-    float randomBias = random::range(-0.1f,0.1f);
-    _neuron->setBias(randomBias);
-    _activationFunction = noActivation;
+    initializeWeights(weightsLength);
+    setActivationFunction(noActivation);
 }
 
-Perceptron::Perceptron(const Perceptron &source)
+void Perceptron::initializeWeights(int length) const
 {
-    Neuron& neuron = *source._neuron;
-    _neuron = std::make_unique<Neuron>(neuron);
-    _activationFunction = source._activationFunction;
+    std::unique_ptr<Matrix> weights = std::make_unique<Matrix>(1, length);
+    for (int c = 0; c < weights->getColumns(); ++c)
+    {
+        double randomValue = random::range(-1.0, 1.0);
+        weights->set(0,c,randomValue);
+    }
+    _neuron->setWeights(weights);
+
+    double randomBias = random::range(-0.1,0.1);
+    _neuron->setBias(randomBias);
 }
 
 Perceptron::~Perceptron()
@@ -28,17 +27,18 @@ Perceptron::~Perceptron()
     _activationFunction = nullptr;
 }
 
-void Perceptron::setActivationFunction(FloatFunction activationFunction)
+void Perceptron::setActivationFunction(DoubleFunction activationFunction)
 {
     _activationFunction = activationFunction;
 }
 
-Neuron& Perceptron::getNeuron()
+const Neuron& Perceptron::getNeuron() const
 {
-    return *_neuron;
+    const Neuron& neuron = *_neuron;
+    return neuron;
 }
 
-void Perceptron::print(std::ostream& stream)
+void Perceptron::print(std::ostream& stream) const
 {
     const Matrix& weights = _neuron->getWeights();
     stream << weights.getRows() << " ";
@@ -46,52 +46,54 @@ void Perceptron::print(std::ostream& stream)
     stream << _neuron->getBias() << std::endl;
     for (int c = 0; c < weights.getColumns(); ++c)
     {
-        float weight = weights.get(0, c);
+        const double weight = weights.get(0, c);
         stream << weight << std::endl;
     }
 }
 
-void Perceptron::recover(std::istream& stream)
+void Perceptron::recover(std::istream& stream) const
 {
     int rows, columns;
     stream >> rows;
     stream >> columns;
 
-    float bias;
+    double bias;
     stream >> bias;
     _neuron->setBias(bias);
 
-    Matrix& matrix = _neuron->getWeights();
+    const Matrix& matrix = _neuron->getWeights();
     for (int r = 0; r < rows; ++r)
     {
         for (int c = 0; c < columns; ++c)
         {
-            float weight;
+            double weight;
             stream >> weight;
-            matrix.set(r, c, weight);
+            const_cast<Matrix&>(matrix).set(r, c, weight);
         }
     }
 }
 
-void Perceptron::train(const Matrix& inputs, const float target)
+void Perceptron::train(const Matrix& inputs, const double target)
 {
-    float output = feedforward(inputs);
-    float error = (target - output);
-    Matrix& weights = _neuron->getWeights();
-    for (int c = 0; c < weights.getColumns(); ++c)
+    double output = feedforward(inputs);
+    double error = (target - output);
+    std::unique_ptr<Matrix> weights = std::make_unique<Matrix>(_neuron->getWeights());
+    for (int c = 0; c < weights->getColumns(); ++c)
     {
-        float value = inputs.get(c, 0) * error * _learningRate;
-        weights.set(0, c, value);
+        double value = inputs.get(c, 0) * error * _learningRate;
+        weights->set(0, c, value);
     }
-    float bias = _neuron->getBias();
+    _neuron->setWeights(weights);
+    double bias = _neuron->getBias();
     bias += error;
     _neuron->setBias(bias);
 }
 
-float Perceptron::feedforward(const Matrix& inputs)
+double Perceptron::feedforward(const Matrix& inputs) const
 {
-    auto outputs = _neuron->feedforward(inputs);
-    float sum =  _neuron->getBias();
+    const Matrix& weights = _neuron->getWeights();
+    std::unique_ptr<Matrix> outputs = Matrix::multiply(weights, inputs);
+    double sum =  _neuron->getBias();
     for (int r = 0; r < outputs->getRows(); ++r)
     {
         sum += outputs->get(r,0);

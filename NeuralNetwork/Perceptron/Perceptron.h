@@ -7,18 +7,17 @@ class Perceptron
 {
 private:
     std::unique_ptr<Neuron> _neuron;
-    const float _learningRate = 0.1;
-    FloatFunction _activationFunction;
-
+    const double _learningRate = 0.1;
+    DoubleFunction _activationFunction;
+    void initializeWeights(int length) const;
 public:
     Perceptron(int weightsLength);
-    Perceptron(const Perceptron& source);
     ~Perceptron();
-    void print(std::ostream& stream);
-    void recover(std::istream& stream);
-    void setActivationFunction(FloatFunction activationFunction);
-    float feedforward(const Matrix& inputs);
-    void train(const Matrix& inputs, const float output);
-    Neuron& getNeuron();
+    void print(std::ostream& stream) const;
+    void recover(std::istream& stream) const;
+    void setActivationFunction(DoubleFunction activationFunction);
+    double feedforward(const Matrix& inputs) const;
+    void train(const Matrix& inputs, const double output);
+    const Neuron& getNeuron() const;
 };
 #endif //NEURALNETWORK_PERCEPTRON_H

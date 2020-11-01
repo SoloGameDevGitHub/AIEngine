@@ -1,30 +1,32 @@
 #include "ActivationFunctions.h"
 
-float _zeroOrOneThreshold = 0.5f;
+double _zeroOrOneThreshold = 0.5;
 
-float sigmoid(float value)
+double sigmoid(double value)
 {
-    float result = 1.0f / (1.0f + std::exp(value * -1.0f));
+    double result = 1.0 / (1.0 + std::exp(value * -1.0));
+    return result;
+    //double k = std::exp(value);
+    //return k / (1.0 + k);
+}
+
+double sign(double value)
+{
+    double result = value > 0.0 ? 1.0 : -1.0;
     return result;
 }
 
-float sign(float value)
+double zeroOrOne(double value)
 {
-    float result = value > 0.0f ? 1.0f : -1.0f;
-    return result;
+    return value >= _zeroOrOneThreshold ? 1.0 : 0.0;
 }
 
-float zeroOrOne(float value)
-{
-    return value >= _zeroOrOneThreshold ? 1.0f : 0.0f;
-}
-
-float noActivation(float value)
+double noActivation(double value)
 {
     return value;
 }
 
-void setZeroOrOneThreshold(float threshold)
+void setZeroOrOneThreshold(double threshold)
 {
     _zeroOrOneThreshold = threshold;
 }

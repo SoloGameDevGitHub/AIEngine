@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
+#include <cstdlib>
 #include "Random.h"
 
 void random::initRandomSeed()
@@ -8,10 +9,10 @@ void random::initRandomSeed()
     srand(seed);
 }
 
-float random::range(float a, float b)
+double random::range(double min, double max)
 {
-    float randomValue = ((float) std::rand()) / (float) RAND_MAX;
-    float difference = b - a;
-    float result = randomValue * difference;
-    return a + result;
+    double randomValue = ((double) std::rand()) / (double) RAND_MAX;
+    double difference = max - min;
+    double result = randomValue * difference;
+    return min + result;
 }

@@ -7,17 +7,18 @@
 class Layer
 {
 private:
-    std::vector<Perceptron*> _perceptrons;
+    std::vector<std::unique_ptr<Perceptron>> _perceptrons;
     std::unique_ptr<Matrix> _outputs;
     const int _inputsLength;
 
 public:
     Layer(int perceptronsLength, int inputsLength);
     ~Layer();
-    void print(std::ostream& stream);
-    void recover(std::istream& stream);
+    void print(std::ostream& stream) const;
+    void recover(std::istream& stream) const;
     void feedforward(const Matrix& inputs);
-    Matrix& getOutputs() const;
+    const Perceptron& getPerceptron(int index) const;
+    const Matrix& getOutputs() const;
 };
 
 #endif //AIENGINE_LAYER_H

@@ -3,6 +3,6 @@
 namespace random
 {
     void initRandomSeed();
-    float range(float a, float b);
+    double range(double a, double b);
 }
 #endif //AIENGINE_RANDOM_H
