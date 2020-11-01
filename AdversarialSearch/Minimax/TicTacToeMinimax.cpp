@@ -14,191 +14,196 @@ const int winnerMasks[8] =
     0b00'00'10'00'10'00'10'00'00,
 };
 
-int TicTacToeMinimax::predict(int board, bool isMaxTurn)
+namespace TicTacToeMinimax
 {
-    if (isMaxTurn)
-    {
-        return predictMaxDecision(board);
-    }
-    return predictMinDecision(board);
-}
+    int predictMinTreeScore(int board, int alpha, int beta);
 
-std::vector<int> TicTacToeMinimax::evaluateAll(int board, bool isMaxTurn)
-{
-    if (isMaxTurn)
+    int predictMaxTreeScore(int board, int alpha, int beta)
     {
-        return predictMaxDecisions(board);
-    }
-    return predictMinDecisions(board);
-}
-
-std::vector<int> TicTacToeMinimax::predictMaxDecisions(int board)
-{
-    std::vector<int> bestMoves;
-    int bestMoveScore = -999;
-    int mask = 0b11;
-    while (mask < MAXIMUM_MASK_VALUE)
-    {
-        if ((board & mask) == 0)
+        const int state = getState(board);
+        if (state != PLAYING)
         {
-            const int newBoard = (board | mask);
-            const int score = predictMinTreeScore(newBoard, -999, 999);
-            if (score > bestMoveScore)
+            return state;
+        }
+        int bestScore = -999;
+        int mask = 0b11;
+        while (mask < MAXIMUM_MASK_VALUE)
+        {
+            if ((board & mask) == 0)
             {
-                bestMoveScore = score;
-                bestMoves.clear();
-                bestMoves.push_back(newBoard);
+                const int newBoard = board | mask;
+                const int score = predictMinTreeScore(newBoard, alpha, beta);
+                if (score >= beta)
+                    return score;
+                if (score > alpha)
+                    alpha = score;
+                if (score > bestScore)
+                    bestScore = score;
             }
-            else if (score == bestMoveScore)
+            mask <<= 2;
+        }
+        return bestScore;
+    }
+
+    int predictMinTreeScore(int board, int alpha, int beta)
+    {
+        const int state = getState(board);
+        if (state != PLAYING)
+        {
+            return state;
+        }
+        int bestScore = 999;
+        int mask = 0b10;
+        while (mask < MAXIMUM_MASK_VALUE)
+        {
+            if ((board & mask) == 0)
             {
-                bestMoves.push_back(newBoard);
+                const int newBoard = board | mask;
+                const int score = predictMaxTreeScore(newBoard, alpha, beta);
+                if (score <= alpha)
+                    return score;
+                if (score < beta)
+                    beta = score;
+                if (score < bestScore)
+                    bestScore = score;
             }
+            mask <<= 2;
         }
-        mask <<= 2;
+        return bestScore;
     }
-    return bestMoves;
-}
 
-std::vector<int> TicTacToeMinimax::predictMinDecisions(int board)
-{
-    std::vector<int> bestMoves;
-    int bestMoveScore = 999;
-    int mask = 0b10;
-    while (mask < MAXIMUM_MASK_VALUE)
+    int predictMaxDecision(int board)
     {
-        if ((board & mask) == 0)
+        int bestMove = 0;
+        int bestMoveScore = -999;
+        int mask = 0b11;
+        while (mask < MAXIMUM_MASK_VALUE)
         {
-            const int newBoard = (board | mask);
-            const int score = predictMaxTreeScore(newBoard, -999, 999);
-            if (score < bestMoveScore)
+            if ((board & mask) == 0)
             {
-                bestMoveScore = score;
-                bestMoves.clear();
-                bestMoves.push_back(newBoard);
+                const int newBoard = board | mask;
+                const int score = predictMinTreeScore(newBoard, -999, 999);
+                if (score > bestMoveScore)
+                {
+                    bestMoveScore = score;
+                    bestMove = newBoard;
+                }
             }
-            else if (score == bestMoveScore)
+            mask <<= 2;
+        }
+        return bestMove;
+    }
+
+    int predictMinDecision(int board)
+    {
+        int bestMove = 0;
+        int bestMoveScore = 999;
+        int mask = 0b10;
+        while (mask < MAXIMUM_MASK_VALUE)
+        {
+            if ((board & mask) == 0)
             {
-                bestMoves.push_back(newBoard);
+                const int newBoard = board | mask;
+                const int score = predictMaxTreeScore(newBoard, -999, 999);
+                if (score < bestMoveScore)
+                {
+                    bestMoveScore = score;
+                    bestMove = newBoard;
+                }
             }
+            mask <<= 2;
         }
-        mask <<= 2;
+        return bestMove;
     }
-    return bestMoves;
-}
 
-int TicTacToeMinimax::predictMaxDecision(int board)
-{
-    int bestMove = 0;
-    int bestMoveScore = -999;
-    int mask = 0b11;
-    while (mask < MAXIMUM_MASK_VALUE)
+    std::vector<int> predictMaxDecisions(int board)
     {
-        if ((board & mask) == 0)
+        std::vector<int> bestMoves;
+        int bestMoveScore = -999;
+        int mask = 0b11;
+        while (mask < MAXIMUM_MASK_VALUE)
         {
-            const int newBoard = board | mask;
-            const int score = predictMinTreeScore(newBoard, -999, 999);
-            if (score > bestMoveScore)
+            if ((board & mask) == 0)
             {
-                bestMoveScore = score;
-                bestMove = newBoard;
+                const int newBoard = (board | mask);
+                const int score = predictMinTreeScore(newBoard, -999, 999);
+                if (score > bestMoveScore)
+                {
+                    bestMoveScore = score;
+                    bestMoves.clear();
+                    bestMoves.push_back(newBoard);
+                }
+                else if (score == bestMoveScore)
+                {
+                    bestMoves.push_back(newBoard);
+                }
             }
+            mask <<= 2;
         }
-        mask <<= 2;
+        return bestMoves;
     }
-    return bestMove;
-}
 
-int TicTacToeMinimax::predictMinDecision(int board)
-{
-    int bestMove = 0;
-    int bestMoveScore = 999;
-    int mask = 0b10;
-    while (mask < MAXIMUM_MASK_VALUE)
+    std::vector<int> predictMinDecisions(int board)
     {
-        if ((board & mask) == 0)
+        std::vector<int> bestMoves;
+        int bestMoveScore = 999;
+        int mask = 0b10;
+        while (mask < MAXIMUM_MASK_VALUE)
         {
-            const int newBoard = board | mask;
-            const int score = predictMaxTreeScore(newBoard, -999, 999);
-            if (score < bestMoveScore)
+            if ((board & mask) == 0)
             {
-                bestMoveScore = score;
-                bestMove = newBoard;
+                const int newBoard = (board | mask);
+                const int score = predictMaxTreeScore(newBoard, -999, 999);
+                if (score < bestMoveScore)
+                {
+                    bestMoveScore = score;
+                    bestMoves.clear();
+                    bestMoves.push_back(newBoard);
+                }
+                else if (score == bestMoveScore)
+                {
+                    bestMoves.push_back(newBoard);
+                }
+            }
+            mask <<= 2;
+        }
+        return bestMoves;
+    }
+
+    int predict(int board, bool isMaxTurn)
+    {
+        if (isMaxTurn)
+        {
+            return predictMaxDecision(board);
+        }
+        return predictMinDecision(board);
+    }
+
+    std::vector<int> predictAll(int board, bool isMaxTurn)
+    {
+        if (isMaxTurn)
+        {
+            return predictMaxDecisions(board);
+        }
+        return predictMinDecisions(board);
+    }
+
+    int getState(int board)
+    {
+        for(int winnerMask : winnerMasks)
+        {
+            if ((board & winnerMask) == winnerMask)
+            {
+                winnerMask = winnerMask >> 1;
+                int piecesXor = (winnerMask ^ board) & winnerMask;
+                if (piecesXor == 0)
+                    return CROSS_WINS;
+                if (piecesXor == winnerMask)
+                    return CIRCLE_WINS;
             }
         }
-        mask <<= 2;
+        if ((board & DRAW_BOARD_STATE) == DRAW_BOARD_STATE)
+            return DRAW;
+        return PLAYING;
     }
-    return bestMove;
-}
-
-int TicTacToeMinimax::predictMaxTreeScore(int board, int alpha, int beta)
-{
-    const int state = getState(board);
-    if (state != PLAYING)
-    {
-	    return state;
-    }
-    int bestScore = -999;
-    int mask = 0b11;
-    while (mask < MAXIMUM_MASK_VALUE)
-    {
-        if ((board & mask) == 0)
-        {
-            const int newBoard = board | mask;
-            const int score = predictMinTreeScore(newBoard, alpha, beta);
-            if (score >= beta)
-                return score;
-            if (score > alpha)
-                alpha = score;
-            if (score > bestScore)
-                bestScore = score;
-        }
-        mask <<= 2;
-    }
-    return bestScore;
-}
-
-int TicTacToeMinimax::predictMinTreeScore(int board, int alpha, int beta)
-{
-    const int state = getState(board);
-    if (state != PLAYING)
-    {
-	    return state;
-    }
-    int bestScore = 999;
-    int mask = 0b10;
-    while (mask < MAXIMUM_MASK_VALUE)
-    {
-        if ((board & mask) == 0)
-        {
-            const int newBoard = board | mask;
-            const int score = predictMaxTreeScore(newBoard, alpha, beta);
-            if (score <= alpha)
-                return score;
-            if (score < beta)
-                beta = score;
-            if (score < bestScore)
-                bestScore = score;
-        }
-        mask <<= 2;
-    }
-    return bestScore;
-}
-
-int TicTacToeMinimax::getState(int board)
-{
-    for(int winnerMask : winnerMasks)
-    {
-        if ((board & winnerMask) == winnerMask)
-        {
-            winnerMask = winnerMask >> 1;
-            int piecesXor = (winnerMask ^ board) & winnerMask;
-            if (piecesXor == 0)
-                return CROSS_WINS;
-            if (piecesXor == winnerMask)
-                return CIRCLE_WINS;
-        }
-    }
-    if ((board & DRAW_BOARD_STATE) == DRAW_BOARD_STATE)
-        return DRAW;
-    return PLAYING;
 }
