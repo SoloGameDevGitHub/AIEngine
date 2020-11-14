@@ -1,30 +1,22 @@
-#ifndef AIENGINE_MLP_H
-#define AIENGINE_MLP_H
+#pragma once
+
+#include "../ActivationFunctions.h"
 #include "Layer.h"
 
-class MultiLayerPerceptron
+class MultiLayerPerceptron : public ISerializable
 {
 private:
     std::vector<std::unique_ptr<Layer>> _layers;
-    std::unique_ptr<Matrix> _rawOutputs;
-    std::unique_ptr<Matrix> _outputs;
-    DoubleFunction _outputActivationFunction;
+    std::vector<std::vector<double>> _inputsByLayer;
+    activationfunction::function _outputActivationFunction;
 
 public:
-    MultiLayerPerceptron(std::vector<int> &neuronsByLayerArr);
-    ~MultiLayerPerceptron();
-    void feedforward(Matrix& inputs) const;
-    void backpropagate(const std::vector<double>& inputs, const std::vector<double>& outputs, double learningRate) const;
-    /**
-     * Return reference to generated outputs after applying the activation function on them.
-     * @return Reference to activated outputs.
-     */
-    const Matrix& getOutputs() const;
-    const Matrix& getRawOutputs() const;
-    void print(std::ostream& stream) const;
-    void recover(std::istream& stream) const;
-    void setOutputActivationFunction(DoubleFunction function);
-    const Layer& getLayer(int index) const;
+    MultiLayerPerceptron(int inputsLength, const std::vector<int>& neuronsByLayerArr);
+    std::vector<double> feedforward(std::vector<double> inputs);
+    void backpropagate(std::vector<double> inputs, std::vector<double> targets, const double learningRate);
+    void serialize(std::ostream &stream) const override;
+    void deserialize(std::istream &stream) override;
+    void setOutputActivationFunction(activationfunction::function activationFunction);
+    int getLayersLength() const;
+    Layer& getLayer(int index) const;
 };
-
-#endif //AIENGINE_MLP_H

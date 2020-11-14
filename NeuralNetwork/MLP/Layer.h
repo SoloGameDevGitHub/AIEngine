@@ -1,24 +1,20 @@
-#ifndef AIENGINE_LAYER_H
-#define AIENGINE_LAYER_H
+#pragma once
 
 #include <memory>
-#include "../Perceptron/Perceptron.h"
+#include "../../Miscellaneous/ISerializable.h"
+#include "../ActivationFunctions.h"
+#include "../Neuron.h"
 
-class Layer
+class Layer : public ISerializable
 {
 private:
-    std::vector<std::unique_ptr<Perceptron>> _perceptrons;
-    std::unique_ptr<Matrix> _outputs;
-    const int _inputsLength;
+    std::vector<std::unique_ptr<Neuron>> _neurons;
 
 public:
-    Layer(int perceptronsLength, int inputsLength);
-    ~Layer();
-    void print(std::ostream& stream) const;
-    void recover(std::istream& stream) const;
-    void feedforward(const Matrix& inputs);
-    const Perceptron& getPerceptron(int index) const;
-    const Matrix& getOutputs() const;
+    Layer(int neurons, int weights);
+    std::vector<double> feedforward(const std::vector<double>& inputs);
+    void serialize(std::ostream &stream) const override;
+    void deserialize(std::istream &stream) override;
+    Neuron& getNeuron(int index) const;
+    int getNeuronsLength() const;
 };
-
-#endif //AIENGINE_LAYER_H

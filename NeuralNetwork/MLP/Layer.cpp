@@ -1,63 +1,54 @@
 #include "Layer.h"
 
-Layer::Layer(int perceptronsLength,
-             int inputsLength) : _inputsLength(inputsLength)
+Layer::Layer(int neurons, int weights)
 {
-    for(int i = 0; i < perceptronsLength; i++)
+    for(int i = 0; i < neurons; i++)
     {
-
-        std::unique_ptr<Perceptron> perceptron = std::make_unique<Perceptron>(inputsLength);
-        perceptron->setActivationFunction(sigmoid);
-        _perceptrons.push_back(std::move(perceptron));
-    }
-    _outputs = std::make_unique<Matrix>(perceptronsLength, 1);
-}
-
-
-
-Layer::~Layer()
-{
-    _perceptrons.clear();
-}
-
-void Layer::print(std::ostream& stream) const
-{
-    for(unsigned int i = 0; i < _perceptrons.size(); i++)
-    {
-        const Perceptron& perceptron = *_perceptrons[i];
-        perceptron.print(stream);
+        std::unique_ptr<Neuron> neuron = std::make_unique<Neuron>(weights);
+        neuron->setActivationFunction(activationfunction::sigmoid);
+        neuron->randomizeWeights();
+        _neurons.push_back(std::move(neuron));
     }
 }
 
-void Layer::recover(std::istream& stream) const
+void Layer::serialize(std::ostream& stream) const
 {
-    for(unsigned int i = 0; i < _perceptrons.size(); i++)
+    for(unsigned int i = 0; i < _neurons.size(); i++)
     {
-        const Perceptron& perceptron = *_perceptrons[i];
-        perceptron.recover(stream);
+        Neuron& neuron = *_neurons[i];
+        neuron.serialize(stream);
     }
 }
 
-void Layer::feedforward(const Matrix& inputs)
+void Layer::deserialize(std::istream &stream)
 {
-    assert(_inputsLength == inputs.getRows());
-    for(unsigned int i = 0; i < _perceptrons.size(); i++)
+    for(unsigned int i = 0; i < _neurons.size(); i++)
     {
-        const Perceptron& perceptron = *_perceptrons[i];
-        double value = perceptron.feedforward(inputs);
-        _outputs->set(i, 0, value);
+        Neuron& neuron = *_neurons[i];
+        neuron.deserialize(stream);
     }
 }
 
-const Perceptron& Layer::getPerceptron(int index) const
+std::vector<double> Layer::feedforward(const std::vector<double>& inputs)
 {
-    assert(index < _perceptrons.size());
-    const Perceptron& perceptron = *_perceptrons[index];
-    return perceptron;
+    std::vector<double> outputs(_neurons.size());
+    for(unsigned int i = 0; i < _neurons.size(); i++)
+    {
+        Neuron& neuron = *_neurons[i];
+        double output = neuron.feedforward(inputs, 0.0); //TODO use bias neuron
+        outputs[i] = output;
+    }
+    return outputs;
 }
 
-const Matrix& Layer::getOutputs() const
+int Layer::getNeuronsLength() const
 {
-    const Matrix& matrix = *_outputs;
-    return matrix;
+    return _neurons.size();
+}
+
+Neuron& Layer::getNeuron(int index) const
+{
+    assert(index < _neurons.size());
+    Neuron& neuron = *_neurons[index];
+    return neuron;
 }
