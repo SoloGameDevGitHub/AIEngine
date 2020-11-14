@@ -35,7 +35,7 @@ std::vector<double> Layer::feedforward(const std::vector<double>& inputs)
     for(unsigned int i = 0; i < _neurons.size(); i++)
     {
         Neuron& neuron = *_neurons[i];
-        double output = neuron.feedforward(inputs, 0.0); //TODO use bias neuron
+        double output = neuron.feedforward(inputs, 0.0);
         outputs[i] = output;
     }
     return outputs;
