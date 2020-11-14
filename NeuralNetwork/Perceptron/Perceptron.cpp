@@ -1,103 +1,49 @@
 #include "Perceptron.h"
-#include "../Common/Random.h"
 
-Perceptron::Perceptron(int weightsLength)
+Perceptron::Perceptron(int weights)
 {
-    _neuron = std::make_unique<Neuron>();
-    initializeWeights(weightsLength);
-    setActivationFunction(noActivation);
+    _neuron = std::make_unique<Neuron>(weights);
 }
 
-void Perceptron::initializeWeights(int length) const
+double Perceptron::feedforward(const std::vector<double> inputs)
 {
-    std::unique_ptr<Matrix> weights = std::make_unique<Matrix>(1, length);
-    for (int c = 0; c < weights->getColumns(); ++c)
-    {
-        double randomValue = random::range(-1.0, 1.0);
-        weights->set(0,c,randomValue);
-    }
-    _neuron->setWeights(weights);
-
-    double randomBias = random::range(-0.1,0.1);
-    _neuron->setBias(randomBias);
+    double output = _neuron->feedforward(inputs, _bias);
+    return output;
 }
 
-Perceptron::~Perceptron()
-{
-    _activationFunction = nullptr;
-}
-
-void Perceptron::setActivationFunction(DoubleFunction activationFunction)
-{
-    _activationFunction = activationFunction;
-}
-
-const Neuron& Perceptron::getNeuron() const
-{
-    const Neuron& neuron = *_neuron;
-    return neuron;
-}
-
-void Perceptron::print(std::ostream& stream) const
-{
-    const Matrix& weights = _neuron->getWeights();
-    stream << weights.getRows() << " ";
-    stream << weights.getColumns() << std::endl;
-    stream << _neuron->getBias() << std::endl;
-    for (int c = 0; c < weights.getColumns(); ++c)
-    {
-        const double weight = weights.get(0, c);
-        stream << weight << std::endl;
-    }
-}
-
-void Perceptron::recover(std::istream& stream) const
-{
-    int rows, columns;
-    stream >> rows;
-    stream >> columns;
-
-    double bias;
-    stream >> bias;
-    _neuron->setBias(bias);
-
-    const Matrix& matrix = _neuron->getWeights();
-    for (int r = 0; r < rows; ++r)
-    {
-        for (int c = 0; c < columns; ++c)
-        {
-            double weight;
-            stream >> weight;
-            const_cast<Matrix&>(matrix).set(r, c, weight);
-        }
-    }
-}
-
-void Perceptron::train(const Matrix& inputs, const double target)
+void Perceptron::train(const std::vector<double> inputs, double target, double learningRate)
 {
     double output = feedforward(inputs);
     double error = (target - output);
-    std::unique_ptr<Matrix> weights = std::make_unique<Matrix>(_neuron->getWeights());
-    for (int c = 0; c < weights->getColumns(); ++c)
+    std::vector<double> weights = _neuron->getWeights();
+    for (int c = 0; c < weights.size(); ++c)
     {
-        double value = inputs.get(c, 0) * error * _learningRate;
-        weights->set(0, c, value);
+        weights[c] += inputs[c] * error * learningRate;
     }
     _neuron->setWeights(weights);
-    double bias = _neuron->getBias();
-    bias += error;
-    _neuron->setBias(bias);
+    _bias += error;
 }
 
-double Perceptron::feedforward(const Matrix& inputs) const
+void Perceptron::serialize(std::ostream &stream) const
 {
-    const Matrix& weights = _neuron->getWeights();
-    std::unique_ptr<Matrix> outputs = Matrix::multiply(weights, inputs);
-    double sum =  _neuron->getBias();
-    for (int r = 0; r < outputs->getRows(); ++r)
-    {
-        sum += outputs->get(r,0);
-    }
-    sum = _activationFunction(sum);
-    return sum;
+    stream << std::hex;
+    stream << _bias << std::endl;
+    _neuron->serialize(stream);
+}
+
+void Perceptron::deserialize(std::istream &stream)
+{
+    stream >> _bias;
+    _neuron->deserialize(stream);
+}
+
+void Perceptron::setActivationFunction(activationfunction::function activationFunction)
+{
+    _neuron->setActivationFunction(activationFunction);
+}
+
+void Perceptron::randomizeWeights()
+{
+    _neuron->randomizeWeights();
+    _bias = random::range(-0.1,0.1);
 }

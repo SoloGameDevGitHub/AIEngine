@@ -1,52 +1,91 @@
+#include <fstream>
+#include "../../Miscellaneous/ISerializable.h"
 #include "Perceptron.h"
-#include "../Common/Random.h"
 
-///returns the expected output from given inputs
-double toExpectedOutput(Matrix& inputs)
+void Test_Neuron_W1_greater_than_W2()
 {
-    if (inputs.get(0,0) >= inputs.get(1,0))
+    const char* filePath = "C:/Projects/AIEngine/NeuralNetwork/Perceptron/data/weights_perceptron_x_greater_than_y.txt";
+    random::initRandomSeed();
+    std::unique_ptr<Perceptron> neuron = std::make_unique<Perceptron>(2);
+    neuron->setActivationFunction(activationfunction::sign);
+    neuron->randomizeWeights();
+    deserializeFromFile(filePath, *neuron);
+    double learningRate = 0.1;
+    int iterations = 0;
+    std::vector<std::vector<double>> inputs =
     {
-        return -1.0;
+            std::vector<double> {1.0, 0.5},    //  1.0
+            std::vector<double> {0.5, 1.0},    // -1.0
+            std::vector<double> {10.0, 0.0},   //  1.0
+            std::vector<double> {0.0, 10.0},   // -1.0
+            std::vector<double> {0.0, -10.0},  //  1.0
+            std::vector<double> {-10.0, 0.0},  // -1.0
+            std::vector<double> {10.0, -10.0}, //  1.0
+            std::vector<double> {-10.0, 10.0}, // -1.0
+            std::vector<double> {1000.0, -1000.0}, //  1.0
+            std::vector<double> {-1000.0, 1000.0}, // -1.0
+            std::vector<double> {351.0, -179.0}, //  1.0
+            std::vector<double> {-499.8, 732.0}, // -1.0
+    };
+    std::vector<double> expectedOutputs = {1.0, -1.0, 1.0, -1.0, 1.0, -1.0,
+                                           1.0, -1.0, 1.0, -1.0, 1.0, -1.0};
+    for (int i = 0; i < inputs.size(); ++i)
+    {
+        double guess = neuron->feedforward(inputs[i]);
+        if (guess != expectedOutputs[i])
+        {
+            iterations++;
+            neuron->train(inputs[i], expectedOutputs[i], learningRate);
+            i = -1;
+        }
     }
-    return 1.0;
+    std::cout << "The network has been trained! (iterations: " << iterations << ")" << std::endl;
+    serializeToFile(filePath, *neuron);
 }
 
-///Populate 'matrix' with random inputs in range -500.0/500.0
-void populateRandomInput(Matrix& matrix)
+void Test_Neuron_W2_greater_than_W1()
 {
-    for (int r = 0; r < matrix.getRows(); ++r)
+    const char* filePath = "C:/Projects/AIEngine/NeuralNetwork/Perceptron/data/weights_perceptron_y_greater_than_x.txt";
+    random::initRandomSeed();
+    std::unique_ptr<Perceptron> perceptron = std::make_unique<Perceptron>(2);
+    perceptron->setActivationFunction(activationfunction::sign);
+    perceptron->randomizeWeights();
+    deserializeFromFile(filePath, *perceptron);
+    double learningRate = 0.1;
+    int iterations = 0;
+    std::vector<std::vector<double>> inputs =
     {
-        double value = random::range(-500.0, 500.0);
-        matrix.set(r,0,value);
+        std::vector<double> {1.0, 0.5},    // -1.0
+        std::vector<double> {0.5, 1.0},    //  1.0
+        std::vector<double> {10.0, 0.0},   // -1.0
+        std::vector<double> {0.0, 10.0},   //  1.0
+        std::vector<double> {0.0, -10.0},  // -1.0
+        std::vector<double> {-10.0, 0.0},  //  1.0
+        std::vector<double> {10.0, -10.0}, // -1.0
+        std::vector<double> {-10.0, 10.0}, //  1.0
+    };
+    std::vector<double> expectedOutputs = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0};
+    for (int i = 0; i < inputs.size(); ++i)
+    {
+        activationfunction::sigmoid(inputs[i]);
     }
+    for (int i = 0; i < inputs.size(); ++i)
+    {
+        double guess = perceptron->feedforward(inputs[i]);
+        if (guess != expectedOutputs[i])
+        {
+            iterations++;
+            perceptron->train(inputs[i], expectedOutputs[i], learningRate);
+            i = -1;
+        }
+    }
+    std::cout << "The network has been trained! (iterations: " << iterations << ")" << std::endl;
+    serializeToFile(filePath, *perceptron);
 }
 
 int main()
 {
-    random::initRandomSeed();
-    auto perceptron = std::make_unique<Perceptron>(2);
-    perceptron->setActivationFunction(sign);
-    int correctGuesses = 0;
-    auto inputs = std::make_unique<Matrix>(2, 1);
-    while (correctGuesses < 1000)
-    {
-        populateRandomInput(*inputs);
-        double expectedOutput = toExpectedOutput(*inputs);
-        double guess = perceptron->feedforward(*inputs);
-        if (guess == expectedOutput)
-        {
-            correctGuesses++;
-        }
-        else
-        {
-            correctGuesses = 0;
-            perceptron->train(*inputs, expectedOutput);
-        }
-    }
-    std::cout << "The network has been trained! Final weights are:" << std::endl;
-    const Neuron& neuron = perceptron->getNeuron();
-    const Matrix& weights = neuron.getWeights();
-    weights.print(std::cout);
-    std::cout << "Bias:" << neuron.getBias() << std::endl;
+    Test_Neuron_W1_greater_than_W2();
+    Test_Neuron_W2_greater_than_W1();
     return 0;
 }
