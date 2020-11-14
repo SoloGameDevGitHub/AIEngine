@@ -26,9 +26,9 @@ namespace TicTacToeMinimax
         {
             return state;
         }
-        depth++;
-        int bestScore = -999;
+        int bestScore = INT_MIN;
         int mask = 0b11;
+        depth++;
         while (mask < MAXIMUM_MASK_VALUE)
         {
             if ((board & mask) == 0)
@@ -54,9 +54,9 @@ namespace TicTacToeMinimax
         {
             return state;
         }
-        depth++;
-        int bestScore = 999;
+        int bestScore = INT_MAX;
         int mask = 0b10;
+        depth++;
         while (mask < MAXIMUM_MASK_VALUE)
         {
             if ((board & mask) == 0)
@@ -78,14 +78,14 @@ namespace TicTacToeMinimax
     int predictMaxDecision(int board)
     {
         int bestMove = 0;
-        int bestMoveScore = -999;
+        int bestMoveScore = INT_MIN;
         int mask = 0b11;
         while (mask < MAXIMUM_MASK_VALUE)
         {
             if ((board & mask) == 0)
             {
                 const int newBoard = board | mask;
-                const int score = predictMinTreeScore(newBoard, -999, 999, 1);
+                const int score = predictMinTreeScore(newBoard, INT_MIN, INT_MAX, 1);
                 if (score > bestMoveScore)
                 {
                     bestMoveScore = score;
@@ -100,14 +100,14 @@ namespace TicTacToeMinimax
     int predictMinDecision(int board)
     {
         int bestMove = 0;
-        int bestMoveScore = 999;
+        int bestMoveScore = INT_MAX;
         int mask = 0b10;
         while (mask < MAXIMUM_MASK_VALUE)
         {
             if ((board & mask) == 0)
             {
                 const int newBoard = board | mask;
-                const int score = predictMaxTreeScore(newBoard, -999, 999, 1);
+                const int score = predictMaxTreeScore(newBoard, INT_MIN, INT_MAX, 1);
                 if (score < bestMoveScore)
                 {
                     bestMoveScore = score;
@@ -122,14 +122,14 @@ namespace TicTacToeMinimax
     std::vector<int> predictMaxDecisions(int board)
     {
         std::vector<int> bestMoves;
-        int bestMoveScore = -999;
+        int bestMoveScore = INT_MIN;
         int mask = 0b11;
         while (mask < MAXIMUM_MASK_VALUE)
         {
             if ((board & mask) == 0)
             {
                 const int newBoard = (board | mask);
-                const int score = predictMinTreeScore(newBoard, -999, 999, 1);
+                const int score = predictMinTreeScore(newBoard, INT_MIN, INT_MAX, 1);
                 if (score > bestMoveScore)
                 {
                     bestMoveScore = score;
@@ -149,14 +149,14 @@ namespace TicTacToeMinimax
     std::vector<int> predictMinDecisions(int board)
     {
         std::vector<int> bestMoves;
-        int bestMoveScore = 999;
+        int bestMoveScore = INT_MAX;
         int mask = 0b10;
         while (mask < MAXIMUM_MASK_VALUE)
         {
             if ((board & mask) == 0)
             {
                 const int newBoard = (board | mask);
-                const int score = predictMaxTreeScore(newBoard, -999, 999, 1);
+                const int score = predictMaxTreeScore(newBoard, INT_MIN, INT_MAX, 1);
                 if (score < bestMoveScore)
                 {
                     bestMoveScore = score;
