@@ -1,6 +1,6 @@
 #ifndef _TIC_TAC_TOE_MINIMAX_H
 #define _TIC_TAC_TOE_MINIMAX_H
-
+#include <limits.h>
 #include <vector>
 
 namespace TicTacToeMinimax
@@ -10,8 +10,8 @@ namespace TicTacToeMinimax
     const int CIRCLE_WINS = -1;
     const int PLAYING = 2;
 
-    int predict(int board, bool isMaxTurn);
-    std::vector<int> predictAll(int board, bool isMaxTurn);
+    int predict(int board, bool isMaxTurn, int maxDepth = INT_MAX);
+    std::vector<int> predictAll(int board, bool isMaxTurn, int maxDepth = INT_MAX);
     int getState(int board);
 }
 #endif

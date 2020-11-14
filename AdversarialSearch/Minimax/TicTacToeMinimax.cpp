@@ -13,18 +13,20 @@ const int winnerMasks[8] =
     0b00'00'00'10'10'10'00'00'00,
     0b00'00'10'00'10'00'10'00'00,
 };
+int _maxDepth;
 
 namespace TicTacToeMinimax
 {
-    int predictMinTreeScore(int board, int alpha, int beta);
+    int predictMinTreeScore(const int board, int alpha, int beta, int depth);
 
-    int predictMaxTreeScore(int board, int alpha, int beta)
+    int predictMaxTreeScore(const int board, int alpha, int beta, int depth)
     {
         const int state = getState(board);
-        if (state != PLAYING)
+        if (state != PLAYING || depth >= _maxDepth)
         {
             return state;
         }
+        depth++;
         int bestScore = -999;
         int mask = 0b11;
         while (mask < MAXIMUM_MASK_VALUE)
@@ -32,7 +34,7 @@ namespace TicTacToeMinimax
             if ((board & mask) == 0)
             {
                 const int newBoard = board | mask;
-                const int score = predictMinTreeScore(newBoard, alpha, beta);
+                const int score = predictMinTreeScore(newBoard, alpha, beta, depth);
                 if (score >= beta)
                     return score;
                 if (score > alpha)
@@ -45,13 +47,14 @@ namespace TicTacToeMinimax
         return bestScore;
     }
 
-    int predictMinTreeScore(int board, int alpha, int beta)
+    int predictMinTreeScore(int board, int alpha, int beta, int depth)
     {
         const int state = getState(board);
-        if (state != PLAYING)
+        if (state != PLAYING || depth >= _maxDepth)
         {
             return state;
         }
+        depth++;
         int bestScore = 999;
         int mask = 0b10;
         while (mask < MAXIMUM_MASK_VALUE)
@@ -59,7 +62,7 @@ namespace TicTacToeMinimax
             if ((board & mask) == 0)
             {
                 const int newBoard = board | mask;
-                const int score = predictMaxTreeScore(newBoard, alpha, beta);
+                const int score = predictMaxTreeScore(newBoard, alpha, beta, depth);
                 if (score <= alpha)
                     return score;
                 if (score < beta)
@@ -82,7 +85,7 @@ namespace TicTacToeMinimax
             if ((board & mask) == 0)
             {
                 const int newBoard = board | mask;
-                const int score = predictMinTreeScore(newBoard, -999, 999);
+                const int score = predictMinTreeScore(newBoard, -999, 999, 1);
                 if (score > bestMoveScore)
                 {
                     bestMoveScore = score;
@@ -104,7 +107,7 @@ namespace TicTacToeMinimax
             if ((board & mask) == 0)
             {
                 const int newBoard = board | mask;
-                const int score = predictMaxTreeScore(newBoard, -999, 999);
+                const int score = predictMaxTreeScore(newBoard, -999, 999, 1);
                 if (score < bestMoveScore)
                 {
                     bestMoveScore = score;
@@ -126,7 +129,7 @@ namespace TicTacToeMinimax
             if ((board & mask) == 0)
             {
                 const int newBoard = (board | mask);
-                const int score = predictMinTreeScore(newBoard, -999, 999);
+                const int score = predictMinTreeScore(newBoard, -999, 999, 1);
                 if (score > bestMoveScore)
                 {
                     bestMoveScore = score;
@@ -153,7 +156,7 @@ namespace TicTacToeMinimax
             if ((board & mask) == 0)
             {
                 const int newBoard = (board | mask);
-                const int score = predictMaxTreeScore(newBoard, -999, 999);
+                const int score = predictMaxTreeScore(newBoard, -999, 999, 1);
                 if (score < bestMoveScore)
                 {
                     bestMoveScore = score;
@@ -170,8 +173,9 @@ namespace TicTacToeMinimax
         return bestMoves;
     }
 
-    int predict(int board, bool isMaxTurn)
+    int predict(int board, bool isMaxTurn, int maxDepth)
     {
+        _maxDepth = maxDepth;
         if (isMaxTurn)
         {
             return predictMaxDecision(board);
@@ -179,8 +183,9 @@ namespace TicTacToeMinimax
         return predictMinDecision(board);
     }
 
-    std::vector<int> predictAll(int board, bool isMaxTurn)
+    std::vector<int> predictAll(int board, bool isMaxTurn, int maxDepth)
     {
+        _maxDepth = maxDepth;
         if (isMaxTurn)
         {
             return predictMaxDecisions(board);
