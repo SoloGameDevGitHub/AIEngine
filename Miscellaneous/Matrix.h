@@ -1,5 +1,4 @@
-#ifndef NEURALNETWORK_MATRIX_H
-#define NEURALNETWORK_MATRIX_H
+#pragma once
 #include <ctime>
 #include <iostream>
 #include <math.h>
@@ -7,8 +6,6 @@
 #include <cassert>
 #include <vector>
 #include <memory>
-
-typedef double (*DoubleFunction)(double);
 
 class Matrix
 {
@@ -26,12 +23,12 @@ public:
     int getColumns() const;
     void print(std::ostream& stream) const;
     void print(std::ostream& stream, int decimalPlace) const;
-    static void applyFunction(DoubleFunction function, const Matrix& source, Matrix&  target);
-    void applyFunction(DoubleFunction function);
+
     static std::unique_ptr<Matrix> multiply(const Matrix& left, const Matrix& right);
     static void multiply(const Matrix& left, const Matrix& right, Matrix& target);
     static void multiply(Matrix& target, double scalar);
     static void add(Matrix& target, double value);
     static std::unique_ptr<Matrix> fromVectorRows(const std::vector<double>& vector);
+    static std::unique_ptr<Matrix> fromVectorColumns(const std::vector<double>& vector);
+    static void copy(const Matrix& source, Matrix& target);
 };
-#endif //NEURALNETWORK_MATRIX_H

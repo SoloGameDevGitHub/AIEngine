@@ -110,29 +110,6 @@ void Matrix::add(Matrix& target, const double value)
     }
 }
 
-void Matrix::applyFunction(DoubleFunction function, const Matrix& source, Matrix&  target)
-{
-    assert(function);
-    assert(&source);
-    assert(&target);
-    assert(source.getRows() == target.getRows());
-    assert(source.getColumns() == target.getColumns());
-    for (int r = 0; r < source.getRows(); ++r)
-    {
-        for (int c = 0; c < source.getColumns(); ++c)
-        {
-            double newValue = function(source.get(r,c));
-            target.set(r,c,newValue);
-        }
-    }
-}
-
-void Matrix::applyFunction(DoubleFunction function)
-{
-    Matrix& matrix = *this;
-    Matrix::applyFunction(function, matrix, matrix);
-}
-
 std::unique_ptr<Matrix> Matrix::fromVectorRows(const std::vector<double>& vector)
 {
     int size = vector.size();
@@ -142,4 +119,29 @@ std::unique_ptr<Matrix> Matrix::fromVectorRows(const std::vector<double>& vector
         matrix->set(i, 0, number);
     }
     return matrix;
+}
+
+std::unique_ptr<Matrix> Matrix::fromVectorColumns(const std::vector<double>& vector)
+{
+    int size = vector.size();
+    std::unique_ptr<Matrix> matrix = std::make_unique<Matrix>(1, size);
+    for (int i = 0; i < size; ++i) {
+        const double number = vector[i];
+        matrix->set(0, i, number);
+    }
+    return matrix;
+}
+
+void Matrix::copy(const Matrix& source, Matrix& target)
+{
+    assert(source.getColumns() == target.getColumns());
+    assert(source.getRows() == target.getRows());
+    for (int r = 0; r < source.getRows(); ++r)
+    {
+        for (int c = 0; c < source.getRows(); ++c)
+        {
+            double value = source.get(r, c);
+            target.set(r, c, value);
+        }
+    }
 }

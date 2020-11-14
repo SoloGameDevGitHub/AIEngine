@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <time.h>
-#include <cstdlib>
 #include "Random.h"
 
 void random::initRandomSeed()
