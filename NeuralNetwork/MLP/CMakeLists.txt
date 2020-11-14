@@ -1,9 +1,8 @@
 set(FILES
-        ../Common/ActivationFunctions.cpp
-        ../Common/Random.cpp
-        ../Common/Matrix.cpp
-        ../Perceptron/Neuron.cpp
-        ../Perceptron/Perceptron.cpp
+        ../../Miscellaneous/Random.cpp
+        ../../Miscellaneous/ISerializable.cpp
+        ../ActivationFunctions.cpp
+        ../Neuron.cpp
         Layer.cpp
         MLP.cpp
         Main.cpp

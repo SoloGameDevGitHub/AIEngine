@@ -39,7 +39,7 @@ void TicTacToeMinimax::RunMinimaxTests()
         std::cout << "Board=" << testCase.CurrentBoard << " / ";
         std::cout << "Expected=";
         bool isResultExpected = false;
-        int result = TicTacToeMinimax::predict(testCase.CurrentBoard, testCase.IsMaxTurn);
+        int result = TicTacToeMinimax::predict(testCase.CurrentBoard, testCase.IsMaxTurn, 6);
         for(unsigned int x = 0; x < testCase.ExpectedBoards.size(); x++)
         {
             if (i > 0U && i < testCase.ExpectedBoards.size() - 1U)
@@ -75,7 +75,7 @@ void TicTacToeMinimax::benchmarkMinimax(int board, bool isMaxTurn)
     if (state == PLAYING)
     {
         auto begin = std::chrono::steady_clock::now();
-        board = TicTacToeMinimax::predict(board, isMaxTurn);
+        board = TicTacToeMinimax::predict(board, isMaxTurn, 6);
         auto end = std::chrono::steady_clock::now();
         totalDuration += (end - begin).count();
     }
@@ -95,7 +95,7 @@ void TicTacToeMinimax::benchmarkMinimaxVsMinimax(int board, bool isMaxTurn)
     while (state == PLAYING)
     {
         auto begin = std::chrono::steady_clock::now();
-        int bestMove = TicTacToeMinimax::predict(currentBoard, isMaxTurn);
+        int bestMove = TicTacToeMinimax::predict(currentBoard, isMaxTurn, 6);
         auto end = std::chrono::steady_clock::now();
         long long int nanos = (end - begin).count();
         totalDuration += nanos;
@@ -105,8 +105,8 @@ void TicTacToeMinimax::benchmarkMinimaxVsMinimax(int board, bool isMaxTurn)
         state = TicTacToeMinimax::getState(currentBoard);
         if (state != PLAYING && state != DRAW)
         {
-            string exceptionMessage = "'" + getStateText(state) + "' must never happen during a Minimax vs Minimax battle!";
-            throw exceptionMessage;
+            std::cerr << "'" << getStateText(state) << "' state must never happen during a Minimax vs Minimax battle!" << std::endl;
+            return;
         }
     }
     printBoard(firstBoard);
