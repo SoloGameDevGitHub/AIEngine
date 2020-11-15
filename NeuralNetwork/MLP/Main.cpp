@@ -232,8 +232,8 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
         else
         {
             iteration++;
-            if (iteration % 10000000 == 0) initializeWeightsAndActivationFunction(mlp);
-            mlp.backpropagate(inputs, expectedOutputs, 0.1);
+            if (iteration % 800'000 == 0) initializeWeightsAndActivationFunction(mlp);
+            mlp.backpropagate(inputs, expectedOutputs, 0.05);
             rightGuesses = 0;
         }
         trainingIndex++;
