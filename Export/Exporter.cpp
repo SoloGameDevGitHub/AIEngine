@@ -6,13 +6,13 @@
 
 extern "C"
 {
-API int sum(int lhs, int rhs)
-{
-    return lhs + rhs;
-}
+    API int sum(int lhs, int rhs)
+    {
+        return lhs + rhs;
+    }
 
-API int getOne()
-{
-    return 1;
-}
+    API int getOne()
+    {
+        return 1;
+    }
 }
