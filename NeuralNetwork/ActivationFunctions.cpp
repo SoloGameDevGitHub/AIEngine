@@ -1,38 +1,54 @@
 #include "ActivationFunctions.h"
 
-double activationfunction::sigmoid(double value)
-{
-    double result = 1.0 / (1.0 + std::exp(-value));
-    return result;
-}
+double _zeroOrOneThreshold = 0.5;
 
-void activationfunction::sigmoid(std::vector<double>& source)
+namespace neuralnetwork
 {
-    for (int i = 0; i < source.size(); ++i)
+    namespace activation
     {
-        source[i] = sigmoid(source[i]);
-    }
-}
+        double sigmoid(double value)
+        {
+            double result = 1.0 / (1.0 + std::exp(-value));
+            return result;
+        }
 
-double activationfunction::sign(double value)
-{
-    if (value > 0.0)
-    {
-        return 1.0;
-    }
-    return -1.0;
-}
+        void sigmoid(std::vector<double> &source)
+        {
+            for (int i = 0; i < source.size(); ++i)
+            {
+                source[i] = sigmoid(source[i]);
+            }
+        }
 
-double activationfunction::threshold(double value)
-{
-    if (value >= _zeroOrOneThreshold)
-    {
-        return 1.0;
-    }
-    return 0.0;
-}
+        double sign(double value)
+        {
+            if (value > 0.0)
+            {
+                return 1.0;
+            }
+            return -1.0;
+        }
 
-void activationfunction::setThreshold(double threshold)
-{
-    _zeroOrOneThreshold = threshold;
+        double threshold(double value)
+        {
+            if (value >= _zeroOrOneThreshold)
+            {
+                return 1.0;
+            }
+            return 0.0;
+        }
+
+        void threshold(std::vector<double> &source)
+        {
+            for (int i = 0; i < source.size(); ++i)
+            {
+                source[i] = threshold(source[i]);
+            }
+        }
+
+        void setThreshold(double threshold)
+        {
+            _zeroOrOneThreshold = threshold;
+        }
+    }
 }

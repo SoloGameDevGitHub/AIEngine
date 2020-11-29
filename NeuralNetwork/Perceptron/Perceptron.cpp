@@ -1,5 +1,7 @@
 #include "Perceptron.h"
 
+using namespace neuralnetwork;
+
 Perceptron::Perceptron(int weights)
 {
     _neuron = std::make_unique<Neuron>(weights);
@@ -37,7 +39,7 @@ void Perceptron::deserialize(std::istream &stream)
     _neuron->deserialize(stream);
 }
 
-void Perceptron::setActivationFunction(activationfunction::function activationFunction)
+void Perceptron::setActivationFunction(activation::function activationFunction)
 {
     _neuron->setActivationFunction(activationFunction);
 }

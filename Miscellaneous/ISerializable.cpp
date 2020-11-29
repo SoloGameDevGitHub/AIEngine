@@ -1,23 +1,26 @@
 #include "ISerializable.h"
 
-void deserializeFromFile(const char* filePath, ISerializable& target)
+namespace serialization
 {
-    std::fstream myfile;
-    myfile.open (filePath);
-    if (myfile.good())
+    void deserializeFromFile(const char* filePath, ISerializable& target)
     {
-        target.deserialize(myfile);
+        std::fstream myfile;
+        myfile.open (filePath);
+        if (myfile.good())
+        {
+            target.deserialize(myfile);
+        }
+        myfile.close();
     }
-    myfile.close();
-}
 
-void serializeToFile(const char* filePath, const ISerializable& target)
-{
-    std::fstream myfile;
-    myfile.open (filePath);
-    if (myfile.good())
+    void serializeToFile(const char* filePath, const ISerializable& target)
     {
-        target.serialize(myfile);
+        std::fstream myfile;
+        myfile.open (filePath);
+        if (myfile.good())
+        {
+            target.serialize(myfile);
+        }
+        myfile.close();
     }
-    myfile.close();
 }

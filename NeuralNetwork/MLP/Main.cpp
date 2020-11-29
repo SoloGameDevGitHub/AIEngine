@@ -4,18 +4,7 @@
 #include "../Neuron.h"
 #include "MLP.h"
 
-void initializeWeightsAndActivationFunction(MultiLayerPerceptron& mlp)
-{
-    for (int l = 0; l < mlp.getLayersLength(); ++l)
-    {
-        Layer &layer = mlp.getLayer(l);
-        for (int n = 0; n < layer.getNeuronsLength(); ++n)
-        {
-            Neuron &neuron = layer.getNeuron(n);
-            neuron.randomizeWeights();
-        }
-    }
-}
+using namespace neuralnetwork;
 
 bool equals(const std::vector<double>& lhs, const std::vector<double>& rhs)
 {
@@ -29,13 +18,14 @@ bool equals(const std::vector<double>& lhs, const std::vector<double>& rhs)
 
 void TEST_MLP_XOR_2_2_1()
 {
-    activationfunction::setThreshold(0.5);
+    const char* filePath = "C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_2_1.txt";
+    activation::setThreshold(0.7);
     random::initRandomSeed();
     std::vector<int> neuronsByLayer({2,1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
-    mlp.setOutputActivationFunction(activationfunction::threshold);
-    initializeWeightsAndActivationFunction(mlp);
-    deserializeFromFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_2_1.txt", mlp);
+    mlp.setActivationFunction(activation::threshold);
+    mlp.randomizeWeights(mlp);
+    deserializeFromFile(filePath, mlp);
     std::vector<std::vector<double>> trainingInputs = { { 0.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 1.0, 1.0 } };
     std::vector<std::vector<double>> trainingOutputs = { {0.0}, {1.0}, {1.0}, {0.0} };
     long iteration = 0L;
@@ -53,25 +43,24 @@ void TEST_MLP_XOR_2_2_1()
         else
         {
             iteration++;
-            if (iteration % 100000 == 0) initializeWeightsAndActivationFunction(mlp);
-            mlp.backpropagate(inputs, expectedOutputs, 0.1);
+            mlp.backpropagate(inputs, expectedOutputs, 0.01);
             rightGuesses = 0;
         }
         trainingIndex++;
         trainingIndex %= trainingInputs.size();
     }
     printf("The network has been trained! (iterations: %d)\n", iteration);
-    serializeToFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_2_1.txt", mlp);
+    serializeToFile(filePath, mlp);
 }
 
 void TEST_MLP_XOR_2_3_1()
 {
-    activationfunction::setThreshold(0.5);
+    activation::setThreshold(0.7);
     random::initRandomSeed();
     std::vector<int> neuronsByLayer({3,1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
-    mlp.setOutputActivationFunction(activationfunction::threshold);
-    initializeWeightsAndActivationFunction(mlp);
+    mlp.setActivationFunction(activation::threshold);
+    mlp.randomizeWeights(mlp);
     deserializeFromFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_3_1.txt", mlp);
     std::vector<std::vector<double>> trainingInputs = { { 0.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 1.0, 1.0 } };
     std::vector<std::vector<double>> trainingOutputs = { {0.0}, {1.0}, {1.0}, {0.0} };
@@ -90,8 +79,7 @@ void TEST_MLP_XOR_2_3_1()
         else
         {
             iteration++;
-            if (iteration % 100000 == 0) initializeWeightsAndActivationFunction(mlp);
-            mlp.backpropagate(inputs, expectedOutputs, 0.1);
+            mlp.backpropagate(inputs, expectedOutputs, 0.01);
             rightGuesses = 0;
         }
         trainingIndex++;
@@ -103,12 +91,12 @@ void TEST_MLP_XOR_2_3_1()
 
 void TEST_MLP_XOR_2_3_3_3_1()
 {
-    activationfunction::setThreshold(0.5);
+    activation::setThreshold(0.7);
     random::initRandomSeed();
     std::vector<int> neuronsByLayer({3, 3, 3, 1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
-    mlp.setOutputActivationFunction(activationfunction::threshold);
-    initializeWeightsAndActivationFunction(mlp);
+    mlp.setActivationFunction(activation::threshold);
+    mlp.randomizeWeights(mlp);
     deserializeFromFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_3_3_3_1.txt", mlp);
     std::vector<std::vector<double>> trainingInputs = { { 0.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 1.0, 1.0 } };
     std::vector<std::vector<double>> trainingOutputs = { {0.0}, {1.0}, {1.0}, {0.0} };
@@ -127,8 +115,7 @@ void TEST_MLP_XOR_2_3_3_3_1()
         else
         {
             iteration++;
-            if (iteration % 100000 == 0) initializeWeightsAndActivationFunction(mlp);
-            mlp.backpropagate(inputs, expectedOutputs, 0.1);
+            mlp.backpropagate(inputs, expectedOutputs, 0.01);
             rightGuesses = 0;
         }
         trainingIndex++;
@@ -140,12 +127,12 @@ void TEST_MLP_XOR_2_3_3_3_1()
 
 void TEST_MLP_XOR_2_3_2()
 {
-    activationfunction::setThreshold(0.5);
+    activation::setThreshold(0.7);
     random::initRandomSeed();
     std::vector<int> neuronsByLayer({3, 2});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
-    mlp.setOutputActivationFunction(activationfunction::threshold);
-    initializeWeightsAndActivationFunction(mlp);
+    mlp.setActivationFunction(activation::threshold);
+    mlp.randomizeWeights(mlp);
     deserializeFromFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_2_2.txt", mlp);
     std::vector<std::vector<double>> trainingInputs = { { 0.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 1.0, 1.0 } };
     std::vector<std::vector<double>> trainingOutputs = {  {1.0, 0.0}, {0.0, 1.0}, {0.0, 1.0}, {1.0, 0.0} };
@@ -164,12 +151,7 @@ void TEST_MLP_XOR_2_3_2()
         else
         {
             iteration++;
-            if (iteration >= 100000)
-            {
-                initializeWeightsAndActivationFunction(mlp);
-                iteration = 0;
-            }
-            mlp.backpropagate(inputs, expectedOutputs, 0.1);
+            mlp.backpropagate(inputs, expectedOutputs, 0.01);
             rightGuesses = 0;
         }
         trainingIndex++;
@@ -182,15 +164,13 @@ void TEST_MLP_XOR_2_3_2()
 void TEST_MLP_number_recognition_digital_clock_0_to_9()
 {
     const char* filePath = "C:/Projects/AIEngine/NeuralNetwork/MLP/data/MLP weights (7;10;10) digital clock number recognition (0 to 9).txt";
-    activationfunction::setThreshold(0.5);
+    activation::setThreshold(0.7);
     random::initRandomSeed();
     std::vector<int> neuronsByLayer({10, 10});
     MultiLayerPerceptron mlp(7, neuronsByLayer);
-    mlp.setOutputActivationFunction(activationfunction::threshold);
-    initializeWeightsAndActivationFunction(mlp);
+    mlp.setActivationFunction(activation::threshold);
+    mlp.randomizeWeights(mlp);
     deserializeFromFile(filePath, mlp);
-    // top -> down, left -> right
-    // Digital clock numbers
     std::vector<std::vector<double>> trainingInputs =
     {
         { 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0 }, //0
@@ -220,7 +200,7 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
     long iteration = 0L;
     int trainingIndex = 0;
     int rightGuesses = 0;
-    while (rightGuesses < trainingInputs.size())
+    do
     {
         std::vector<double>& inputs = trainingInputs[trainingIndex];
         std::vector<double>& expectedOutputs = trainingOutputs[trainingIndex];
@@ -232,13 +212,13 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
         else
         {
             iteration++;
-            if (iteration % 800'000 == 0) initializeWeightsAndActivationFunction(mlp);
-            mlp.backpropagate(inputs, expectedOutputs, 0.05);
             rightGuesses = 0;
+            mlp.backpropagate(inputs, expectedOutputs, 0.01);
         }
         trainingIndex++;
         trainingIndex %= trainingInputs.size();
     }
+    while (rightGuesses < trainingInputs.size());
     printf("The network has been trained! (iterations: %d)\n", iteration);
     serializeToFile(filePath, mlp);
 }
