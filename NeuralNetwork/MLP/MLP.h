@@ -1,24 +1,22 @@
 #pragma once
 
+#include "../ActivationFunctions.h"
 #include "Layer.h"
 
-class MultiLayerPerceptron
+class MultiLayerPerceptron : public ISerializable
 {
 private:
-    std::vector<Layer*> _layers;
-    Matrix* _outputs;
-    FloatFunction _outputActivationFunction;
+    std::vector<std::unique_ptr<Layer>> _layers;
+    std::vector<std::vector<double>> _inputsByLayer;
+    activationfunction::function _outputActivationFunction;
 
 public:
-    MultiLayerPerceptron(std::vector<int> &neuronsByLayerArr);
-    ~MultiLayerPerceptron();
-    void feedforward(Matrix& inputs);
-    /**
-     * Return reference to generated outputs after applying the activation function on them.
-     * @return Reference to activated outputs.
-     */
-    Matrix& getOutputs() const;
-    void print(std::ostream& stream);
-    void recover(std::istream& stream);
-    void setOutputActivationFunction(FloatFunction function);
+    MultiLayerPerceptron(int inputsLength, const std::vector<int>& neuronsByLayerArr);
+    std::vector<double> feedforward(std::vector<double> inputs);
+    void backpropagate(std::vector<double> inputs, std::vector<double> targets, const double learningRate);
+    void serialize(std::ostream &stream) const override;
+    void deserialize(std::istream &stream) override;
+    void setOutputActivationFunction(activationfunction::function activationFunction);
+    int getLayersLength() const;
+    Layer& getLayer(int index) const;
 };

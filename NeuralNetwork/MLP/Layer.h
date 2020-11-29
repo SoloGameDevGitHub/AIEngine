@@ -1,20 +1,20 @@
 #pragma once
 
 #include <memory>
-#include "../Perceptron/Perceptron.h"
+#include "../../Miscellaneous/ISerializable.h"
+#include "../ActivationFunctions.h"
+#include "../Neuron.h"
 
-class Layer
+class Layer : public ISerializable
 {
 private:
-    std::vector<Perceptron*> _perceptrons;
-    std::unique_ptr<Matrix> _outputs;
-    const int _inputsLength;
+    std::vector<std::unique_ptr<Neuron>> _neurons;
 
 public:
-    Layer(int perceptronsLength, int inputsLength);
-    ~Layer();
-    void print(std::ostream& stream);
-    void recover(std::istream& stream);
-    void feedforward(const Matrix& inputs);
-    Matrix& getOutputs() const;
+    Layer(int neurons, int weights);
+    std::vector<double> feedforward(const std::vector<double>& inputs);
+    void serialize(std::ostream &stream) const override;
+    void deserialize(std::istream &stream) override;
+    Neuron& getNeuron(int index) const;
+    int getNeuronsLength() const;
 };

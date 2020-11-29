@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
     dotProduct->print(cout);
 
     cout << endl << "Matrix * Scalar" << endl;
-    Matrix::multiply(*dotProduct, 2.0f);
+    Matrix::multiply(*dotProduct, 2.0);
     dotProduct->print(cout);
 
     return 0;

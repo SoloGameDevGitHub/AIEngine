@@ -1,19 +1,24 @@
-#include "MinimaxBenchmarker.h"
+#include "MinimaxTester.h"
+
+#define RUN_MINIMAX_TESTS 0
 
 int main(int argc, char *argv[])
 {
-	TicTacToeMinimax* minimax = new TicTacToeMinimax();
-	MinimaxBenchmarker* benchmarker = new MinimaxBenchmarker();
-
 	if (argc > 1)
     {
         int boardState = atoi(argv[1]);
-        benchmarker -> benchmarkEvaluate(minimax, boardState, true);
+        TicTacToeMinimax::benchmarkMinimax(boardState, true);
     }
 	else
     {
-        benchmarker -> benchmarkMinimaxVsMinimax(minimax, 0, true);
+	    if (RUN_MINIMAX_TESTS)
+        {
+            TicTacToeMinimax::RunMinimaxTests();
+        }
+	    else
+        {
+            TicTacToeMinimax::benchmarkMinimaxVsMinimax(0, true);
+        }
     }
-
 	return 0;
 }
