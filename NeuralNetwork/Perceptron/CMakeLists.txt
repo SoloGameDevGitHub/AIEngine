@@ -1,8 +1,8 @@
 set(FILES
-        ../Common/ActivationFunctions.cpp
-        ../Common/Random.cpp
-        ../Common/Matrix.cpp
-        Neuron.cpp
+        ../../Miscellaneous/Random.cpp
+        ../../Miscellaneous/ISerializable.cpp
+        ../ActivationFunctions.cpp
+        ../Neuron.cpp
         Perceptron.cpp
         PerceptronTests.cpp
 )
