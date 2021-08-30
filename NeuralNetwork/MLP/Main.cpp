@@ -50,7 +50,7 @@ void TEST_MLP_XOR_2_2_1()
         trainingIndex %= trainingInputs.size();
     }
     printf("The network has been trained! (iterations: %d)\n", iteration);
-    serializeToFile(filePath, mlp);
+    saveWeightsIntoFile(filePath, mlp);
 }
 
 void TEST_MLP_XOR_2_3_1()
@@ -86,7 +86,7 @@ void TEST_MLP_XOR_2_3_1()
         trainingIndex %= trainingInputs.size();
     }
     printf("The network has been trained! (iterations: %d)\n", iteration);
-    serializeToFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_3_1.txt", mlp);
+    saveWeightsIntoFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_3_1.txt", mlp);
 }
 
 void TEST_MLP_XOR_2_3_3_3_1()
@@ -122,7 +122,7 @@ void TEST_MLP_XOR_2_3_3_3_1()
         trainingIndex %= trainingInputs.size();
     }
     printf("The network has been trained! (iterations: %d)\n", iteration);
-    serializeToFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_3_3_3_1.txt", mlp);
+    saveWeightsIntoFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_3_3_3_1.txt", mlp);
 }
 
 void TEST_MLP_XOR_2_3_2()
@@ -158,7 +158,7 @@ void TEST_MLP_XOR_2_3_2()
         trainingIndex %= trainingInputs.size();
     }
     printf("The network has been trained! (iterations: %d)\n", iteration);
-    serializeToFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_2_2.txt", mlp);
+    saveWeightsIntoFile("C:/Projects/AIEngine/NeuralNetwork/MLP/data/xor_backpropagation_2_2_2.txt", mlp);
 }
 
 void TEST_MLP_number_recognition_digital_clock_0_to_9()
@@ -220,7 +220,7 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
     }
     while (rightGuesses < trainingInputs.size());
     printf("The network has been trained! (iterations: %d)\n", iteration);
-    serializeToFile(filePath, mlp);
+    saveWeightsIntoFile(filePath, mlp);
 }
 
 int main()

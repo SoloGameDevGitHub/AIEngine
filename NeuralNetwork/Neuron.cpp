@@ -66,7 +66,7 @@ void Neuron::deserialize(std::istream& stream)
     }
 }
 
-void Neuron::setActivationFunction(activation::function& activationFunction)
+void Neuron::setActivationFunction(activation::function activationFunction)
 {
     _activationFunction = activationFunction;
 }

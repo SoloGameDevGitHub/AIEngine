@@ -2,18 +2,18 @@
 
 using namespace neuralnetwork;
 
-Perceptron::Perceptron(int weights)
+Perceptron::Perceptron(int weights) : _bias(0.0)
 {
     _neuron = std::make_unique<Neuron>(weights);
 }
 
-double Perceptron::feedforward(const std::vector<double> inputs)
+double Perceptron::feedforward(const std::vector<double>& inputs)
 {
     double output = _neuron->feedforward(inputs, _bias);
     return output;
 }
 
-void Perceptron::train(const std::vector<double> inputs, double target, double learningRate)
+void Perceptron::train(const std::vector<double>& inputs, double target, double learningRate)
 {
     double output = feedforward(inputs);
     double error = (target - output);
@@ -33,7 +33,7 @@ void Perceptron::serialize(std::ostream &stream) const
     _neuron->serialize(stream);
 }
 
-void Perceptron::deserialize(std::istream &stream)
+void Perceptron::deserialize(std::istream& stream)
 {
     stream >> _bias;
     _neuron->deserialize(stream);

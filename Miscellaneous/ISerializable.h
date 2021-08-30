@@ -13,5 +13,5 @@ namespace serialization
     };
 
     void deserializeFromFile(const char* filePath, ISerializable& target);
-    void serializeToFile(const char* filePath, const ISerializable& target);
+    void saveWeightsIntoFile(const char* filePath, const ISerializable& target);
 }

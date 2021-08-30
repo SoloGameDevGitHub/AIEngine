@@ -13,7 +13,7 @@ namespace serialization
         myfile.close();
     }
 
-    void serializeToFile(const char* filePath, const ISerializable& target)
+    void saveWeightsIntoFile(const char* filePath, const ISerializable& target)
     {
         std::fstream myfile;
         myfile.open (filePath);

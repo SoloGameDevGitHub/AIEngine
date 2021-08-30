@@ -13,12 +13,12 @@ namespace neuralnetwork
         std::unique_ptr<Neuron> _neuron;
 
     public:
-        Perceptron(int weights);
-        double feedforward(const std::vector<double> inputs);
-        void train(const std::vector<double> inputs, double target, double learningRate);
+        explicit Perceptron(int weights);
+        double feedforward(const std::vector<double>& inputs);
+        void train(const std::vector<double>& inputs, double target, double learningRate);
         void setActivationFunction(activation::function activationFunction);
         void randomizeWeights();
-        void serialize(std::ostream &stream) const override;
-        void deserialize(std::istream &stream) override;
+        void serialize(std::ostream& stream) const override;
+        void deserialize(std::istream& stream) override;
     };
 }

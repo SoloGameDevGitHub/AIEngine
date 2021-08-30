@@ -20,7 +20,7 @@ namespace neuralnetwork
         void setWeights(const std::vector<double>& weights);
         void serialize(std::ostream &stream) const override;
         void deserialize(std::istream &stream) override;
-        void setActivationFunction(activation::function& activationFunction);
+        void setActivationFunction(activation::function activationFunction);
         void randomizeWeights();
     };
 }
