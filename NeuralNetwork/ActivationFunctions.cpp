@@ -1,22 +1,22 @@
 #include "ActivationFunctions.h"
 
-double _zeroOrOneThreshold = 0.5;
-
 namespace neuralnetwork
 {
     namespace activation
     {
+        static double _zeroOrOneThreshold = 0.5;
+
         double sigmoid(double value)
         {
             double result = 1.0 / (1.0 + std::exp(-value));
             return result;
         }
 
-        void sigmoid(std::vector<double> &source)
+        void sigmoid(std::vector<double>& source)
         {
-            for (int i = 0; i < source.size(); ++i)
+            for (double& i : source)
             {
-                source[i] = sigmoid(source[i]);
+                i = sigmoid(i);
             }
         }
 
@@ -38,11 +38,11 @@ namespace neuralnetwork
             return 0.0;
         }
 
-        void threshold(std::vector<double> &source)
+        void threshold(std::vector<double>& source)
         {
-            for (int i = 0; i < source.size(); ++i)
+            for (double& i : source)
             {
-                source[i] = threshold(source[i]);
+                i = threshold(i);
             }
         }
 
