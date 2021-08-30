@@ -6,65 +6,77 @@ using namespace neuralnetwork;
 Neuron::Neuron(int weights)
 {
     _weights = std::vector<double>(weights);
+    _activationFunction = nullptr;
 }
 
-double Neuron::feedforward(const std::vector<double> inputs, double bias) const
+double Neuron::feedforward(const std::vector<double>& inputs, double bias) const
 {
+    // Sum up weights * inputs
     double output = bias;
     for (int i = 0; i < _weights.size(); ++i)
     {
         output += _weights[i] * inputs[i];
     }
+
+    // apply the activation function (if applicable)
     if (_activationFunction != nullptr)
     {
         output = _activationFunction(output);
     }
+
     return output;
 }
 
 void Neuron::randomizeWeights()
 {
-    for (int i = 0; i < _weights.size(); ++i)
+    for (double& weight : _weights)
     {
-        _weights[i] = random::range(-1.0, 1.0);
-        if (_weights[i] == 0.0)
+        weight = random::range(-1.0, 1.0);
+
+        // It fixes zeroed weights.
+        // if a weight is exactly zero, the network won't be able to learn.
+        if (weight == 0.0)
         {
-            _weights[i] = 0.000001;
+            weight = 0.000001;
         }
     }
 }
 
-void Neuron::serialize(std::ostream &stream) const
+void Neuron::serialize(std::ostream& stream) const
 {
+    // serialize in hexadecimal, so we don't lose floating point precision
     stream << std::setprecision(18) << std::hex;
-    for (int i = 0; i < _weights.size(); ++i)
+
+    // write weights into the stream
+    for (const double& weight : _weights)
     {
-        stream << _weights[i] << std::endl;
+        stream << weight << std::endl;
     }
 }
 
-void Neuron::deserialize(std::istream &stream)
+void Neuron::deserialize(std::istream& stream)
 {
+    // deserialize in hexadecimal, so we don't lose floating point precision
     stream >> std::setprecision(18) >> std::hex;
-    for (int i = 0; i < _weights.size(); ++i)
+
+    // read weights from the stream
+    for (double& weight : _weights)
     {
-        double weight;
         stream >> weight;
-        _weights[i] = weight;
     }
 }
 
-void Neuron::setActivationFunction(activation::function activationFunction)
+void Neuron::setActivationFunction(activation::function& activationFunction)
 {
     _activationFunction = activationFunction;
 }
 
-std::vector<double> Neuron::getWeights() const
+const std::vector<double>& Neuron::getWeights() const
 {
     return _weights;
 }
 
-void Neuron::setWeights(std::vector<double> weights)
+void Neuron::setWeights(const std::vector<double>& weights)
 {
     _weights = weights;
 }

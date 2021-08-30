@@ -14,13 +14,13 @@ namespace neuralnetwork
         activation::function _activationFunction;
 
     public:
-        Neuron(int weightsLength);
-        std::vector<double> getWeights() const;
-        double feedforward(const std::vector<double> inputs, double bias) const;
-        void setWeights(std::vector<double> weights);
+        explicit Neuron(int weightsLength);
+        const std::vector<double>& getWeights() const;
+        double feedforward(const std::vector<double>& inputs, double bias) const;
+        void setWeights(const std::vector<double>& weights);
         void serialize(std::ostream &stream) const override;
         void deserialize(std::istream &stream) override;
-        void setActivationFunction(activation::function activationFunction);
+        void setActivationFunction(activation::function& activationFunction);
         void randomizeWeights();
     };
 }
