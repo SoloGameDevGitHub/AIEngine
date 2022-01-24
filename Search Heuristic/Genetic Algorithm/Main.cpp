@@ -2,31 +2,30 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <vector>
+#include <ctime>
 
-using namespace std;
+#include "../../Common/Random.h"
 
-typedef float (*FitnessFunction)(float);
-
-void selectedSorting()
-{
-    //TODO
-}
+// Population { [010], [1100], [1010] }
+// -> Chromosome [0001]
+//   -> Gene [0]
 
 class GeneticAlgorithm
 {
 private:
-    void generateInitialPopulation(vector<int> &data);
-    int getFitnessScore(int &data);
+    void generateInitialPopulation(std::vector<int>& population);
+    int getFitnessScore(int& chromosome);
     //Order list elements based on fitness score (first == best, last == worst)
-    void orderByFitnessScore(vector<int> &data, FitnessFunction &fitnessFunction);
-    void selection(vector<int> &data);
-    void farrow(vector<int> &data);
-    void crossover(vector<int> &data);
-    void mutation(vector<int> &data);
+    void orderByFitnessScore(std::vector<int>& population);
+    void selection(std::vector<int>& population);
+    void farrow(std::vector<int>& population);
+    void crossover(std::vector<int>& population);
+    void mutation(std::vector<int>& population);
 };
 
 int main()
 {
+    random::InitSeed(random::GetTime());
     /*
      * 1. Initial population
      * 2. Fitness function
@@ -34,17 +33,17 @@ int main()
      * 4. Crossover
      * 5. Mutation
      */
-    vector<int> asd;
+    std::cout << std::endl << "[Genetic Algorithm]" << std::endl;
+    const int VECTOR_LENGTH = 10;
+    std::vector<int> vector(VECTOR_LENGTH);
+    for(int i = 0; i < VECTOR_LENGTH; i++)
+    {
+        vector[i] = random::range(0, 200);
+    }
+    sort(vector.begin(), vector.end());
     for(int i = 0; i < 10; i++)
     {
-        int number = i % 3;
-        asd.push_back(number);
+        std::cout << vector[i] << " ";
     }
-    sort(asd.begin(), asd.end());
-    for(int i = 0; i < 10; i++)
-    {
-        cout << asd[i] << " ";
-    }
-    cout << endl << "[Genetic Algorithm]" << endl;
     return 0;
 }
