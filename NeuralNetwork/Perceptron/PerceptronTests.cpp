@@ -1,5 +1,5 @@
 #include "Perceptron.h"
-#include "../Common/Random.h"
+#include "../../Common/Random.h"
 
 ///returns the expected output from given inputs
 float toExpectedOutput(Matrix& inputs)
@@ -23,7 +23,7 @@ void populateRandomInput(Matrix& matrix)
 
 int main(int argc, char* argv[])
 {
-    random::initRandomSeed();
+    random::InitSeed(random::GetTime());
     auto perceptron = std::make_unique<Perceptron>(2);
     perceptron->setActivationFunction(sign);
     int correctGuesses = 0;

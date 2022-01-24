@@ -1,5 +1,5 @@
 #include "Perceptron.h"
-#include "../Common/Random.h"
+#include "../../Common/Random.h"
 
 Perceptron::Perceptron(int weightsLength)
 {

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "../Common/Random.h"
+#include "../../Common/Random.h"
 #include "MLP.h"
 
 int propagate(MultiLayerPerceptron& mlp, std::vector<float> inputs, bool printResult)
@@ -37,7 +37,7 @@ void loadWeightsFromFile(const char* filePath, MultiLayerPerceptron& mlp)
 void trainXor2LayersMLP(const char* filePath)
 {
     std::cout << "XOR - 2 Layers (2, 1)" << std::endl;
-    random::initRandomSeed();
+    random::InitSeed(random::GetTime());
     std::vector<int> neuronsByLayerArr = std::vector<int> {2,1};
     bool isNetworkTrained = false;
     unsigned long iterations = 0;
@@ -65,7 +65,7 @@ void trainXor2LayersMLP(const char* filePath)
 void trainXor3LayersMLP(const char* filePath)
 {
     std::cout << "XOR - 3 Layers (2, 2, 1)" << std::endl;
-    random::initRandomSeed();
+    random::InitSeed(random::GetTime());
     std::vector<int> neuronsByLayerArr = std::vector<int> {2,2,1};
     bool isNetworkTrained = false;
     unsigned long iterations = 0;
