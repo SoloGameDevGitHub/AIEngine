@@ -1,3 +1,9 @@
-add_definitions(-D_EXPORT_DLL_)
+add_definitions(-D MATHLIBRARY_EXPORTS)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/dll)
-add_library(DLL SHARED Exporter.cpp)
+
+set(FILES
+        MathLibrary.cpp
+        )
+add_executable(MathLibrary ${FILES})
+
+add_library(MathLibrary_DLL SHARED MathLibrary.cpp)
