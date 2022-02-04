@@ -1,15 +1,17 @@
-#include <fstream>
-#include "../../Miscellaneous/ISerializable.h"
 #include "Perceptron.h"
+
+#include <fstream>
+
+using namespace NeuralNetwork;
 
 void Test_Neuron_W1_greater_than_W2()
 {
-    const char* filePath = "C:/Projects/AIEngine/NeuralNetwork/Perceptron/data/weights_perceptron_x_greater_than_y.txt";
-    random::initRandomSeed();
+    std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
+    RandomUtils::initRandomSeed();
     std::unique_ptr<Perceptron> neuron = std::make_unique<Perceptron>(2);
-    neuron->setActivationFunction(activationfunction::sign);
+    neuron->setActivationFunction(activation::sign);
     neuron->randomizeWeights();
-    deserializeFromFile(filePath, *neuron);
+    loadWeightsFromFile(weightsFilePath.c_str(), *neuron);
     double learningRate = 0.1;
     int iterations = 0;
     std::vector<std::vector<double>> inputs =
@@ -40,17 +42,17 @@ void Test_Neuron_W1_greater_than_W2()
         }
     }
     std::cout << "The network has been trained! (iterations: " << iterations << ")" << std::endl;
-    serializeToFile(filePath, *neuron);
+    serializeToFile(weightsFilePath.c_str(), *neuron);
 }
 
 void Test_Neuron_W2_greater_than_W1()
 {
-    const char* filePath = "C:/Projects/AIEngine/NeuralNetwork/Perceptron/data/weights_perceptron_y_greater_than_x.txt";
-    random::initRandomSeed();
+    std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
+    RandomUtils::initRandomSeed();
     std::unique_ptr<Perceptron> perceptron = std::make_unique<Perceptron>(2);
-    perceptron->setActivationFunction(activationfunction::sign);
+    perceptron->setActivationFunction(activation::sign);
     perceptron->randomizeWeights();
-    deserializeFromFile(filePath, *perceptron);
+    loadWeightsFromFile(weightsFilePath.c_str(), *perceptron);
     double learningRate = 0.1;
     int iterations = 0;
     std::vector<std::vector<double>> inputs =
@@ -65,10 +67,13 @@ void Test_Neuron_W2_greater_than_W1()
         std::vector<double> {-10.0, 10.0}, //  1.0
     };
     std::vector<double> expectedOutputs = {-1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0};
-    for (int i = 0; i < inputs.size(); ++i)
+
+    // apply sigmoid on inputs
+    for (std::vector<double>& input : inputs)
     {
-        activationfunction::sigmoid(inputs[i]);
+        activation::sigmoid(input);
     }
+
     for (int i = 0; i < inputs.size(); ++i)
     {
         double guess = perceptron->feedforward(inputs[i]);
@@ -80,7 +85,7 @@ void Test_Neuron_W2_greater_than_W1()
         }
     }
     std::cout << "The network has been trained! (iterations: " << iterations << ")" << std::endl;
-    serializeToFile(filePath, *perceptron);
+    serializeToFile(weightsFilePath.c_str(), *perceptron);
 }
 
 int main()

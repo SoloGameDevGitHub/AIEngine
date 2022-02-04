@@ -2,19 +2,22 @@
 
 #include <memory>
 #include "../../Miscellaneous/ISerializable.h"
-#include "../ActivationFunctions.h"
-#include "../Neuron.h"
+#include "../Common/ActivationFunctions.h"
+#include "../Common/Neuron.h"
 
-class Layer : public ISerializable
+namespace NeuralNetwork
 {
-private:
-    std::vector<std::unique_ptr<Neuron>> _neurons;
+    class Layer final : public serialization::ISerializable
+    {
+    private:
+        std::vector<std::unique_ptr<Neuron>> _neurons;
 
-public:
-    Layer(int neurons, int weights);
-    std::vector<double> feedforward(const std::vector<double>& inputs);
-    void serialize(std::ostream &stream) const override;
-    void deserialize(std::istream &stream) override;
-    Neuron& getNeuron(int index) const;
-    int getNeuronsLength() const;
-};
+    public:
+        Layer(int neurons, int weights);
+        std::vector<double> feedforward(const std::vector<double>& inputs);
+        void serialize(std::ostream &stream) const override;
+        void deserialize(std::istream &stream) override;
+        Neuron& getNeuron(int index) const;
+        int getNeuronsLength() const;
+    };
+}

@@ -1,11 +1,13 @@
 #include "Layer.h"
 
+using namespace NeuralNetwork;
+
 Layer::Layer(int neurons, int weights)
 {
     for(int i = 0; i < neurons; i++)
     {
         std::unique_ptr<Neuron> neuron = std::make_unique<Neuron>(weights);
-        neuron->setActivationFunction(activationfunction::sigmoid);
+        neuron->setActivationFunction(activation::sigmoid);
         neuron->randomizeWeights();
         _neurons.push_back(std::move(neuron));
     }
@@ -35,8 +37,7 @@ std::vector<double> Layer::feedforward(const std::vector<double>& inputs)
     for(unsigned int i = 0; i < _neurons.size(); i++)
     {
         Neuron& neuron = *_neurons[i];
-        double output = neuron.feedforward(inputs, 0.0);
-        outputs[i] = output;
+        outputs[i] = neuron.feedforward(inputs, 0.0);
     }
     return outputs;
 }

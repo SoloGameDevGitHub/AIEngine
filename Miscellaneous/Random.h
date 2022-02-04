@@ -1,9 +1,10 @@
 #pragma once
-#include <stdlib.h>
-#include <time.h>
+
+#include <cstdlib>
+#include <ctime>
 #include <cstdlib>
 
-namespace random
+namespace RandomUtils
 {
     void initRandomSeed();
     double range(double a, double b);

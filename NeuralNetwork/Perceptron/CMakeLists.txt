@@ -1,9 +1,9 @@
 set(FILES
         ../../Miscellaneous/Random.cpp
         ../../Miscellaneous/ISerializable.cpp
-        ../ActivationFunctions.cpp
-        ../Neuron.cpp
+        ../Common/ActivationFunctions.cpp
+        ../Common/Neuron.cpp
         Perceptron.cpp
-        PerceptronTests.cpp
+        PerceptronMain.cpp
 )
 add_executable(Perceptron ${FILES})

@@ -1,17 +1,19 @@
 #include "Perceptron.h"
 
-Perceptron::Perceptron(int weights)
+using namespace NeuralNetwork;
+
+Perceptron::Perceptron(int weights) : _bias(0.0)
 {
     _neuron = std::make_unique<Neuron>(weights);
 }
 
-double Perceptron::feedforward(const std::vector<double> inputs)
+double Perceptron::feedforward(const std::vector<double>& inputs)
 {
     double output = _neuron->feedforward(inputs, _bias);
     return output;
 }
 
-void Perceptron::train(const std::vector<double> inputs, double target, double learningRate)
+void Perceptron::train(const std::vector<double>& inputs, double target, double learningRate)
 {
     double output = feedforward(inputs);
     double error = (target - output);
@@ -37,7 +39,7 @@ void Perceptron::deserialize(std::istream &stream)
     _neuron->deserialize(stream);
 }
 
-void Perceptron::setActivationFunction(activationfunction::function activationFunction)
+void Perceptron::setActivationFunction(activation::function activationFunction)
 {
     _neuron->setActivationFunction(activationFunction);
 }
@@ -45,5 +47,5 @@ void Perceptron::setActivationFunction(activationfunction::function activationFu
 void Perceptron::randomizeWeights()
 {
     _neuron->randomizeWeights();
-    _bias = random::range(-0.1,0.1);
+    _bias = RandomUtils::range(-0.1, 0.1);
 }
