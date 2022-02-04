@@ -5,27 +5,16 @@
 #include <ctime>
 
 #include "../../Common/Random.h"
+#include "bitset"
+#include "GeneticAlgorithm.h"
 
 // Population { [010], [1100], [1010] }
 // -> Chromosome [0001]
 //   -> Gene [0]
 
-class GeneticAlgorithm
-{
-private:
-    void generateInitialPopulation(std::vector<int>& population);
-    int getFitnessScore(int& chromosome);
-    //Order list elements based on fitness score (first == best, last == worst)
-    void orderByFitnessScore(std::vector<int>& population);
-    void selection(std::vector<int>& population);
-    void farrow(std::vector<int>& population);
-    void crossover(std::vector<int>& population);
-    void mutation(std::vector<int>& population);
-};
-
 int main()
 {
-    random::InitSeed(random::GetTime());
+    RandomUtils::InitSeed(RandomUtils::GetTime());
     /*
      * 1. Initial population
      * 2. Fitness function
@@ -33,17 +22,18 @@ int main()
      * 4. Crossover
      * 5. Mutation
      */
-    std::cout << std::endl << "[Genetic Algorithm]" << std::endl;
-    const int VECTOR_LENGTH = 10;
-    std::vector<int> vector(VECTOR_LENGTH);
-    for(int i = 0; i < VECTOR_LENGTH; i++)
-    {
-        vector[i] = random::range(0, 200);
-    }
-    sort(vector.begin(), vector.end());
-    for(int i = 0; i < 10; i++)
-    {
-        std::cout << vector[i] << " ";
-    }
+
+    GeneticAlgorithm genericAlgorithm;
+    int lhs = 0xffff;
+    int rhs = 0xffff << 16;
+
+    std::cout << std::bitset<32>(lhs) << std::endl;
+    std::cout << std::bitset<32>(rhs) << std::endl << std::endl;
+
+    genericAlgorithm.Crossover(lhs, rhs, 1);
+
+    std::cout << std::bitset<32>(lhs) << std::endl;
+    std::cout << std::bitset<32>(rhs) << std::endl;
+
     return 0;
 }
