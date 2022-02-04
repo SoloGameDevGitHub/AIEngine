@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../ActivationFunctions.h"
+#include "../Common/ActivationFunctions.h"
 #include "Layer.h"
 
-namespace neuralnetwork
+namespace NeuralNetwork
 {
     class MultiLayerPerceptron final : public serialization::ISerializable
     {

@@ -1,6 +1,6 @@
 #include "Layer.h"
 
-using namespace neuralnetwork;
+using namespace NeuralNetwork;
 
 Layer::Layer(int neurons, int weights)
 {

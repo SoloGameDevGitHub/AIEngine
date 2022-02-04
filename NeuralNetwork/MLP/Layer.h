@@ -2,10 +2,10 @@
 
 #include <memory>
 #include "../../Miscellaneous/ISerializable.h"
-#include "../ActivationFunctions.h"
-#include "../Neuron.h"
+#include "../Common/ActivationFunctions.h"
+#include "../Common/Neuron.h"
 
-namespace neuralnetwork
+namespace NeuralNetwork
 {
     class Layer final : public serialization::ISerializable
     {

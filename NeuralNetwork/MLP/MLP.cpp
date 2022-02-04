@@ -1,6 +1,6 @@
 #include "MLP.h"
 
-using namespace neuralnetwork;
+using namespace NeuralNetwork;
 
 MultiLayerPerceptron::MultiLayerPerceptron(int inputsLength, const std::vector<int> &neuronsByLayerArr)
 {

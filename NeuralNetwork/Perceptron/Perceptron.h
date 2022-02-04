@@ -2,9 +2,9 @@
 
 #include <memory>
 #include "../../Miscellaneous/ISerializable.h"
-#include "../Neuron.h"
+#include "../Common/Neuron.h"
 
-namespace neuralnetwork
+namespace NeuralNetwork
 {
     class Perceptron final : public serialization::ISerializable
     {
@@ -13,9 +13,9 @@ namespace neuralnetwork
         std::unique_ptr<Neuron> _neuron;
 
     public:
-        Perceptron(int weights);
-        double feedforward(const std::vector<double> inputs);
-        void train(const std::vector<double> inputs, double target, double learningRate);
+        explicit Perceptron(int weights);
+        double feedforward(const std::vector<double>& inputs);
+        void train(const std::vector<double>& inputs, double target, double learningRate);
         void setActivationFunction(activation::function activationFunction);
         void randomizeWeights();
         void serialize(std::ostream &stream) const override;
