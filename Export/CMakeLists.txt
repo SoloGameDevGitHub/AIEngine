@@ -1,5 +1,5 @@
 add_definitions(-D MATHLIBRARY_EXPORTS)
-set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/dll)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/DLL)
 
 set(FILES
         MathLibrary.cpp
