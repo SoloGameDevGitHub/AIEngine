@@ -37,7 +37,7 @@ void loadWeightsFromFile(const char* filePath, MultiLayerPerceptron& mlp)
 void trainXor2LayersMLP(const char* filePath)
 {
     std::cout << "XOR - 2 Layers (2, 1)" << std::endl;
-    random::InitSeed(random::GetTime());
+    RandomUtils::InitSeed(RandomUtils::GetTime());
     std::vector<int> neuronsByLayerArr = std::vector<int> {2,1};
     bool isNetworkTrained = false;
     unsigned long iterations = 0;
@@ -65,7 +65,7 @@ void trainXor2LayersMLP(const char* filePath)
 void trainXor3LayersMLP(const char* filePath)
 {
     std::cout << "XOR - 3 Layers (2, 2, 1)" << std::endl;
-    random::InitSeed(random::GetTime());
+    RandomUtils::InitSeed(RandomUtils::GetTime());
     std::vector<int> neuronsByLayerArr = std::vector<int> {2,2,1};
     bool isNetworkTrained = false;
     unsigned long iterations = 0;

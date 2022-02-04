@@ -1,9 +1,9 @@
-#ifndef AIENGINE_RANDOM_H
-#define AIENGINE_RANDOM_H
+#pragma once
 
+#include <cstdlib>
 #include <type_traits>
 
-namespace random
+namespace RandomUtils
 {
     unsigned int GetTime();
 
@@ -18,4 +18,3 @@ namespace random
         return result;
     }
 }
-#endif //AIENGINE_RANDOM_H

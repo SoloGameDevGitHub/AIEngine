@@ -7,11 +7,11 @@ Perceptron::Perceptron(int weightsLength)
     auto weights = std::make_unique<Matrix>(1, weightsLength);
     for (int c = 0; c < weights->getColumns(); ++c)
     {
-        float randomValue = random::range(-1.0f, 1.0f);
+        float randomValue = RandomUtils::range(-1.0f, 1.0f);
         weights->set(0,c,randomValue);
     }
     _neuron->setWeights(*weights);
-    float randomBias = random::range(-0.1f,0.1f);
+    float randomBias = RandomUtils::range(-0.1f, 0.1f);
     _neuron->setBias(randomBias);
     _activationFunction = noActivation;
 }
