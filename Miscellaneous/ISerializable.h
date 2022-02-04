@@ -12,6 +12,6 @@ namespace serialization
         virtual void deserialize(std::istream& stream) = 0;
     };
 
-    void deserializeFromFile(const char* filePath, ISerializable& target);
+    void loadWeightsFromFile(const char* filePath, ISerializable& target);
     void serializeToFile(const char* filePath, const ISerializable& target);
 }

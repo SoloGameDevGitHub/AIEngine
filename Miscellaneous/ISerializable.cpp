@@ -2,25 +2,25 @@
 
 namespace serialization
 {
-    void deserializeFromFile(const char* filePath, ISerializable& target)
+    void loadWeightsFromFile(const char* filePath, ISerializable& target)
     {
-        std::fstream myfile;
-        myfile.open (filePath);
-        if (myfile.good())
+        std::fstream stream;
+        stream.open (filePath, std::fstream::in | std::fstream::binary);
+        if (stream.good())
         {
-            target.deserialize(myfile);
+            target.deserialize(stream);
         }
-        myfile.close();
+        stream.close();
     }
 
     void serializeToFile(const char* filePath, const ISerializable& target)
     {
-        std::fstream myfile;
-        myfile.open (filePath);
-        if (myfile.good())
+        std::fstream stream;
+        stream.open (filePath, std::fstream::out | std::fstream::binary | std::fstream::trunc);
+        if (stream.good())
         {
-            target.serialize(myfile);
+            target.serialize(stream);
         }
-        myfile.close();
+        stream.close();
     }
 }
