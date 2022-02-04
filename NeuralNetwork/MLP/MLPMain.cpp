@@ -47,7 +47,7 @@ void TEST_MLP_XOR_2_2_1()
         trainingIndex++;
         trainingIndex %= trainingInputs.size();
     }
-    printf("The network has been trained in '%l' iterations.\n", iteration);
+    printf("The network has been trained in '%ld' iterations.\n", iteration);
     serializeToFile(weightsFilePath.c_str(), mlp);
 }
 
@@ -85,7 +85,7 @@ void TEST_MLP_XOR_2_3_1()
         trainingIndex++;
         trainingIndex %= trainingInputs.size();
     }
-    printf("The network has been trained in '%l' iterations.\n", iteration);
+    printf("The network has been trained in '%ld' iterations.\n", iteration);
     serializeToFile(weightsFilePath.c_str(), mlp);
 }
 
@@ -123,7 +123,7 @@ void TEST_MLP_XOR_2_3_3_3_1()
         trainingIndex++;
         trainingIndex %= trainingInputs.size();
     }
-    printf("The network has been trained in '%l' iterations.\n", iteration);
+    printf("The network has been trained in '%ld' iterations.\n", iteration);
     serializeToFile(weightsFilePath.c_str(), mlp);
 }
 
@@ -161,7 +161,7 @@ void TEST_MLP_XOR_2_3_2()
         trainingIndex++;
         trainingIndex %= trainingInputs.size();
     }
-    printf("The network has been trained in '%l' iterations.\n", iteration);
+    printf("The network has been trained in '%ld' iterations.\n", iteration);
     serializeToFile(weightsFilePath.c_str(), mlp);
 }
 
@@ -224,7 +224,7 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
         trainingIndex %= trainingInputs.size();
     }
     while (rightGuesses < trainingInputs.size());
-    printf("The network has been trained in '%l' iterations.\n", iteration);
+    printf("The network has been trained in '%ld' iterations.\n", iteration);
     serializeToFile(weightsFilePath.c_str(), mlp);
 }
 
