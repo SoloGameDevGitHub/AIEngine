@@ -1,5 +1,16 @@
 #include "MinimaxTester.h"
 
+string getStateText(int state)
+{
+    if (state == TicTacToeMinimax::PLAYING)
+        return "Playing";
+    else if (state == TicTacToeMinimax::DRAW)
+        return "Draw";
+    else if (state == TicTacToeMinimax::CROSS_WINS)
+        return "CrossWins";
+    return "CircleWins";
+}
+
 struct MinimaxTestCase
 {
 public:

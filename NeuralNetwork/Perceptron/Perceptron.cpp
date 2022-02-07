@@ -1,6 +1,6 @@
 #include "Perceptron.h"
 
-Perceptron::Perceptron(int weights)
+Perceptron::Perceptron(int weights) : _bias(0.0)
 {
     _neuron = std::make_unique<Neuron>(weights);
 }

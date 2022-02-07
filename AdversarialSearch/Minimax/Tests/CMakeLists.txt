@@ -1,6 +1,6 @@
 set(FILES
-        TicTacToeMinimax.cpp
+        ../TicTacToeMinimax.cpp
         MinimaxTester.cpp
-        Main.cpp
+        MinimaxTestMain.cpp
 )
 add_executable(Minimax ${FILES})
