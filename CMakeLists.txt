@@ -11,8 +11,8 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/build)
 # include tests from subdirectories
 add_subdirectory(AdversarialSearch/Minimax/Tests)
 add_subdirectory(Miscellaneous/Tests)
-add_subdirectory(NeuralNetwork/Perceptron)
-add_subdirectory(NeuralNetwork/MLP)
+add_subdirectory(NeuralNetwork/Perceptron/Tests)
+add_subdirectory(NeuralNetwork/MLP/Tests)
 
 # include examples from subdirectories
 add_subdirectory(Examples/MathLibrary)

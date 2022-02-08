@@ -1,4 +1,4 @@
-#include "Perceptron.h"
+#include "../Perceptron.h"
 
 #include <fstream>
 
