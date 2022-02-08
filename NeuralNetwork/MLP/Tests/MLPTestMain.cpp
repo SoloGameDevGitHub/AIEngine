@@ -4,16 +4,6 @@
 
 using namespace NeuralNetwork;
 
-bool equals(const std::vector<double>& lhs, const std::vector<double>& rhs)
-{
-    for (int i = 0; i < lhs.size(); ++i)
-    {
-        if (lhs[i] != rhs[i])
-            return false;
-    }
-    return true;
-}
-
 void ApplySupervisedLearning(MultiLayerPerceptron& mlp,
                   // training inputs and outputs
                   const std::vector<std::vector<double>>& trainingInputs,
@@ -30,7 +20,7 @@ void ApplySupervisedLearning(MultiLayerPerceptron& mlp,
         const std::vector<double>& expectedOutputs = trainingOutputs[trainingIndex];
         const std::vector<double> outputs = mlp.Feedforward(inputs);
 
-        if (equals(outputs, expectedOutputs))
+        if (outputs == expectedOutputs)
         {
             rightGuesses++;
         }
