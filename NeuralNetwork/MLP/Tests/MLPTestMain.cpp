@@ -49,7 +49,7 @@ void TEST_MLP_XOR_2_2_1()
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
     Activation::setThreshold(0.7);
-    RandomUtils::initRandomSeed();
+    RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({2,1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
     mlp.ActivationFunction = Activation::EActivationFunctionType::Threshold;
@@ -72,7 +72,7 @@ void TEST_MLP_XOR_2_3_1()
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
     Activation::setThreshold(0.7);
-    RandomUtils::initRandomSeed();
+    RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({3,1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
     mlp.ActivationFunction = Activation::EActivationFunctionType::Threshold;
@@ -96,7 +96,7 @@ void TEST_MLP_XOR_2_3_3_3_1()
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
     Activation::setThreshold(0.7);
-    RandomUtils::initRandomSeed();
+    RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({3, 3, 3, 1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
     mlp.ActivationFunction = Activation::EActivationFunctionType::Threshold;
@@ -120,7 +120,7 @@ void TEST_MLP_XOR_2_3_2()
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
     Activation::setThreshold(0.7);
-    RandomUtils::initRandomSeed();
+    RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({3, 2});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
     mlp.ActivationFunction = Activation::EActivationFunctionType::Threshold;
@@ -144,7 +144,7 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
     Activation::setThreshold(0.7);
-    RandomUtils::initRandomSeed();
+    RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({10, 10});
     MultiLayerPerceptron mlp(7, neuronsByLayer);
     mlp.ActivationFunction = Activation::EActivationFunctionType::Threshold;

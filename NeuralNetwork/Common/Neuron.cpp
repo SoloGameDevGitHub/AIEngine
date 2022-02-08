@@ -28,7 +28,7 @@ void Neuron::randomizeWeights()
 {
     for (double& weight : _weights)
     {
-        weight = RandomUtils::range(-1.0, 1.0);
+        weight = RandomUtils::Range(-1.0, 1.0);
 
         // fix absolute zero weights
         if (weight == 0.0)

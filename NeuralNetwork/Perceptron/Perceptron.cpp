@@ -42,7 +42,7 @@ void Perceptron::Deserialize(std::istream &stream)
 void Perceptron::randomizeWeights()
 {
     _neuron->randomizeWeights();
-    _bias = RandomUtils::range(-0.1, 0.1);
+    _bias = RandomUtils::Range(-0.1, 0.1);
 }
 
 Neuron *Perceptron::GetNeuron()

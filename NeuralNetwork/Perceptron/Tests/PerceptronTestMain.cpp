@@ -5,7 +5,7 @@
 void Test_Neuron_W1_greater_than_W2()
 {
     std::cout << __FUNCTION__ << "... ";
-    RandomUtils::initRandomSeed();
+    RandomUtils::SetRandomSeed();
     std::unique_ptr<NeuralNetwork::Perceptron> perceptron = std::make_unique<NeuralNetwork::Perceptron>(2);
     perceptron->GetNeuron()->ActivationFunction = NeuralNetwork::Activation::EActivationFunctionType::Sign;
     perceptron->randomizeWeights();
@@ -51,7 +51,7 @@ void Test_Neuron_W1_greater_than_W2()
 void Test_Neuron_W2_greater_than_W1()
 {
     std::cout << __FUNCTION__ << "... ";
-    RandomUtils::initRandomSeed();
+    RandomUtils::SetRandomSeed();
     std::unique_ptr<NeuralNetwork::Perceptron> perceptron = std::make_unique<NeuralNetwork::Perceptron>(2);
     perceptron->GetNeuron()->ActivationFunction = NeuralNetwork::Activation::EActivationFunctionType::Sign;
     perceptron->randomizeWeights();
