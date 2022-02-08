@@ -1,5 +1,4 @@
 add_definitions(-D MATHLIBRARY_EXPORTS)
-set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/Libs)
 
 # list of source files
 set(FILES

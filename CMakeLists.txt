@@ -7,6 +7,7 @@ project(AIEngine)
 # set project properties
 set(CMAKE_CXX_STANDARD 14)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/build)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/Libs)
 
 # include tests from subdirectories
 add_subdirectory(AdversarialSearch/Minimax/Tests)
