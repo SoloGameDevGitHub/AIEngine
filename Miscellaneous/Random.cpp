@@ -1,12 +1,12 @@
 #include "Random.h"
 
-void random::initRandomSeed()
+void RandomUtils::initRandomSeed()
 {
-    unsigned int seed = static_cast<unsigned int>(time(NULL));
+    auto seed = static_cast<unsigned int>(time(nullptr));
     srand(seed);
 }
 
-double random::range(double min, double max)
+double RandomUtils::range(double min, double max)
 {
     double randomValue = ((double) std::rand()) / (double) RAND_MAX;
     double difference = max - min;

@@ -1,47 +1,48 @@
 #include "Layer.h"
 
-Layer::Layer(int neurons, int weights)
+using namespace NeuralNetwork;
+
+Layer::Layer(size_t neurons, size_t weights)
 {
-    for(int i = 0; i < neurons; i++)
+    for(size_t i = 0; i < neurons; i++)
     {
         std::unique_ptr<Neuron> neuron = std::make_unique<Neuron>(weights);
-        neuron->setActivationFunction(activationfunction::sigmoid);
+        neuron->ActivationFunction = Activation::EActivationFunctionType::Sigmoid;
         neuron->randomizeWeights();
         _neurons.push_back(std::move(neuron));
     }
 }
 
-void Layer::serialize(std::ostream& stream) const
+void Layer::Serialize(std::ostream& stream) const
 {
-    for(unsigned int i = 0; i < _neurons.size(); i++)
+    for(const auto& _neuron : _neurons)
     {
-        Neuron& neuron = *_neurons[i];
-        neuron.serialize(stream);
+        Neuron& neuron = *_neuron;
+        neuron.Serialize(stream);
     }
 }
 
-void Layer::deserialize(std::istream &stream)
+void Layer::Deserialize(std::istream &stream)
 {
-    for(unsigned int i = 0; i < _neurons.size(); i++)
+    for(auto& _neuron : _neurons)
     {
-        Neuron& neuron = *_neurons[i];
-        neuron.deserialize(stream);
+        Neuron& neuron = *_neuron;
+        neuron.Deserialize(stream);
     }
 }
 
 std::vector<double> Layer::feedforward(const std::vector<double>& inputs)
 {
     std::vector<double> outputs(_neurons.size());
-    for(unsigned int i = 0; i < _neurons.size(); i++)
+    for(size_t n = 0; n < _neurons.size(); n++)
     {
-        Neuron& neuron = *_neurons[i];
-        double output = neuron.feedforward(inputs, 0.0);
-        outputs[i] = output;
+        Neuron& neuron = *_neurons[n];
+        outputs[n] = neuron.feedforward(inputs, 0.0);
     }
     return outputs;
 }
 
-int Layer::getNeuronsLength() const
+size_t Layer::getNeuronsLength() const
 {
     return _neurons.size();
 }

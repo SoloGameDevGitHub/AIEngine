@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main(int argc, char* argv[])
+int main()
 {
     cout << "Matrix * Matrix" << endl;
     auto left = make_unique<Matrix>(1,3);

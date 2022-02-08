@@ -2,20 +2,23 @@
 
 #include <memory>
 #include "../../Miscellaneous/ISerializable.h"
-#include "../Neuron.h"
+#include "../Common/Neuron.h"
 
-class Perceptron final : public ISerializable
+namespace NeuralNetwork
 {
-private:
-    double _bias;
-    std::unique_ptr<Neuron> _neuron;
+    class Perceptron final : public serialization::ISerializable
+    {
+    private:
+        double _bias;
+        std::unique_ptr<Neuron> _neuron;
 
-public:
-    explicit Perceptron(int weights);
-    double feedforward(std::vector<double> inputs);
-    void train(std::vector<double> inputs, double target, double learningRate);
-    void setActivationFunction(activationfunction::function activationFunction);
-    void randomizeWeights();
-    void serialize(std::ostream &stream) const override;
-    void deserialize(std::istream &stream) override;
-};
+    public:
+        explicit Perceptron(int weights);
+        Neuron* GetNeuron();
+        double feedforward(const std::vector<double>& inputs);
+        void train(const std::vector<double>& inputs, double target, double learningRate);
+        void randomizeWeights();
+        void Serialize(std::ostream &stream) const override;
+        void Deserialize(std::istream &stream) override;
+    };
+}
