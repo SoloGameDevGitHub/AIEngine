@@ -7,6 +7,6 @@ set(FILES
         ../../Common/ActivationFunctions.cpp
         ../../Common/Neuron.cpp
         ../Perceptron.cpp
-        PerceptronMain.cpp
+        PerceptronTestMain.cpp
 )
 add_executable(Perceptron ${FILES})

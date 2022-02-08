@@ -8,6 +8,6 @@ set(FILES
         ../../Common/Neuron.cpp
         ../Layer.cpp
         ../MLP.cpp
-        MLPMain.cpp
+        MLPTestMain.cpp
 )
 add_executable(MultiLayerPerceptron ${FILES})
