@@ -51,7 +51,7 @@ void ApplySupervisedLearning(MultiLayerPerceptron& mlp,
         trainingIndex++;
         trainingIndex %= trainingInputs.size();
     }
-    printf("The network has been trained in '%ld' iterations.\n", totalIterations);
+    printf("The network has been trained in '%zu' iterations.\n", totalIterations);
 }
 
 void TEST_MLP_XOR_2_2_1()
