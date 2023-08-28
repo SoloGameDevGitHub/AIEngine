@@ -10,7 +10,12 @@ int GetOne()
     return 1;
 }
 
-int main(int argc, char *argv[])
+int MathFacade::Sum(int lhs, int rhs)
 {
-    return 0;
+    return ::Sum(lhs, rhs);
+}
+
+int MathFacade::GetOne()
+{
+    return ::GetOne();
 }

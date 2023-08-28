@@ -17,3 +17,5 @@ add_subdirectory(NeuralNetwork/MLP/Tests)
 
 # include examples from subdirectories
 add_subdirectory(Examples/MathLibrary)
+# include MathLibrary tests
+add_subdirectory(Examples/MathLibrary/Tests)

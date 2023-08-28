@@ -1,16 +1,15 @@
 // MathLibrary.h - Contains declarations of math functions
 #pragma once
 
-#if defined(_WIN32) || defined(WIN32)
-#   ifdef MATHLIBRARY_EXPORTS
-#       define MATHLIBRARY_API __declspec(dllexport)
-#   else
-#       define MATHLIBRARY_API __declspec(dllimport)
-#   endif
-#else
-#   define MATHLIBRARY_API
-#endif
+#include "ApiExports.h"
 
-extern "C" MATHLIBRARY_API int Sum(int lhs, int rhs);
+MATHLIBRARY_API class MathFacade {
+public:
+    static int Sum(int lhs, int rhs);
+    static int GetOne();
+};
 
-extern "C" MATHLIBRARY_API int GetOne();
+extern "C" {
+    MATHLIBRARY_API int Sum(int lhs, int rhs);
+    MATHLIBRARY_API int GetOne();
+}
