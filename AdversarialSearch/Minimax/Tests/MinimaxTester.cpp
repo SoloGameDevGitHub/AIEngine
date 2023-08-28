@@ -26,7 +26,7 @@ public:
 
 void TicTacToeMinimax::RunMinimaxTests()
 {
-    vector<MinimaxTestCase> testCases = {
+    const vector<MinimaxTestCase> testCases = {
             MinimaxTestCase(0b10'10'00'00'11'00'00'00'00, true,  {0b10'10'11'00'11'00'00'00'00}),
             MinimaxTestCase(0b11'11'00'00'10'00'00'00'00, false, {0b11'11'10'00'10'00'00'00'00}),
             MinimaxTestCase(0b00'00'00'00'11'00'00'10'10, true,  {0b00'00'00'00'11'00'11'10'10}),
@@ -44,7 +44,7 @@ void TicTacToeMinimax::RunMinimaxTests()
     for(unsigned int i = 0; i < testCases.size(); i++)
     {
         std::cout << "Test Case " << (i + 1) << " (";
-        MinimaxTestCase testCase = testCases[i];
+        const MinimaxTestCase testCase = testCases[i];
         std::cout << std::boolalpha;
         std::cout << "IsMaxTurn=" << testCase.IsMaxTurn << " / ";
         std::cout << "Board=" << testCase.CurrentBoard << " / ";
@@ -106,14 +106,21 @@ void TicTacToeMinimax::benchmarkMinimaxVsMinimax(int board, bool isMaxTurn)
     while (state == PLAYING)
     {
         auto begin = std::chrono::steady_clock::now();
+
+        // actually run the minimax algorithm
         int bestMove = TicTacToeMinimax::predict(currentBoard, isMaxTurn, 6);
+
         auto end = std::chrono::steady_clock::now();
+        // calculate the algorithm's duration in nanoseconds
         long long int nanos = (end - begin).count();
         totalDuration += nanos;
+        // store the duration
         durationByMove.emplace_back(nanos);
+
         isMaxTurn = !isMaxTurn;
         currentBoard = bestMove;
         state = TicTacToeMinimax::getState(currentBoard);
+        // print an error in case the algorithm ends up doing something completely wrong
         if (state != PLAYING && state != DRAW)
         {
             std::cerr << "'" << getStateText(state) << "' state must never happen during a Minimax vs Minimax battle!" << std::endl;
