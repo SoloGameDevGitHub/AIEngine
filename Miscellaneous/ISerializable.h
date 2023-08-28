@@ -3,15 +3,15 @@
 #include <fstream>
 #include <iostream>
 
-namespace serialization
+namespace Serialization
 {
     class ISerializable
     {
     public:
-        virtual void serialize(std::ostream& stream) const = 0;
-        virtual void deserialize(std::istream& stream) = 0;
+        virtual void Serialize(std::ostream& stream) const = 0;
+        virtual void Deserialize(std::istream& stream) = 0;
     };
 
-    void loadWeightsFromFile(const char* filePath, ISerializable& target);
-    void serializeToFile(const char* filePath, const ISerializable& target);
+    void LoadWeightsFromFile(const char* filePath, ISerializable& target);
+    void SerializeToFile(const char* filePath, const ISerializable& target);
 }

@@ -2,28 +2,28 @@
 
 #include "../../Miscellaneous/Matrix.h"
 #include "../../Miscellaneous/Random.h"
-#include "ActivationFunctions.h"
 #include "../../Miscellaneous/ISerializable.h"
+#include "ActivationFunctions.h"
 
 namespace NeuralNetwork
 {
-    class Neuron final : public serialization::ISerializable
+    class Neuron final : public Serialization::ISerializable
     {
     private:
         std::vector<double> _weights;
-        activation::function _activationFunction;
 
     public:
-        explicit Neuron(int weightsLength);
-        void randomizeWeights();
+        Activation::EActivationFunctionType ActivationFunction = Activation::EActivationFunctionType::None;
 
-        double feedforward(const std::vector<double>& inputs, double bias) const;
-        void setActivationFunction(activation::function activationFunction);
-        void setWeights(const std::vector<double>& weights);
-        const std::vector<double>& getWeights() const;
+        explicit Neuron(int weightsLength);
+        void RandomizeWeights();
+
+        double Feedforward(const std::vector<double>& inputs, double bias) const;
+        void SetWeights(const std::vector<double>& weights);
+        const std::vector<double>& GetWeights() const;
 
         // serialization
-        void serialize(std::ostream &stream) const override;
-        void deserialize(std::istream &stream) override;
+        void Serialize(std::ostream &stream) const override;
+        void Deserialize(std::istream &stream) override;
     };
 }

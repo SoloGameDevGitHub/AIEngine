@@ -2,25 +2,25 @@
 
 namespace NeuralNetwork
 {
-    namespace activation
+    namespace Activation
     {
         double thresholdValue = 0.5;
 
-        double sigmoid(const double& value)
+        double Sigmoid(const double& value)
         {
             double result = 1.0 / (1.0 + std::exp(-value));
             return result;
         }
 
-        void sigmoid(std::vector<double>& vector)
+        void Sigmoid(std::vector<double>& vector)
         {
             for (double& i : vector)
             {
-                i = sigmoid(i);
+                i = Sigmoid(i);
             }
         }
 
-        double sign(const double& value)
+        double Sign(const double& value)
         {
             if (value > 0.0)
             {
@@ -29,7 +29,15 @@ namespace NeuralNetwork
             return -1.0;
         }
 
-        double threshold(const double& value)
+        void Sign(std::vector<double>& vector)
+        {
+            for (double& i : vector)
+            {
+                i = Sign(i);
+            }
+        }
+
+        double Threshold(const double& value)
         {
             if (value >= thresholdValue)
             {
@@ -38,17 +46,57 @@ namespace NeuralNetwork
             return 0.0;
         }
 
-        void threshold(std::vector<double>& vector)
+        void Threshold(std::vector<double>& vector)
         {
             for (double& i : vector)
             {
-                i = threshold(i);
+                i = Threshold(i);
             }
         }
 
-        void setThreshold(const double&& threshold)
+        void SetThreshold(const double&& threshold)
         {
             thresholdValue = threshold;
+        }
+
+        void Apply(const EActivationFunctionType& activationFunctionType, double& value)
+        {
+            switch(activationFunctionType)
+            {
+                case EActivationFunctionType::None: break;
+
+                case EActivationFunctionType::Sigmoid:
+                    value = Sigmoid(value);
+                    break;
+
+                case EActivationFunctionType::Sign:
+                    value = Sign(value);
+                    break;
+
+                case EActivationFunctionType::Threshold:
+                    value = Threshold(value);
+                    break;
+            }
+        }
+
+        void Apply(const EActivationFunctionType &activationFunctionType, std::vector<double> &vector)
+        {
+            switch(activationFunctionType)
+            {
+                case EActivationFunctionType::None: break;
+
+                case EActivationFunctionType::Sigmoid:
+                    Sigmoid(vector);
+                    break;
+
+                case EActivationFunctionType::Sign:
+                    Sign(vector);
+                    break;
+
+                case EActivationFunctionType::Threshold:
+                    Threshold(vector);
+                    break;
+            }
         }
     }
 }

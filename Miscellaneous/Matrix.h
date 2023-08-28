@@ -17,18 +17,18 @@ private:
 public:
     Matrix(int rows, int columns);
     Matrix(const Matrix& source);
-    double get(int row, int column) const;
-    void set(int row, int column, double value);
-    int getRows() const;
-    int getColumns() const;
-    void print(std::ostream& stream) const;
-    void print(std::ostream& stream, int decimalPlace) const;
+    double Get(int row, int column) const;
+    void Set(int row, int column, double value);
+    int GetRows() const;
+    int GetColumns() const;
+    void Print(std::ostream& stream) const;
+    void Print(std::ostream& stream, int decimalPlace) const;
 
-    static std::unique_ptr<Matrix> multiply(const Matrix& left, const Matrix& right);
-    static void multiply(const Matrix& left, const Matrix& right, Matrix& target);
-    static void multiply(Matrix& target, double scalar);
-    static void add(Matrix& target, double value);
-    static std::unique_ptr<Matrix> fromVectorRows(const std::vector<double>& vector);
-    static std::unique_ptr<Matrix> fromVectorColumns(const std::vector<double>& vector);
-    static void copy(const Matrix& source, Matrix& target);
+    static std::unique_ptr<Matrix> Multiply(const Matrix& left, const Matrix& right);
+    static void Multiply(const Matrix& left, const Matrix& right, Matrix& target);
+    static void Multiply(Matrix& target, double scalar);
+    static void Add(Matrix& target, double value);
+    static std::unique_ptr<Matrix> FromVectorRows(const std::vector<double>& vector);
+    static std::unique_ptr<Matrix> FromVectorColumns(const std::vector<double>& vector);
+    static void Copy(const Matrix& source, Matrix& target);
 };

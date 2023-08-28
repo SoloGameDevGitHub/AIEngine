@@ -1,6 +1,6 @@
 #pragma once
 
-#include <limits.h>
+#include <climits>
 #include <vector>
 
 namespace TicTacToeMinimax
@@ -10,7 +10,7 @@ namespace TicTacToeMinimax
     const int CIRCLE_WINS = -1;
     const int PLAYING = 2;
 
-    int predict(int board, bool isMaxTurn, int maxDepth);
-    std::vector<int> predictAll(int board, bool isMaxTurn, int maxDepth);
-    int getState(int board);
+    int Predict(int board, bool isMaxTurn, int maxDepth);
+    std::vector<int> PredictAll(int board, bool isMaxTurn, int maxDepth);
+    int GetState(int board);
 }

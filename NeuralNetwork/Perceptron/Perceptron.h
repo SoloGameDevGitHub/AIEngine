@@ -6,7 +6,7 @@
 
 namespace NeuralNetwork
 {
-    class Perceptron final : public serialization::ISerializable
+    class Perceptron final : public Serialization::ISerializable
     {
     private:
         double _bias;
@@ -14,11 +14,11 @@ namespace NeuralNetwork
 
     public:
         explicit Perceptron(int weights);
-        double feedforward(const std::vector<double>& inputs);
-        void train(const std::vector<double>& inputs, double target, double learningRate);
-        void setActivationFunction(activation::function activationFunction);
-        void randomizeWeights();
-        void serialize(std::ostream &stream) const override;
-        void deserialize(std::istream &stream) override;
+        Neuron* GetNeuron();
+        double Feedforward(const std::vector<double>& inputs);
+        void Train(const std::vector<double>& inputs, double target, double learningRate);
+        void RandomizeWeights();
+        void Serialize(std::ostream &stream) const override;
+        void Deserialize(std::istream &stream) override;
     };
 }

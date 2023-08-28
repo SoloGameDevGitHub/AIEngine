@@ -7,17 +7,17 @@
 
 namespace NeuralNetwork
 {
-    class Layer final : public serialization::ISerializable
+    class Layer final : public Serialization::ISerializable
     {
     private:
         std::vector<std::unique_ptr<Neuron>> _neurons;
 
     public:
-        Layer(int neurons, int weights);
-        std::vector<double> feedforward(const std::vector<double>& inputs);
-        void serialize(std::ostream &stream) const override;
-        void deserialize(std::istream &stream) override;
-        Neuron& getNeuron(int index) const;
-        int getNeuronsLength() const;
+        Layer(size_t neurons, size_t weights);
+        std::vector<double> Feedforward(const std::vector<double>& inputs);
+        void Serialize(std::ostream &stream) const override;
+        void Deserialize(std::istream &stream) override;
+        Neuron& GetNeuron(int index) const;
+        size_t GetNeuronsLength() const;
     };
 }

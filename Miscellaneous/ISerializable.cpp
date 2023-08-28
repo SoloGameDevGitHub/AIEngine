@@ -1,25 +1,25 @@
 #include "ISerializable.h"
 
-namespace serialization
+namespace Serialization
 {
-    void loadWeightsFromFile(const char* filePath, ISerializable& target)
+    void LoadWeightsFromFile(const char* filePath, ISerializable& target)
     {
         std::fstream stream;
         stream.open (filePath, std::fstream::in | std::fstream::binary);
         if (stream.good())
         {
-            target.deserialize(stream);
+            target.Deserialize(stream);
         }
         stream.close();
     }
 
-    void serializeToFile(const char* filePath, const ISerializable& target)
+    void SerializeToFile(const char* filePath, const ISerializable& target)
     {
         std::fstream stream;
         stream.open (filePath, std::fstream::out | std::fstream::binary | std::fstream::trunc);
         if (stream.good())
         {
-            target.serialize(stream);
+            target.Serialize(stream);
         }
         stream.close();
     }

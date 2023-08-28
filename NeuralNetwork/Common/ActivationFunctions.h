@@ -5,15 +5,27 @@
 
 namespace NeuralNetwork
 {
-    namespace activation
+    namespace Activation
     {
-        typedef double (*function)(const double&);
-        typedef void (*vector_function)(std::vector<double>&);
-        double sigmoid(const double&);
-        void sigmoid(std::vector<double>&);
-        double sign(const double&);
-        double threshold(const double&);
-        void threshold(std::vector<double>&);
-        void setThreshold(const double&&);
+        double Sigmoid(const double&);
+        void Sigmoid(std::vector<double>&);
+
+        double Sign(const double&);
+        void Sign(std::vector<double>&);
+
+        double Threshold(const double&);
+        void Threshold(std::vector<double>&);
+        void SetThreshold(const double&&);
+
+        enum class EActivationFunctionType
+        {
+            None,
+            Sigmoid,
+            Sign,
+            Threshold,
+        };
+
+        void Apply(const EActivationFunctionType& activationFunctionType, double& value);
+        void Apply(const EActivationFunctionType& activationFunctionType, std::vector<double>& vector);
     }
 }

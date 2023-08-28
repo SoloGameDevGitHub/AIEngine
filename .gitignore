@@ -8,3 +8,4 @@ build
 *.asta.lock
 *.jude
 *.idea
+cmake-build-release
