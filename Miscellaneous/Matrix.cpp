@@ -15,7 +15,7 @@ Matrix::Matrix(const Matrix& source)
     _columns = source._columns;
 }
 
-double Matrix::get(const int row, const int column) const
+double Matrix::Get(const int row, const int column) const
 {
     int index = row * _columns + column;
     assert(index < (_rows * _columns));
@@ -23,29 +23,29 @@ double Matrix::get(const int row, const int column) const
     return value;
 }
 
-void Matrix::set(const int row, const int column, const double value)
+void Matrix::Set(const int row, const int column, const double value)
 {
     assert((row >= 0 && row < _rows) && (column >= 0 && column < _columns));
     const int index = row * _columns + column;
     _values[index] = value;
 }
 
-int Matrix::getRows() const
+int Matrix::GetRows() const
 {
     return _rows;
 }
 
-int Matrix::getColumns() const
+int Matrix::GetColumns() const
 {
     return _columns;
 }
 
-void Matrix::print(std::ostream& stream) const
+void Matrix::Print(std::ostream& stream) const
 {
-    print(stream, 3);
+    Print(stream, 3);
 }
 
-void Matrix::print(std::ostream& stream, int decimalPlace) const
+void Matrix::Print(std::ostream& stream, int decimalPlace) const
 {
     int decimalFactor = static_cast<int>(pow(10, decimalPlace));
     assert(decimalFactor > 0);
@@ -53,7 +53,7 @@ void Matrix::print(std::ostream& stream, int decimalPlace) const
     {
         for (int c = 0; c < _columns; c++)
         {
-            double value = get(r, c);
+            double value = Get(r, c);
             double truncatedValue = floor(value * decimalFactor) / decimalFactor;
             stream << "[" << truncatedValue << "] ";
         }
@@ -62,86 +62,86 @@ void Matrix::print(std::ostream& stream, int decimalPlace) const
 }
 
 //STATIC FUNCTIONS
-std::unique_ptr<Matrix> Matrix::multiply(const Matrix &left, const Matrix &right)
+std::unique_ptr<Matrix> Matrix::Multiply(const Matrix &left, const Matrix &right)
 {
-    std::unique_ptr<Matrix> result = std::make_unique<Matrix>(left.getRows(),right.getColumns());
-    multiply(left, right, *result);
+    std::unique_ptr<Matrix> result = std::make_unique<Matrix>(left.GetRows(),right.GetColumns());
+    Multiply(left, right, *result);
     return result;
 }
 
-void Matrix::multiply(const Matrix& left, const Matrix& right, Matrix& target)
+void Matrix::Multiply(const Matrix& left, const Matrix& right, Matrix& target)
 {
-    assert(left.getColumns() == right.getRows());
-    for(int row = 0; row < target.getRows(); ++row)
+    assert(left.GetColumns() == right.GetRows());
+    for(int row = 0; row < target.GetRows(); ++row)
     {
-        for(int column = 0; column < target.getColumns(); ++column)
+        for(int column = 0; column < target.GetColumns(); ++column)
         {
             double sum = 0.0;
-            for(int leftColumn = 0; leftColumn < left.getColumns(); ++leftColumn)
+            for(int leftColumn = 0; leftColumn < left.GetColumns(); ++leftColumn)
             {
-                sum += left.get(row, leftColumn) * right.get(leftColumn, column);
+                sum += left.Get(row, leftColumn) * right.Get(leftColumn, column);
             }
-            target.set(row, column, sum);
+            target.Set(row, column, sum);
         }
     }
 }
 
-void Matrix::multiply(Matrix& target, const double scalar)
+void Matrix::Multiply(Matrix& target, const double scalar)
 {
-    for (int r = 0; r < target.getRows(); ++r)
+    for (int r = 0; r < target.GetRows(); ++r)
     {
-        for (int c = 0; c < target.getColumns(); ++c)
+        for (int c = 0; c < target.GetColumns(); ++c)
         {
-            double value = target.get(r,c) * scalar;
-            target.set(r,c,value);
+            double value = target.Get(r,c) * scalar;
+            target.Set(r,c,value);
         }
     }
 }
 
-void Matrix::add(Matrix& target, const double value)
+void Matrix::Add(Matrix& target, const double value)
 {
-    for (int r = 0; r < target.getRows(); ++r)
+    for (int r = 0; r < target.GetRows(); ++r)
     {
-        for (int c = 0; c < target.getColumns(); ++c)
+        for (int c = 0; c < target.GetColumns(); ++c)
         {
-            double sum = target.get(r, c) + value;
-            target.set(r, c, sum);
+            double sum = target.Get(r, c) + value;
+            target.Set(r, c, sum);
         }
     }
 }
 
-std::unique_ptr<Matrix> Matrix::fromVectorRows(const std::vector<double>& vector)
+std::unique_ptr<Matrix> Matrix::FromVectorRows(const std::vector<double>& vector)
 {
     int size = vector.size();
     std::unique_ptr<Matrix> matrix = std::make_unique<Matrix>(size, 1);
     for (int i = 0; i < size; ++i) {
         const double number = vector[i];
-        matrix->set(i, 0, number);
+        matrix->Set(i, 0, number);
     }
     return matrix;
 }
 
-std::unique_ptr<Matrix> Matrix::fromVectorColumns(const std::vector<double>& vector)
+std::unique_ptr<Matrix> Matrix::FromVectorColumns(const std::vector<double>& vector)
 {
     int size = vector.size();
     std::unique_ptr<Matrix> matrix = std::make_unique<Matrix>(1, size);
     for (int i = 0; i < size; ++i) {
         const double number = vector[i];
-        matrix->set(0, i, number);
+        matrix->Set(0, i, number);
     }
     return matrix;
 }
 
-void Matrix::copy(const Matrix& source, Matrix& target)
+void Matrix::Copy(const Matrix& source, Matrix& target)
 {
-    assert(source.getColumns() == target.getColumns());
-    assert(source.getRows() == target.getRows());
-    for (int r = 0; r < source.getRows(); ++r)
+    assert(source.GetColumns() == target.GetColumns());
+    assert(source.GetRows() == target.GetRows());
+    for (int r = 0; r < source.GetRows(); ++r)
     {
-        for (int c = 0; c < source.getRows(); ++c)
+        for (int c = 0; c < source.GetRows(); ++c)
         {
-            double value = source.get(r, c);
-            target.set(r, c, value);
+            double value = source.Get(r, c);
+            target.Set(r, c, value);
         }
     }
 }

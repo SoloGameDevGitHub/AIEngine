@@ -9,7 +9,7 @@ Neuron::Neuron(int weights)
     _weights = std::vector<double>(weights);
 }
 
-double Neuron::feedforward(const std::vector<double>& inputs, double bias) const
+double Neuron::Feedforward(const std::vector<double>& inputs, double bias) const
 {
     // calculate Neuron's output
     double output = bias;
@@ -24,7 +24,7 @@ double Neuron::feedforward(const std::vector<double>& inputs, double bias) const
     return output;
 }
 
-void Neuron::randomizeWeights()
+void Neuron::RandomizeWeights()
 {
     for (double& weight : _weights)
     {
@@ -56,12 +56,12 @@ void Neuron::Deserialize(std::istream& stream)
     }
 }
 
-const std::vector<double>& Neuron::getWeights() const
+const std::vector<double>& Neuron::GetWeights() const
 {
     return _weights;
 }
 
-void Neuron::setWeights(const std::vector<double>& weights)
+void Neuron::SetWeights(const std::vector<double>& weights)
 {
     _weights = weights;
 }

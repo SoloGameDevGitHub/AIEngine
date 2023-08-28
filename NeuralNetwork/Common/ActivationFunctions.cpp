@@ -6,21 +6,21 @@ namespace NeuralNetwork
     {
         double thresholdValue = 0.5;
 
-        double sigmoid(const double& value)
+        double Sigmoid(const double& value)
         {
             double result = 1.0 / (1.0 + std::exp(-value));
             return result;
         }
 
-        void sigmoid(std::vector<double>& vector)
+        void Sigmoid(std::vector<double>& vector)
         {
             for (double& i : vector)
             {
-                i = sigmoid(i);
+                i = Sigmoid(i);
             }
         }
 
-        double sign(const double& value)
+        double Sign(const double& value)
         {
             if (value > 0.0)
             {
@@ -29,15 +29,15 @@ namespace NeuralNetwork
             return -1.0;
         }
 
-        void sign(std::vector<double>& vector)
+        void Sign(std::vector<double>& vector)
         {
             for (double& i : vector)
             {
-                i = sign(i);
+                i = Sign(i);
             }
         }
 
-        double threshold(const double& value)
+        double Threshold(const double& value)
         {
             if (value >= thresholdValue)
             {
@@ -46,15 +46,15 @@ namespace NeuralNetwork
             return 0.0;
         }
 
-        void threshold(std::vector<double>& vector)
+        void Threshold(std::vector<double>& vector)
         {
             for (double& i : vector)
             {
-                i = threshold(i);
+                i = Threshold(i);
             }
         }
 
-        void setThreshold(const double&& threshold)
+        void SetThreshold(const double&& threshold)
         {
             thresholdValue = threshold;
         }
@@ -66,15 +66,15 @@ namespace NeuralNetwork
                 case EActivationFunctionType::None: break;
 
                 case EActivationFunctionType::Sigmoid:
-                    value = sigmoid(value);
+                    value = Sigmoid(value);
                     break;
 
                 case EActivationFunctionType::Sign:
-                    value = sign(value);
+                    value = Sign(value);
                     break;
 
                 case EActivationFunctionType::Threshold:
-                    value = threshold(value);
+                    value = Threshold(value);
                     break;
             }
         }
@@ -86,15 +86,15 @@ namespace NeuralNetwork
                 case EActivationFunctionType::None: break;
 
                 case EActivationFunctionType::Sigmoid:
-                    sigmoid(vector);
+                    Sigmoid(vector);
                     break;
 
                 case EActivationFunctionType::Sign:
-                    sign(vector);
+                    Sign(vector);
                     break;
 
                 case EActivationFunctionType::Threshold:
-                    threshold(vector);
+                    Threshold(vector);
                     break;
             }
         }

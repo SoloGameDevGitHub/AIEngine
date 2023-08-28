@@ -2,7 +2,11 @@
 
 namespace BitMath
 {
-    int reverseBits(const int value, int maxBits)
+    /// @brief Reverse the bist of an integer value.
+    /// @param value 
+    /// @param maxBits 
+    /// @return 
+    int ReverseBits(const int value, int maxBits)
     {
         int reversedBits = 0;
         maxBits = (maxBits % 2 == 0) ? maxBits : maxBits - 1;

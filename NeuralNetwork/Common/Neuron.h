@@ -7,7 +7,7 @@
 
 namespace NeuralNetwork
 {
-    class Neuron final : public serialization::ISerializable
+    class Neuron final : public Serialization::ISerializable
     {
     private:
         std::vector<double> _weights;
@@ -16,11 +16,11 @@ namespace NeuralNetwork
         Activation::EActivationFunctionType ActivationFunction = Activation::EActivationFunctionType::None;
 
         explicit Neuron(int weightsLength);
-        void randomizeWeights();
+        void RandomizeWeights();
 
-        double feedforward(const std::vector<double>& inputs, double bias) const;
-        void setWeights(const std::vector<double>& weights);
-        const std::vector<double>& getWeights() const;
+        double Feedforward(const std::vector<double>& inputs, double bias) const;
+        void SetWeights(const std::vector<double>& weights);
+        const std::vector<double>& GetWeights() const;
 
         // serialization
         void Serialize(std::ostream &stream) const override;

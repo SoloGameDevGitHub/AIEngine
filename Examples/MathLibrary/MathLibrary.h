@@ -11,6 +11,6 @@
 #   define MATHLIBRARY_API
 #endif
 
-extern "C" MATHLIBRARY_API int sum(int lhs, int rhs);
+extern "C" MATHLIBRARY_API int Sum(int lhs, int rhs);
 
-extern "C" MATHLIBRARY_API int getOne();
+extern "C" MATHLIBRARY_API int GetOne();

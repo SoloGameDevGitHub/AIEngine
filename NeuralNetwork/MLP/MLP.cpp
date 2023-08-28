@@ -29,7 +29,7 @@ std::vector<double> MultiLayerPerceptron::Feedforward(const std::vector<double>&
         const std::unique_ptr<Layer> &layer = _layers[l];
         outputs.emplace_back(1.0); // insert bias
         _inputsByLayer[l] = outputs;
-        outputs = layer->feedforward(outputs);
+        outputs = layer->Feedforward(outputs);
     }
 
     // apply activation function
@@ -40,7 +40,7 @@ std::vector<double> MultiLayerPerceptron::Feedforward(const std::vector<double>&
 
 void GetPreviousLayerErrors(const Neuron& neuron, double error, std::vector<double>& previousLayerErrors)
 {
-    const std::vector<double>& weights = neuron.getWeights();
+    const std::vector<double>& weights = neuron.GetWeights();
     previousLayerErrors.resize(weights.size());
 
     double weightsSum = 0.0;
@@ -58,7 +58,7 @@ void GetPreviousLayerErrors(const Neuron& neuron, double error, std::vector<doub
 
 void UpdateNeuronWeights(Neuron &neuron, const std::vector<double> &inputs, const double output, const double error, const double learningRate)
 {
-    auto& weights = const_cast<std::vector<double>&>(neuron.getWeights());
+    auto& weights = const_cast<std::vector<double>&>(neuron.GetWeights());
     for (size_t w = 0; w < weights.size(); ++w)
     {
         double weightDifference = -(error * (output * (1.0 - output)) * inputs[w]);
@@ -83,17 +83,17 @@ void MultiLayerPerceptron::BackPropagate(const std::vector<double>& inputs, cons
         if (l > 0)
         {
             const std::unique_ptr<Layer> &layer = _layers[l - 1];
-            size = layer->getNeuronsLength();
+            size = layer->GetNeuronsLength();
         }
         std::vector<double> previousLayerErrors(size);
 
         //BackPropagate errors
         Layer &layer = GetLayer(l);
         std::vector<double> layerInputs = _inputsByLayer[l];
-        std::vector<double> layerOutputs = layer.feedforward(layerInputs);
-        for (int n = 0; n < layer.getNeuronsLength(); ++n)
+        std::vector<double> layerOutputs = layer.Feedforward(layerInputs);
+        for (int n = 0; n < layer.GetNeuronsLength(); ++n)
         {
-            Neuron &neuron = layer.getNeuron(n);
+            Neuron &neuron = layer.GetNeuron(n);
             GetPreviousLayerErrors(neuron, errors[n], previousLayerErrors);
             UpdateNeuronWeights(neuron, layerInputs, layerOutputs[n], errors[n], learningRate);
         }
@@ -134,10 +134,10 @@ void MultiLayerPerceptron::RandomizeWeights() const
     for (int l = 0; l < GetLayersLength(); ++l)
     {
         Layer &layer = GetLayer(l);
-        for (int n = 0; n < layer.getNeuronsLength(); ++n)
+        for (int n = 0; n < layer.GetNeuronsLength(); ++n)
         {
-            Neuron &neuron = layer.getNeuron(n);
-            neuron.randomizeWeights();
+            Neuron &neuron = layer.GetNeuron(n);
+            neuron.RandomizeWeights();
         }
     }
 }

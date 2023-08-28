@@ -1,11 +1,11 @@
 #include "MathLibrary.h"
 
-int sum(int lhs, int rhs)
+int Sum(int lhs, int rhs)
 {
     return lhs + rhs;
 }
 
-int getOne()
+int GetOne()
 {
     return 1;
 }

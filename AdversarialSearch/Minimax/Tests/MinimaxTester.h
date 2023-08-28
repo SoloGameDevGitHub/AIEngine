@@ -16,10 +16,10 @@ using namespace std;
 namespace TicTacToeMinimax
 {
     void RunMinimaxTests();
-    void benchmarkMinimax(int board, bool isMaxTurn);
-    void benchmarkMinimaxVsMinimax(int board, bool isMaxTurn);
-    void benchmarkEvaluate(int board, bool isMaxTurn);
-    void benchmarkEvaluateAll(int board, bool isMaxTurn);
-    void printBoard(int board);
-    void printState(int state);
+    void BenchmarkMinimax(int board, bool isMaxTurn);
+    void BenchmarkMinimaxVsMinimax(int board, bool isMaxTurn);
+    void BenchmarkEvaluate(int board, bool isMaxTurn);
+    void BenchmarkEvaluateAll(int board, bool isMaxTurn);
+    void PrintBoard(int board);
+    void PrintState(int state);
 }

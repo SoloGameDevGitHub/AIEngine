@@ -48,14 +48,14 @@ void TEST_MLP_XOR_2_2_1()
 {
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
-    Activation::setThreshold(0.7);
+    Activation::SetThreshold(0.7);
     RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({2,1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
     mlp.ActivationFunction = Activation::EActivationFunctionType::Threshold;
     mlp.RandomizeWeights();
 #ifdef PERSIST_WEIGHTS
-    loadWeightsFromFile(weightsFilePath.c_str(), mlp);
+    Serialization::LoadWeightsFromFile(weightsFilePath.c_str(), mlp);
 #endif
 
     std::vector<std::vector<double>> trainingInputs = { { 0.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 1.0, 1.0 } };
@@ -63,7 +63,7 @@ void TEST_MLP_XOR_2_2_1()
     ApplySupervisedLearning(mlp, trainingInputs, trainingOutputs);
 
 #ifdef PERSIST_WEIGHTS
-    serializeToFile(weightsFilePath.c_str(), mlp);
+    Serialization::SerializeToFile(weightsFilePath.c_str(), mlp);
 #endif
 }
 
@@ -71,7 +71,7 @@ void TEST_MLP_XOR_2_3_1()
 {
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
-    Activation::setThreshold(0.7);
+    Activation::SetThreshold(0.7);
     RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({3,1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
@@ -79,7 +79,7 @@ void TEST_MLP_XOR_2_3_1()
     mlp.RandomizeWeights();
 
 #ifdef PERSIST_WEIGHTS
-    loadWeightsFromFile(weightsFilePath.c_str(), mlp);
+    Serialization::LoadWeightsFromFile(weightsFilePath.c_str(), mlp);
 #endif
 
     std::vector<std::vector<double>> trainingInputs = { { 0.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 1.0, 1.0 } };
@@ -87,7 +87,7 @@ void TEST_MLP_XOR_2_3_1()
     ApplySupervisedLearning(mlp, trainingInputs, trainingOutputs);
 
 #ifdef PERSIST_WEIGHTS
-    serializeToFile(weightsFilePath.c_str(), mlp);
+    Serialization::SerializeToFile(weightsFilePath.c_str(), mlp);
 #endif
 }
 
@@ -95,7 +95,7 @@ void TEST_MLP_XOR_2_3_3_3_1()
 {
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
-    Activation::setThreshold(0.7);
+    Activation::SetThreshold(0.7);
     RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({3, 3, 3, 1});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
@@ -103,7 +103,7 @@ void TEST_MLP_XOR_2_3_3_3_1()
     mlp.RandomizeWeights();
 
 #ifdef PERSIST_WEIGHTS
-    loadWeightsFromFile(weightsFilePath.c_str(), mlp);
+    Serialization::LoadWeightsFromFile(weightsFilePath.c_str(), mlp);
 #endif
 
     std::vector<std::vector<double>> trainingInputs = { { 0.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 1.0, 1.0 } };
@@ -111,7 +111,7 @@ void TEST_MLP_XOR_2_3_3_3_1()
     ApplySupervisedLearning(mlp, trainingInputs, trainingOutputs);
 
 #ifdef PERSIST_WEIGHTS
-    serializeToFile(weightsFilePath.c_str(), mlp);
+    Serialization::SerializeToFile(weightsFilePath.c_str(), mlp);
 #endif
 }
 
@@ -119,7 +119,7 @@ void TEST_MLP_XOR_2_3_2()
 {
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
-    Activation::setThreshold(0.7);
+    Activation::SetThreshold(0.7);
     RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({3, 2});
     MultiLayerPerceptron mlp(2, neuronsByLayer);
@@ -127,7 +127,7 @@ void TEST_MLP_XOR_2_3_2()
     mlp.RandomizeWeights();
 
 #ifdef PERSIST_WEIGHTS
-    loadWeightsFromFile(weightsFilePath.c_str(), mlp);
+    Serialization::LoadWeightsFromFile(weightsFilePath.c_str(), mlp);
 #endif
 
     std::vector<std::vector<double>> trainingInputs = { { 0.0, 0.0 }, { 0.0, 1.0 }, { 1.0, 0.0 }, { 1.0, 1.0 } };
@@ -135,7 +135,7 @@ void TEST_MLP_XOR_2_3_2()
     ApplySupervisedLearning(mlp, trainingInputs, trainingOutputs);
 
 #ifdef PERSIST_WEIGHTS
-    serializeToFile(weightsFilePath.c_str(), mlp);
+    Serialization::SerializeToFile(weightsFilePath.c_str(), mlp);
 #endif
 }
 
@@ -143,7 +143,7 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
 {
     std::cout << __FUNCTION__ << "... ";
     std::string weightsFilePath = ".\\" + std::string(__FUNCTION__);
-    Activation::setThreshold(0.7);
+    Activation::SetThreshold(0.7);
     RandomUtils::SetRandomSeed();
     std::vector<int> neuronsByLayer({10, 10});
     MultiLayerPerceptron mlp(7, neuronsByLayer);
@@ -151,7 +151,7 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
     mlp.RandomizeWeights();
 
 #ifdef PERSIST_WEIGHTS
-    loadWeightsFromFile(weightsFilePath.c_str(), mlp);
+    Serialization::LoadWeightsFromFile(weightsFilePath.c_str(), mlp);
 #endif
 
     std::vector<std::vector<double>> trainingInputs =
@@ -183,7 +183,7 @@ void TEST_MLP_number_recognition_digital_clock_0_to_9()
     ApplySupervisedLearning(mlp, trainingInputs, trainingOutputs);
 
 #ifdef PERSIST_WEIGHTS
-    serialization::serializeToFile(weightsFilePath.c_str(), mlp);
+    Serialization::SerializeToFile(weightsFilePath.c_str(), mlp);
 #endif
 }
 

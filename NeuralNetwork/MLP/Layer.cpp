@@ -8,7 +8,7 @@ Layer::Layer(size_t neurons, size_t weights)
     {
         std::unique_ptr<Neuron> neuron = std::make_unique<Neuron>(weights);
         neuron->ActivationFunction = Activation::EActivationFunctionType::Sigmoid;
-        neuron->randomizeWeights();
+        neuron->RandomizeWeights();
         _neurons.push_back(std::move(neuron));
     }
 }
@@ -31,23 +31,23 @@ void Layer::Deserialize(std::istream &stream)
     }
 }
 
-std::vector<double> Layer::feedforward(const std::vector<double>& inputs)
+std::vector<double> Layer::Feedforward(const std::vector<double>& inputs)
 {
     std::vector<double> outputs(_neurons.size());
     for(size_t n = 0; n < _neurons.size(); n++)
     {
         Neuron& neuron = *_neurons[n];
-        outputs[n] = neuron.feedforward(inputs, 0.0);
+        outputs[n] = neuron.Feedforward(inputs, 0.0);
     }
     return outputs;
 }
 
-size_t Layer::getNeuronsLength() const
+size_t Layer::GetNeuronsLength() const
 {
     return _neurons.size();
 }
 
-Neuron& Layer::getNeuron(int index) const
+Neuron& Layer::GetNeuron(int index) const
 {
     assert(index < _neurons.size());
     Neuron& neuron = *_neurons[index];

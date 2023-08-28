@@ -5,7 +5,7 @@
 
 namespace NeuralNetwork
 {
-    class MultiLayerPerceptron final : public serialization::ISerializable
+    class MultiLayerPerceptron final : public Serialization::ISerializable
     {
     private:
         std::vector<std::unique_ptr<Layer>> _layers;
